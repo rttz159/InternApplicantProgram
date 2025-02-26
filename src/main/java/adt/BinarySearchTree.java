@@ -1,25 +1,15 @@
 package adt;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 /**
  *
  * @author rttz159
  */
-public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
+public class BinarySearchTree<T extends Comparable<T>> implements Tree<T>, Iterable<T> {
 
     private Node rootNode;
-
-    public class Node {
-
-        T data;
-        Node left;
-        Node right;
-
-        Node(T entry) {
-            data = entry;
-            this.left = null;
-            this.right = null;
-        }
-    }
 
     public BinarySearchTree() {
         rootNode = null;
@@ -184,6 +174,53 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T> {
     
     public Node getRoot(){
         return this.rootNode;
+    }
+    
+    @Override
+    public Iterator<T> iterator() {
+        return new BinarySearchTreeIterator();
+    }
+    
+    private class BinarySearchTreeIterator implements Iterator<T> {
+        private ArrayCyclicQueue<T> queue = new ArrayCyclicQueue<>(getSize());
+
+        public BinarySearchTreeIterator() {
+            inOrderTraversal(rootNode);
+        }
+
+        private void inOrderTraversal(Node node) {
+            if (node != null) {
+                inOrderTraversal(node.left);
+                queue.enqueue(node.data); 
+                inOrderTraversal(node.right);
+            }
+        }
+
+        @Override
+        public boolean hasNext() {
+            return !queue.isEmpty();
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            return queue.dequeue();
+        }
+    }
+
+    public class Node {
+
+        T data;
+        Node left;
+        Node right;
+
+        Node(T entry) {
+            data = entry;
+            this.left = null;
+            this.right = null;
+        }
     }
 
 }

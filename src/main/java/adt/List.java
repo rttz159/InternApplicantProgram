@@ -1,10 +1,12 @@
 package adt;
 
+import java.util.Comparator;
+
 /**
  *
  * @author rttz159
  */
-public interface List <T>{
+public interface List <T> extends Iterable<T>{
     void append(T newEntry);
     boolean insert(Integer newPosition, T newEntry);
     T remove(Integer givenPosition);
@@ -15,4 +17,7 @@ public interface List <T>{
     int getNumberOfEntries();
     boolean isEmpty();
     boolean isFull();
+    T[] toArray();
+    void sort();
+    void sort(Comparator<T> comparator);
 }

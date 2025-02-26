@@ -9,7 +9,7 @@ import java.util.Iterator;
 public class LinkListStack<T> implements Stack<T>, Iterable<T>{
     
     private int numberOfEntries;
-    private Node headNode;
+    private Node<T> headNode;
 
     public LinkListStack(){
         numberOfEntries = 0;
@@ -72,7 +72,7 @@ public class LinkListStack<T> implements Stack<T>, Iterable<T>{
     
     private class LinkListStackIterator implements Iterator<T>{
 
-        Node currentNode = headNode;
+        Node<T> currentNode = headNode;
         
         @Override
         public boolean hasNext() {
@@ -89,15 +89,14 @@ public class LinkListStack<T> implements Stack<T>, Iterable<T>{
             return currentData;
         }
     
+    } 
+}
+
+class Node<T>{
+    T data;
+    Node next;
+
+    public Node(T data){
+        this.data = data;
     }
-    
-    private class Node{
-        T data;
-        Node next;
-        
-        public Node(T data){
-            this.data = data;
-        }
-    }
-    
 }
