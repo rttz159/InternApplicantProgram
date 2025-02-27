@@ -22,6 +22,13 @@ public class Company {
         this.interviewManager = new InterviewManager();
     }
 
+    public Company(String companyName, IndustryType industryType, List<InternPost> internPosts, InterviewManager interviewManager) {
+        this.companyName = companyName;
+        this.industryType = industryType;
+        this.internPosts = internPosts;
+        this.interviewManager = interviewManager;
+    }
+
     public String getCompanyName() {
         return companyName;
     }
