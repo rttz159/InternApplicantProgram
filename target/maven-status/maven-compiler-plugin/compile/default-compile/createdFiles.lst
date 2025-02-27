@@ -1,6 +1,9 @@
 adt/Map.class
 adt/Map$Entry.class
-adt/IntervalTreeTest.class
+adt/HashMap.class
+adt/HashMapDriver.class
+adt/HashMap$Entry.class
+adt/HashMap$HashMapIterator.class
 module-info.class
 adt/interval/TimeInterval.class
 control/InterviewScheduler.class
