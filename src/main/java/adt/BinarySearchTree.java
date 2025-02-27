@@ -25,10 +25,35 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T>, Itera
             return new Node(newEntry);
         }
 
-        if (node.data.compareTo(newEntry) > 0) {
+        if (newEntry.compareTo(node.data) < 0) {
             node.left = addUtility(node.left, newEntry);
-        } else if (node.data.compareTo(newEntry) < 0) {
+        } else if (newEntry.compareTo(node.data) > 0) {
             node.right = addUtility(node.right, newEntry);
+        } else {
+            return node;
+        }
+
+        node.height = 1 + Math.max(height(node.left),
+                height(node.right));
+
+        int balance = getBalance(node);
+
+        if (balance > 1 && newEntry.compareTo(node.left.data) < 0) {
+            return rightRotate(node);
+        }
+
+        if (balance < -1 && newEntry.compareTo(node.right.data) > 0) {
+            return leftRotate(node);
+        }
+
+        if (balance > 1 && newEntry.compareTo(node.left.data) > 0) {
+            node.left = leftRotate(node.left);
+            return rightRotate(node);
+        }
+
+        if (balance < -1 && newEntry.compareTo(node.right.data) < 0) {
+            node.right = rightRotate(node.right);
+            return leftRotate(node);
         }
 
         return node;
@@ -39,28 +64,60 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T>, Itera
         rootNode = removeUtility(rootNode, entry);
     }
 
-    private Node removeUtility(Node node, T entry) {
-        if (node == null) {
-            return null;
+    private Node removeUtility(Node root, T newEntry) {
+        if (root == null) {
+            return root;
         }
 
-        if (node.data.compareTo(entry) > 0) {
-            node.left = removeUtility(node.left, entry);
-        } else if (node.data.compareTo(entry) < 0) {
-            node.right = removeUtility(node.right, entry);
-        }else{
-            if(node.left == null){
-                return node.right;
+        if (newEntry.compareTo(root.data) < 0) {
+            root.left = removeUtility(root.left, newEntry);
+        } else if (newEntry.compareTo(root.data) > 0) {
+            root.right = removeUtility(root.right, newEntry);
+        } else {
+            if ((root.left == null)
+                    || (root.right == null)) {
+                Node temp = root.left != null
+                        ? root.left : root.right;
+
+                if (temp == null) {
+                    temp = root;
+                    root = null;
+                } else {
+                    root = temp;
+                }
+            } else {
+                T temp = findMin(root.right);
+
+                root.data = temp;
+
+                root.right = removeUtility(root.right, temp);
             }
-            if(node.right == null){
-                return node.left;
-            }
-            
-            T min = findMin(node.right);
-            node.data = min;
-            node.right = removeUtility(node.right,min);    
         }
-        return node;
+
+        root.height = Math.max(height(root.left),
+                height(root.right)) + 1;
+
+        int balance = getBalance(root);
+
+        if (balance > 1 && getBalance(root.left) >= 0) {
+            return rightRotate(root);
+        }
+
+        if (balance > 1 && getBalance(root.left) < 0) {
+            root.left = leftRotate(root.left);
+            return rightRotate(root);
+        }
+
+        if (balance < -1 && getBalance(root.right) <= 0) {
+            return leftRotate(root);
+        }
+
+        if (balance < -1 && getBalance(root.right) > 0) {
+            root.right = rightRotate(root.right);
+            return leftRotate(root);
+        }
+
+        return root;
     }
 
     public T findMax(Node node) {
@@ -86,25 +143,58 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T>, Itera
 
     @Override
     public int getHeight() {
-        return heightUtility(rootNode);
+        return height(rootNode);
     }
 
-    private int heightUtility(Node node) {
-        if (node == null) {
-            return -1; 
+    private int height(Node N) {
+        if (N == null) {
+            return 0;
         }
+        return N.height;
+    }
 
-        int leftHeight = heightUtility(node.left);
-        int rightHeight = heightUtility(node.right);
+    private Node rightRotate(Node y) {
+        Node x = y.left;
+        Node T2 = x.right;
 
-        return 1 + Math.max(leftHeight, rightHeight);
+        x.right = y;
+        y.left = T2;
+
+        y.height = 1 + Math.max(height(y.left),
+                height(y.right));
+        x.height = 1 + Math.max(height(x.left),
+                height(x.right));
+
+        return x;
+    }
+
+    private Node leftRotate(Node x) {
+        Node y = x.right;
+        Node T2 = y.left;
+
+        y.left = x;
+        x.right = T2;
+
+        x.height = 1 + Math.max(height(x.left),
+                height(x.right));
+        y.height = 1 + Math.max(height(y.left),
+                height(y.right));
+
+        return y;
+    }
+
+    private int getBalance(Node N) {
+        if (N == null) {
+            return 0;
+        }
+        return height(N.left) - height(N.right);
     }
 
     @Override
     public int getSize() {
         return sizeUtility(rootNode);
     }
-    
+
     private int sizeUtility(Node node) {
         if (node == null) {
             return 0;
@@ -114,9 +204,9 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T>, Itera
 
     @Override
     public boolean contains(T entry) {
-        return containsUtility(rootNode,entry);
+        return containsUtility(rootNode, entry);
     }
-    
+
     private boolean containsUtility(Node node, T newEntry) {
         if (node == null) {
             return false;
@@ -126,7 +216,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T>, Itera
             return containsUtility(node.right, newEntry);
         } else if (node.data.compareTo(newEntry) < 0) {
             return containsUtility(node.left, newEntry);
-        }else{
+        } else {
             return true;
         }
     }
@@ -171,17 +261,18 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T>, Itera
             System.out.print(node.data + " ");
         }
     }
-    
-    public Node getRoot(){
+
+    public Node getRoot() {
         return this.rootNode;
     }
-    
+
     @Override
     public Iterator<T> iterator() {
         return new BinarySearchTreeIterator();
     }
-    
+
     private class BinarySearchTreeIterator implements Iterator<T> {
+
         private ArrayCyclicQueue<T> queue = new ArrayCyclicQueue<>(getSize());
 
         public BinarySearchTreeIterator() {
@@ -191,7 +282,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T>, Itera
         private void inOrderTraversal(Node node) {
             if (node != null) {
                 inOrderTraversal(node.left);
-                queue.enqueue(node.data); 
+                queue.enqueue(node.data);
                 inOrderTraversal(node.right);
             }
         }
@@ -215,11 +306,13 @@ public class BinarySearchTree<T extends Comparable<T>> implements Tree<T>, Itera
         T data;
         Node left;
         Node right;
+        int height;
 
         Node(T entry) {
             data = entry;
             this.left = null;
             this.right = null;
+            height = 1;
         }
     }
 
