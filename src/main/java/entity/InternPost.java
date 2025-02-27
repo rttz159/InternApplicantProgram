@@ -2,6 +2,7 @@ package entity;
 
 import adt.ArrayList;
 import adt.HashSet;
+import adt.Set;
 import adt.OrderPair;
 
 /**
@@ -9,14 +10,15 @@ import adt.OrderPair;
  * @author rttz159
  */
 public class InternPost {
+
     private String interPostId;
     private String title;
     private String desc;
     private Location location;
-    private OrderPair<Double,Double> minMaxSalary;
-    private HashSet<Qualification> internPostQualifications;
-    private HashSet<Experience> interPostExperiences;
-    private HashSet<Skill> internPostSkills;
+    private OrderPair<Double, Double> minMaxSalary;
+    private Set<Qualification> internPostQualifications;
+    private Set<Experience> interPostExperiences;
+    private Set<Skill> internPostSkills;
     private ArrayList<Application> internPostApplications;
 
     public InternPost(String interPostId, String title, String desc, Location location, OrderPair<Double, Double> minMaxSalary) {
@@ -83,7 +85,7 @@ public class InternPost {
         this.minMaxSalary = minMaxSalary;
     }
 
-    public HashSet<Qualification> getInternPostQualifications() {
+    public Set<Qualification> getInternPostQualifications() {
         return internPostQualifications;
     }
 
@@ -91,7 +93,7 @@ public class InternPost {
         this.internPostQualifications = internPostQualifications;
     }
 
-    public HashSet<Experience> getInterPostExperiences() {
+    public Set<Experience> getInterPostExperiences() {
         return interPostExperiences;
     }
 
@@ -99,7 +101,7 @@ public class InternPost {
         this.interPostExperiences = interPostExperiences;
     }
 
-    public HashSet<Skill> getInternPostSkills() {
+    public Set<Skill> getInternPostSkills() {
         return internPostSkills;
     }
 
@@ -114,6 +116,5 @@ public class InternPost {
     public void setInternPostApplications(ArrayList<Application> internPostApplications) {
         this.internPostApplications = internPostApplications;
     }
-    
-    
+
 }

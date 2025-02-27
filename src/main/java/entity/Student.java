@@ -1,19 +1,22 @@
 package entity;
 
 import adt.ArrayList;
+import adt.List;
 import adt.HashSet;
+import adt.Set;
 
 /**
  *
  * @author rttz159
  */
 public class Student {
+
     private String name;
     private int age;
-    private HashSet<Qualification> studentQualifications;
-    private HashSet<Experience> studentExperiences;
-    private HashSet<Skill> studentSkills;
-    private ArrayList<Application> studentApplications;
+    private Set<Qualification> studentQualifications;
+    private Set<Experience> studentExperiences;
+    private Set<Skill> studentSkills;
+    private List<Application> studentApplications;
 
     public Student(String name, int age) {
         this.name = name;
@@ -49,7 +52,7 @@ public class Student {
         this.age = age;
     }
 
-    public HashSet<Qualification> getStudentQualifications() {
+    public Set<Qualification> getStudentQualifications() {
         return studentQualifications;
     }
 
@@ -57,7 +60,7 @@ public class Student {
         this.studentQualifications = studentQualifications;
     }
 
-    public HashSet<Experience> getStudentExperiences() {
+    public Set<Experience> getStudentExperiences() {
         return studentExperiences;
     }
 
@@ -65,7 +68,7 @@ public class Student {
         this.studentExperiences = studentExperiences;
     }
 
-    public HashSet<Skill> getStudentSkills() {
+    public Set<Skill> getStudentSkills() {
         return studentSkills;
     }
 
@@ -73,12 +76,12 @@ public class Student {
         this.studentSkills = studentSkills;
     }
 
-    public ArrayList<Application> getStudentApplications() {
+    public List<Application> getStudentApplications() {
         return studentApplications;
     }
 
     public void setStudentApplications(ArrayList<Application> studentApplications) {
         this.studentApplications = studentApplications;
     }
-    
+
 }

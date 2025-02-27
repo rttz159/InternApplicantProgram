@@ -1,42 +1,53 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package control;
 
 /**
  *
- * @author USER
+ * @author rttz159
  */
+import adt.ArrayList;
+import adt.HashMap;
 import adt.interval.Interval;
 import adt.IntervalTree;
+import adt.List;
+import adt.Map;
 import adt.interval.TimeInterval;
 import java.time.LocalTime;
+import java.time.LocalDate;
 
-public class InterviewScheduler {
+public class InterviewManager {
+
+    private Map<LocalDate, InterviewScheduler> records;
+
+    public InterviewManager() {
+        this.records = new HashMap<>();
+    }
+
+}
+
+class InterviewScheduler {
+
     private IntervalTree<LocalTime> bookedSlots;
-    private static final LocalTime START_TIME = LocalTime.of(8, 0);  // 8:00 AM
-    private static final LocalTime END_TIME = LocalTime.of(17, 0);   // 5:00 PM
-    private static final int SLOT_DURATION = 30; // 30 minutes
+    private static final LocalTime START_TIME = LocalTime.of(8, 0);
+    private static final LocalTime END_TIME = LocalTime.of(17, 0);
+    private static final int SLOT_DURATION = 30; // 30 mins
 
     public InterviewScheduler() {
         this.bookedSlots = new IntervalTree<>();
     }
 
-    // Generate all available slots
-    public void showAvailableSlots() {
+    public List<TimeInterval> showAvailableSlots() {
+        List<TimeInterval> temp = new ArrayList<>();
         LocalTime current = START_TIME;
-        System.out.println("Available Slots:");
         while (current.plusMinutes(SLOT_DURATION).isBefore(END_TIME.plusMinutes(1))) {
             TimeInterval slot = new TimeInterval(current, current.plusMinutes(SLOT_DURATION));
             if (!bookedSlots.contains(slot)) {
-                System.out.println(slot);
+                temp.append(slot);
             }
             current = current.plusMinutes(SLOT_DURATION);
         }
+        return temp;
     }
 
-    // Book a slot if available
     public boolean bookSlot(LocalTime start) {
         LocalTime end = start.plusMinutes(SLOT_DURATION);
         TimeInterval newSlot = new TimeInterval(start, end);
@@ -49,7 +60,6 @@ public class InterviewScheduler {
         return false;
     }
 
-    // Cancel a booking
     public boolean cancelBooking(LocalTime start) {
         LocalTime end = start.plusMinutes(SLOT_DURATION);
         TimeInterval slot = new TimeInterval(start, end);
@@ -62,33 +72,11 @@ public class InterviewScheduler {
         return false;
     }
 
-    // Show booked slots
-    public void showBookedSlots() {
-        System.out.println("Booked Slots:");
+    public List<Interval<LocalTime>> showBookedSlots() {
+        List<Interval<LocalTime>> temp = new ArrayList<>();
         for (Interval<LocalTime> slot : bookedSlots) {
-            System.out.println(slot);
+            temp.append(slot);
         }
-    }
-
-    public static void main(String[] args) {
-        InterviewScheduler scheduler = new InterviewScheduler();
-
-        // Show initial availability
-        scheduler.showAvailableSlots();
-
-        // Book some slots
-        scheduler.bookSlot(LocalTime.of(9, 0));  // Book 9:00 AM - 9:30 AM
-        scheduler.bookSlot(LocalTime.of(10, 30)); // Book 10:30 AM - 11:00 AM
-
-        // Show booked and available slots
-        scheduler.showBookedSlots();
-        scheduler.showAvailableSlots();
-
-        // Cancel a slot
-        scheduler.cancelBooking(LocalTime.of(9, 0));
-
-        // Show updated availability
-        scheduler.showBookedSlots();
-        scheduler.showAvailableSlots();
+        return temp;
     }
 }
