@@ -13,15 +13,41 @@ import adt.Map;
 import adt.interval.TimeInterval;
 import java.time.LocalTime;
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 
 public class InterviewManager {
 
-    private Map<LocalDate, InterviewScheduler> records;
+    private Map<LocalDate, InterviewScheduler> bookingRecords;
 
     public InterviewManager() {
-        this.records = new HashMap<>();
+        this.bookingRecords = new HashMap<>();
     }
 
+    public Map<LocalDate, InterviewScheduler> getBookingRecords() {
+        return bookingRecords;
+    }
+
+    public void interviewBooking(LocalDate date, LocalTime start) {
+        if (!this.bookingRecords.containsKey(date)) {
+            this.bookingRecords.put(date, new InterviewScheduler());
+        }
+
+        InterviewScheduler tempScheduler = this.bookingRecords.get(date);
+        tempScheduler.bookSlot(start);
+    }
+
+    public void interviewCancelled(LocalDate date, LocalTime start) {
+        if (!this.bookingRecords.containsKey(date)) {
+            throw new NoSuchElementException();
+        }
+
+        InterviewScheduler tempScheduler = this.bookingRecords.get(date);
+        tempScheduler.cancelBooking(start);
+    }
+
+    public InterviewScheduler getParticularDaySchedule(LocalDate date) {
+        return bookingRecords.get(date);
+    }
 }
 
 class InterviewScheduler {
@@ -29,7 +55,7 @@ class InterviewScheduler {
     private IntervalTree<LocalTime> bookedSlots;
     private static final LocalTime START_TIME = LocalTime.of(8, 0);
     private static final LocalTime END_TIME = LocalTime.of(17, 0);
-    private static final int SLOT_DURATION = 30; // 30 mins
+    private static final int SLOT_DURATION = 60; // 30 mins
 
     public InterviewScheduler() {
         this.bookedSlots = new IntervalTree<>();

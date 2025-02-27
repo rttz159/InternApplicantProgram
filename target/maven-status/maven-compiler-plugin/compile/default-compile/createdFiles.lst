@@ -1,10 +1,12 @@
 adt/Map.class
 adt/Map$Entry.class
 adt/HashMap.class
+control/InterviewManagerTest.class
 entity/Company.class
 adt/HashMap$Entry.class
 adt/HashMap$HashMapIterator.class
 module-info.class
 adt/interval/TimeInterval.class
 control/InterviewScheduler.class
+control/InterviewManager.class
 adt/interval/Interval.class
