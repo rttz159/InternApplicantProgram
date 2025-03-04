@@ -50,6 +50,26 @@ public class Skill {
     }
     
     
-    public enum SkillType{
+    public enum SkillType {
+        TECHNICAL,
+        SOFT,
+        LANGUAGE,
+        MANAGEMENT,
+        ANALYTICAL,
+        CREATIVE,
+        COMMUNICATION,
+        LEADERSHIP,
+        PROBLEM_SOLVING,
+        PROJECT_MANAGEMENT,
+        SALES,
+        MARKETING,
+        CUSTOMER_SERVICE,
+        DATA_ANALYSIS,
+        PROGRAMMING,
+        DESIGN,
+        NETWORKING,
+        SECURITY,
+        DATABASE_MANAGEMENT,
+        CLOUD_COMPUTING
     }
 }

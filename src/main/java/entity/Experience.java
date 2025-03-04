@@ -5,6 +5,7 @@ package entity;
  * @author rttz159
  */
 public class Experience {
+
     private String experienceId;
     private String desc;
     private IndustryType industryType;
@@ -48,8 +49,22 @@ public class Experience {
     public void setDuration(int duration) {
         this.duration = duration;
     }
-    
-    public enum IndustryType{
-        
+
+    public enum IndustryType {
+        TECHNOLOGY,
+        HEALTHCARE,
+        FINANCE,
+        EDUCATION,
+        MANUFACTURING,
+        RETAIL,
+        CONSTRUCTION,
+        ENTERTAINMENT,
+        TELECOMMUNICATIONS,
+        TRANSPORTATION,
+        ENERGY,
+        AGRICULTURE,
+        PHARMACEUTICAL,
+        HOSPITALITY,
+        REAL_ESTATE
     }
 }
