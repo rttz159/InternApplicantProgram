@@ -9,7 +9,7 @@ import adt.Set;
  *
  * @author rttz159
  */
-public class Student {
+public class Student extends User{
 
     private String name;
     private int age;
@@ -18,7 +18,8 @@ public class Student {
     private Set<Skill> studentSkills;
     private List<Application> studentApplications;
 
-    public Student(String name, int age) {
+    public Student(String userId, String username, String password, String contactno, String email, Location location, String name, int age) {
+        super(userId,username,password,contactno,email,location);
         this.name = name;
         this.age = age;
         this.studentQualifications = new HashSet<>();
@@ -27,7 +28,8 @@ public class Student {
         this.studentApplications = new ArrayList<>();
     }
 
-    public Student(String name, int age, HashSet<Qualification> studentQualifications, HashSet<Experience> studentExperiences, HashSet<Skill> studentSkills, ArrayList<Application> studentApplications) {
+    public Student(String userId, String username, String password, String contactno, String email, Location location, String name, int age, Set<Qualification> studentQualifications, Set<Experience> studentExperiences, Set<Skill> studentSkills, List<Application> studentApplications) {
+        super(userId,username,password,contactno,email,location);
         this.name = name;
         this.age = age;
         this.studentQualifications = studentQualifications;

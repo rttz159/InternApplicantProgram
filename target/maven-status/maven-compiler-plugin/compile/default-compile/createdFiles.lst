@@ -11,6 +11,7 @@ adt\IntervalTree$Node.class
 entity\Interview.class
 com\rttz\assignment\SecondaryController.class
 adt\SinglyLinkList$SinglyLinkListIterator.class
+entity\Qualification$QualificationType.class
 entity\Application.class
 adt\interval\TimeInterval.class
 adt\BinarySearchTree.class
@@ -19,6 +20,7 @@ entity\Qualification.class
 com\rttz\assignment\App.class
 com\rttz\assignment\PrimaryController.class
 control\InterviewScheduler.class
+dao\DatabaseConnectionPool.class
 entity\Skill$SkillType.class
 adt\SinglyLinkList$Node.class
 entity\Experience$IndustryType.class
@@ -30,15 +32,18 @@ adt\ArrayCyclicQueue.class
 control\InterviewManager.class
 entity\Experience.class
 adt\LinkListStack$LinkListStackIterator.class
+dao\StudentDAO.class
 adt\LinkListStack.class
 entity\InternPost.class
 adt\HashMap$Entry.class
+dao\DatabaseSetup.class
 adt\Node.class
 adt\HashSet$HashSetIterator.class
 adt\Queue.class
 adt\ArrayCyclicQueue$ArrayCyclicQueueIterator.class
 adt\ArrayStack$ArrayStackIterator.class
 adt\BinarySearchTree$Node.class
+dao\StudentDAOTest.class
 adt\OrderPair.class
 adt\HashMap$HashMapIterator.class
 adt\IntervalTree.class

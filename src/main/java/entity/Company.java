@@ -8,21 +8,23 @@ import entity.Experience.IndustryType;
  *
  * @author rttz159
  */
-public class Company {
+public class Company extends User{
 
     private String companyName;
     private IndustryType industryType;
     private InterviewManager interviewManager;
     private List<InternPost> internPosts;
 
-    public Company(String companyName, IndustryType industryType, List<InternPost> internPosts) {
+    public Company(String userId, String username, String password, String contactno, String email, Location location, String companyName, IndustryType industryType, List<InternPost> internPosts) {
+        super(userId,username,password,contactno,email,location);
         this.companyName = companyName;
         this.industryType = industryType;
         this.internPosts = internPosts;
         this.interviewManager = new InterviewManager();
     }
 
-    public Company(String companyName, IndustryType industryType, List<InternPost> internPosts, InterviewManager interviewManager) {
+    public Company(String userId, String username, String password, String contactno, String email, Location location, String companyName, IndustryType industryType, List<InternPost> internPosts, InterviewManager interviewManager) {
+        super(userId,username,password,contactno,email,location);
         this.companyName = companyName;
         this.industryType = industryType;
         this.internPosts = internPosts;

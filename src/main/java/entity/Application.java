@@ -59,5 +59,10 @@ public class Application {
         this.interview = interview;
     }
     
-    public enum Status{}
+    public enum Status{
+        PENDING,
+        REJECTED,
+        SUCCESS,
+        CANCELLED
+    }
 }

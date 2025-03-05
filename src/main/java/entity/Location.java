@@ -4,7 +4,7 @@ package entity;
  *
  * @author rttz159
  */
-class Location {
+public class Location {
     private String city;
     private String fullAddress;
 
