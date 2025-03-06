@@ -4,12 +4,13 @@ import entity.*;
 import adt.HashSet;
 import adt.Set;
 import adt.ArrayList;
+import adt.List;
 
 public class StudentDAOTest {
 
     public static void main(String[] args) {
         // Create a test student with qualifications, skills, and experiences
-        DatabaseSetup instance =  new DatabaseSetup();
+        DatabaseSetup instance = new DatabaseSetup();
         Location location = new Location("Test City", "123 Test Address");
 
         Set<Qualification> qualifications = new HashSet<>();
@@ -26,9 +27,27 @@ public class StudentDAOTest {
                 location, "Test User", 25, qualifications, experiences, skills, new ArrayList<>()
         );
 
+        Student testStudent1 = new Student(
+                "TEST124", "testuser", "password", "1234567890", "test@example.com",
+                location, "Test User", 25, qualifications, experiences, skills, new ArrayList<>()
+        );
+
+        Student testStudent2 = new Student(
+                "TEST125", "testuser", "password", "1234567890", "test@example.com",
+                location, "Test User", 25, qualifications, experiences, skills, new ArrayList<>()
+        );
+
+        Student testStudent3 = new Student(
+                "TEST126", "testuser", "password", "1234567890", "test@example.com",
+                location, "Test User", 25, qualifications, experiences, skills, new ArrayList<>()
+        );
+
         // Test INSERT operation
         System.out.println("Inserting student...");
         StudentDAO.insertStudent(testStudent);
+        StudentDAO.insertStudent(testStudent1);
+        StudentDAO.insertStudent(testStudent2);
+        StudentDAO.insertStudent(testStudent3);
         System.out.println("Student inserted successfully!");
 
         // Test GET operation
@@ -45,6 +64,25 @@ public class StudentDAOTest {
             System.out.println("Experiences: " + retrievedStudent.getStudentExperiences().size());
         } else {
             System.out.println("Student not found!");
+        }
+
+        // Test fetchall operation
+        System.out.println("\nFetching students by ID...");
+        List<Student> retrievedStudents = StudentDAO.getStudents();
+        for (var x : retrievedStudents) {
+            if (x != null) {
+                System.out.println("Student found:");
+                System.out.println("User ID: " + x.getUserId());
+                System.out.println("Name: " + x.getName());
+                System.out.println("Email: " + x.getEmail());
+                System.out.println("Age: " + x.getAge());
+                System.out.println("Qualifications: " + x.getStudentQualifications().size());
+                System.out.println("Skills: " + x.getStudentSkills().size());
+                System.out.println("Experiences: " + x.getStudentExperiences().size());
+            } else {
+                System.out.println("Student not found!");
+            }
+            System.out.println();
         }
 
         // Test UPDATE operation

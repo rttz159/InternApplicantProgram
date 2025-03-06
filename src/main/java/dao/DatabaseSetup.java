@@ -46,9 +46,10 @@ public class DatabaseSetup {
             + "    city TEXT,\n"
             + "    fullAddress TEXT,\n"
             + "    companyName TEXT,\n"
-            + "    industryType INTEGER\n"
+            + "    industryType TEXT\n"
             + ");\n",
             "CREATE TABLE IF NOT EXISTS internpost(\n"
+            + "    companyId TEXT,\n"
             + "    interPostId TEXT,\n"
             + "    title TEXT,\n"
             + "    desc TEXT,\n"
@@ -63,12 +64,17 @@ public class DatabaseSetup {
             + "    applicantId TEXT,\n"
             + "    status TEXT\n"
             + ");\n",
-            "CREATE TABLE IF NOT EXISTS interview(\n"
+            "CREATE TABLE IF NOT EXISTS interview_student(\n"
             + "    interviewId TEXT,\n"
             + "    applicationId TEXT,\n"
             + "    date TEXT,\n"
             + "    start_time TEXT\n"
             + ");\n",
+            "CREATE TABLE IF NOT EXISTS interview_interval(\n"
+            + "    companyId TEXT,\n"
+            + "    date TEXT,\n"
+            + "    start_time TEXT\n"
+            + ");",
             "CREATE TABLE IF NOT EXISTS student_qualification(\n"
             + "    qualificationId TEXT,\n"
             + "    userId TEXT,\n"
@@ -159,10 +165,11 @@ CREATE TABLE IF NOT EXISTS company(
     city TEXT,
     fullAddress TEXT,
     companyName TEXT,
-    industryType INTEGER
+    industryType TEXT
 );
 
 CREATE TABLE IF NOT EXISTS internpost(
+    companyId TEXT,
     interPostId TEXT,
     title TEXT,
     desc TEXT,
@@ -179,9 +186,15 @@ CREATE TABLE IF NOT EXISTS application(
     status TEXT
 );
 
-CREATE TABLE IF NOT EXISTS interview(
+CREATE TABLE IF NOT EXISTS interview_student(
     interviewId TEXT,
     applicationId TEXT,
+    date TEXT,
+    start_time TEXT
+);
+
+CREATE TABLE IF NOT EXISTS interview_interval(
+    companyId TEXT,
     date TEXT,
     start_time TEXT
 );
@@ -238,4 +251,4 @@ CREATE TABLE IF NOT EXISTS internpost_experience(
     duration INTEGER
 );
 
-*/
+ */

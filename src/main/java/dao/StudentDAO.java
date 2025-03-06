@@ -12,13 +12,17 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ *
+ * @author rttz159
+ */
 public class StudentDAO {
 
     public static void insertStudent(Student student) {
         String studentSql = "INSERT INTO student (userId, username, password, contactno, email, city, fullAddress, name, age) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnectionPool.getDataSource().getConnection()) {
-            conn.setAutoCommit(false); 
+            conn.setAutoCommit(false);
 
             try (PreparedStatement pstmt = conn.prepareStatement(studentSql)) {
                 pstmt.setString(1, student.getUserId());
@@ -41,12 +45,47 @@ public class StudentDAO {
         }
     }
 
+    public static List<Student> getStudents() {
+        List<Student> tempStudents = new ArrayList<>();
+
+        String sql = "SELECT * FROM student";
+        try (Connection conn = DatabaseConnectionPool.getDataSource().getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    String userId = rs.getString("userId");
+                    String username = rs.getString("username");
+                    String password = rs.getString("password");
+                    String contactno = rs.getString("contactno");
+                    String email = rs.getString("email");
+                    String city = rs.getString("city");
+                    String fullAddress = rs.getString("fullAddress");
+                    String name = rs.getString("name");
+                    int age = rs.getInt("age");
+
+                    Location location = new Location(city, fullAddress);
+
+                    Set<Qualification> studentQualifications = getStudentQualifications(userId, conn);
+                    Set<Skill> studentSkills = getStudentSkills(userId, conn);
+                    Set<Experience> studentExperiences = getStudentExperiences(userId, conn);
+                    List<Application> studentApplications = getStudentApplications(userId, conn);
+
+                    tempStudents.append(new Student(userId, username, password, contactno, email, location, name, age,
+                            studentQualifications, studentExperiences, studentSkills, studentApplications));
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error fetching student: " + e.getMessage());
+        }
+        return tempStudents;
+    }
+
     public static Student getStudentById(String userId) {
         String sql = "SELECT * FROM student WHERE userId = ?";
         Student student = null;
 
-        try (Connection conn = DatabaseConnectionPool.getDataSource().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConnectionPool.getDataSource().getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, userId);
 
@@ -105,7 +144,7 @@ public class StudentDAO {
             deleteStudentAssociations(student.getUserId(), conn);
             insertStudentAssociations(student, conn);
 
-            conn.commit(); 
+            conn.commit();
             return true;
         } catch (SQLException e) {
             System.out.println("Error updating student: " + e.getMessage());
@@ -124,7 +163,7 @@ public class StudentDAO {
                 pstmt.setString(1, userId);
                 int affectedRows = pstmt.executeUpdate();
                 if (affectedRows > 0) {
-                    conn.commit(); 
+                    conn.commit();
                     return true;
                 }
             }

@@ -2,6 +2,7 @@ package entity;
 
 import adt.ArrayList;
 import adt.HashSet;
+import adt.List;
 import adt.Set;
 import adt.OrderPair;
 
@@ -19,7 +20,7 @@ public class InternPost {
     private Set<Qualification> internPostQualifications;
     private Set<Experience> interPostExperiences;
     private Set<Skill> internPostSkills;
-    private ArrayList<Application> internPostApplications;
+    private List<Application> internPostApplications;
 
     public InternPost(String interPostId, String title, String desc, Location location, OrderPair<Double, Double> minMaxSalary) {
         this.interPostId = interPostId;
@@ -33,7 +34,7 @@ public class InternPost {
         this.internPostApplications = new ArrayList<>();
     }
 
-    public InternPost(String interPostId, String title, String desc, Location location, OrderPair<Double, Double> minMaxSalary, HashSet<Qualification> internPostQualifications, HashSet<Experience> interPostExperiences, HashSet<Skill> internPostSkills, ArrayList<Application> internPostApplications) {
+    public InternPost(String interPostId, String title, String desc, Location location, OrderPair<Double, Double> minMaxSalary, Set<Qualification> internPostQualifications, Set<Experience> interPostExperiences, Set<Skill> internPostSkills, List<Application> internPostApplications) {
         this.interPostId = interPostId;
         this.title = title;
         this.desc = desc;
@@ -109,11 +110,11 @@ public class InternPost {
         this.internPostSkills = internPostSkills;
     }
 
-    public ArrayList<Application> getInternPostApplications() {
+    public List<Application> getInternPostApplications() {
         return internPostApplications;
     }
 
-    public void setInternPostApplications(ArrayList<Application> internPostApplications) {
+    public void setInternPostApplications(List<Application> internPostApplications) {
         this.internPostApplications = internPostApplications;
     }
 
