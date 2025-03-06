@@ -5,6 +5,7 @@ package entity;
  * @author rttz159
  */
 public class Application {
+
     private String applicationId;
     private String internPostId;
     private String applicantId;
@@ -58,11 +59,11 @@ public class Application {
     public void setInterview(Interview interview) {
         this.interview = interview;
     }
-    
-    public enum Status{
+
+    public enum Status {
+        SUCCESS,
         PENDING,
         REJECTED,
-        SUCCESS,
         CANCELLED
     }
 }
