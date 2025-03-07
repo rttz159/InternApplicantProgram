@@ -1,5 +1,6 @@
 package com.rttz.assignment;
 
+import atlantafx.base.theme.PrimerLight;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +10,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * JavaFX App
+ *
+ * @author rttz159
  */
 public class App extends Application {
 
@@ -17,8 +19,12 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
+        scene = new Scene(loadFXML("stage"), 640, 480);
         stage.setScene(scene);
+        stage.setMinHeight(480);
+        stage.setMinWidth(640);
+        stage.setTitle("Internship Applicant");
         stage.show();
     }
 
