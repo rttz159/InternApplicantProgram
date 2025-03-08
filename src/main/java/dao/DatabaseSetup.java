@@ -9,10 +9,10 @@ import java.sql.Statement;
  * @author rttz159
  */
 public class DatabaseSetup {
-
-    private Connection connection;
-
-    public DatabaseSetup() {
+    
+    public static void setUpDatabase(){
+        Connection connection;
+        
         try {
             connection = DatabaseConnectionPool.getDataSource().getConnection();
             System.out.println("Database connection established.");
@@ -21,10 +21,10 @@ public class DatabaseSetup {
             return;
         }
 
-        createTables();
+        createTables(connection);
     }
 
-    private void createTables() {
+    private static void createTables(Connection connection) {
         String[] createTableStatements = {
             "CREATE TABLE IF NOT EXISTS student(\n"
             + "    userId TEXT,\n"
