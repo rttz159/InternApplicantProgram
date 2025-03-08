@@ -5,20 +5,20 @@ package control;
  * @author rttz159
  */
 import adt.HashMap;
-import adt.Map;
 import java.time.LocalTime;
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
+import adt.MapInterface;
 
 public class InterviewManager {
 
-    private Map<LocalDate, InterviewScheduler> bookingRecords;
+    private MapInterface<LocalDate, InterviewScheduler> bookingRecords;
 
     public InterviewManager() {
         this.bookingRecords = new HashMap<>();
     }
 
-    public Map<LocalDate, InterviewScheduler> getBookingRecords() {
+    public MapInterface<LocalDate, InterviewScheduler> getBookingRecords() {
         return bookingRecords;
     }
 

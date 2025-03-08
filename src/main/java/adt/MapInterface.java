@@ -4,7 +4,7 @@ package adt;
  *
  * @author rttz159
  */
-public interface Map<K, V> extends Iterable<Map.Entry<K, V>>{
+public interface MapInterface<K, V> extends Iterable<MapInterface.Entry<K, V>>{
 
     void put(K key, V value);
     V get(K key);

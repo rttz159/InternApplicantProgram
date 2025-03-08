@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  *
  * @author rttz159
  */
-public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>> {
+public class HashMap<K, V> implements MapInterface<K, V>, Iterable<MapInterface.Entry<K, V>> {
 
     int INITIAL_CAPACITY = 10;
     ArrayList<SinglyLinkList<Entry<K, V>>> buckets;
@@ -147,12 +147,12 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>> {
     }
 
     @Override
-    public SetInterface<Map.Entry<K, V>> entrySet() {
+    public SetInterface<MapInterface.Entry<K, V>> entrySet() {
         if (isEmpty()) {
             return null;
         }
 
-        SetInterface<Map.Entry<K, V>> temp = new HashSet<>();
+        SetInterface<MapInterface.Entry<K, V>> temp = new HashSet<>();
 
         for (var entry : this) {
             temp.add(entry);
@@ -162,7 +162,7 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>> {
     }
 
     @Override
-    public Iterator<Map.Entry<K, V>> iterator() {
+    public Iterator<MapInterface.Entry<K, V>> iterator() {
         return new HashMapIterator();
     }
 
@@ -183,7 +183,7 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>> {
         }
     }
 
-    private class Entry<K, V> implements Map.Entry<K, V> {
+    private class Entry<K, V> implements MapInterface.Entry<K, V> {
 
         private K key;
         private V value;
@@ -222,7 +222,7 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>> {
 
     }
 
-    private class HashMapIterator implements Iterator<Map.Entry<K, V>> {
+    private class HashMapIterator implements Iterator<MapInterface.Entry<K, V>> {
 
         private int currentBucketIdx;
         private int currentNodeIdx;
@@ -240,7 +240,7 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>> {
         }
 
         @Override
-        public Map.Entry<K, V> next() {
+        public MapInterface.Entry<K, V> next() {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
