@@ -13,13 +13,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" stylesheets="@css/login_signup.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.SignupPageController">
    <center>
-      <HBox fx:id="backgroundHBox" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #F4B818;" BorderPane.alignment="CENTER">
+      <HBox fx:id="backgroundHBox" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #221d53;" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label text="Hello !">
+                  <Label text="Hello !" textFill="#f4b818">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
@@ -27,7 +27,7 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Button fx:id="logInSignUpBtn" mnemonicParsing="false" text="Sign up" />
+                  <Button fx:id="logInSignUpBtn" mnemonicParsing="false" styleClass="signupformbuttons" text="Log In" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
@@ -35,7 +35,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
                <children>
-                  <Label text="Log In Form">
+                  <Label text="Sign Up Form">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
@@ -62,7 +62,7 @@
                         <Insets bottom="20.0" top="20.0" />
                      </VBox.margin>
                   </GridPane>
-                  <Button mnemonicParsing="false" text="Log In" />
+                  <Button fx:id="signUpBtn" mnemonicParsing="false" styleClass="signupformbuttons" text="Sign up" />
                </children>
             </VBox>
          </children>

@@ -1,5 +1,15 @@
-package entity;
+package control;
 
+import entity.Application;
+import entity.Company;
+import entity.Experience;
+import entity.InternPost;
+import entity.Interview;
+import entity.Location;
+import entity.Qualification;
+import entity.Skill;
+import entity.Student;
+import entity.User;
 import java.util.Comparator;
 
 public class CustomComparators {

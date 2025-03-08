@@ -1,0 +1,17 @@
+.loginformbuttons {
+  -fx-background-color: #221d53;
+  -fx-text-fill: white;
+}
+
+.loginformbuttons:hover{
+    -fx-cursor:hand;
+}
+
+.signupformbuttons {
+  -fx-background-color:  #F4B818;
+  -fx-text-fill: black;
+}
+
+.signupformbuttons:hover{
+    -fx-cursor:hand;
+}
