@@ -2,9 +2,7 @@ package dao;
 
 import adt.ArrayList;
 import adt.HashSet;
-import adt.List;
 import adt.OrderPair;
-import adt.Set;
 import entity.Application;
 import entity.Experience;
 import entity.InternPost;
@@ -15,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import adt.SetInterface;
+import adt.ListInterface;
 
 /**
  *
@@ -22,8 +22,8 @@ import java.sql.SQLException;
  */
 class InternPostDAOHelper {
 
-    public static List<InternPost> getInternPostByCompanyId(String companyId, Connection conn) throws SQLException {
-        List<InternPost> internPost = new ArrayList<>();
+    public static ListInterface<InternPost> getInternPostByCompanyId(String companyId, Connection conn) throws SQLException {
+        ListInterface<InternPost> internPost = new ArrayList<>();
         String sql = "SELECT * FROM internpost WHERE companyId = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, companyId);
@@ -37,10 +37,10 @@ class InternPostDAOHelper {
                     String fullAddress = rs.getString("fullAddress");
                     double minSalary = rs.getDouble("minSalary");
                     double maxSalary = rs.getDouble("maxSalary");
-                    Set<Qualification> tempQualification = InternPostDAOHelper.getInternPostQualifications(interPostId, conn);
-                    Set<Skill> tempSkill = InternPostDAOHelper.getInternPostSkills(interPostId, conn);
-                    Set<Experience> tempExperience = InternPostDAOHelper.getInternPostExperiences(interPostId, conn);
-                    List<Application> tempApplication = InternPostDAOHelper.getInternPostApplications(interPostId, conn);
+                    SetInterface<Qualification> tempQualification = InternPostDAOHelper.getInternPostQualifications(interPostId, conn);
+                    SetInterface<Skill> tempSkill = InternPostDAOHelper.getInternPostSkills(interPostId, conn);
+                    SetInterface<Experience> tempExperience = InternPostDAOHelper.getInternPostExperiences(interPostId, conn);
+                    ListInterface<Application> tempApplication = InternPostDAOHelper.getInternPostApplications(interPostId, conn);
 
                     internPost.append(new InternPost(interPostId, title, desc, new Location(city, fullAddress), new OrderPair<>(minSalary, maxSalary), tempQualification, tempExperience, tempSkill, tempApplication));
                 }
@@ -65,8 +65,8 @@ class InternPostDAOHelper {
         }
     }
 
-    public static Set<Qualification> getInternPostQualifications(String internpostId, Connection conn) throws SQLException {
-        Set<Qualification> qualifications = new HashSet<>();
+    public static SetInterface<Qualification> getInternPostQualifications(String internpostId, Connection conn) throws SQLException {
+        SetInterface<Qualification> qualifications = new HashSet<>();
         String sql = "SELECT * FROM internpost_qualification WHERE interPostId = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -88,8 +88,8 @@ class InternPostDAOHelper {
         return qualifications;
     }
 
-    public static Set<Skill> getInternPostSkills(String internpostId, Connection conn) throws SQLException {
-        Set<Skill> skills = new HashSet<>();
+    public static SetInterface<Skill> getInternPostSkills(String internpostId, Connection conn) throws SQLException {
+        SetInterface<Skill> skills = new HashSet<>();
         String sql = "SELECT * FROM internpost_skill WHERE interPostId = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -109,8 +109,8 @@ class InternPostDAOHelper {
         return skills;
     }
 
-    public static Set<Experience> getInternPostExperiences(String internpostId, Connection conn) throws SQLException {
-        Set<Experience> experiences = new HashSet<>();
+    public static SetInterface<Experience> getInternPostExperiences(String internpostId, Connection conn) throws SQLException {
+        SetInterface<Experience> experiences = new HashSet<>();
         String sql = "SELECT * FROM internpost_experience WHERE interPostId = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -130,8 +130,8 @@ class InternPostDAOHelper {
         return experiences;
     }
 
-    public static List<Application> getInternPostApplications(String internpostId, Connection conn) throws SQLException {
-        List<Application> tempApplication = new ArrayList<>();
+    public static ListInterface<Application> getInternPostApplications(String internpostId, Connection conn) throws SQLException {
+        ListInterface<Application> tempApplication = new ArrayList<>();
         String sql = "SELECT * FROM application WHERE internPostId = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {

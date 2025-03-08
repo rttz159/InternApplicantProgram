@@ -3,13 +3,13 @@ package dao;
 import entity.*;
 import control.InterviewManager;
 import adt.ArrayList;
-import adt.List;
 import adt.OrderPair;
 import adt.HashSet;
-import adt.Set;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import adt.SetInterface;
+import adt.ListInterface;
 
 public class CompanyDAOTest {
 
@@ -29,7 +29,7 @@ public class CompanyDAOTest {
 
             // Testing getCompanies()
             System.out.println("\nRetrieving all companies...");
-            List<Company> companies = CompanyDAO.getCompanies();
+            ListInterface<Company> companies = CompanyDAO.getCompanies();
             if (companies.isEmpty()) {
                 System.out.println("No companies found.");
             } else {
@@ -78,7 +78,7 @@ public class CompanyDAOTest {
         Experience.IndustryType industryType = Experience.IndustryType.TECHNOLOGY;
 
         // Creating intern posts
-        List<InternPost> internPosts = new ArrayList<>();
+        ListInterface<InternPost> internPosts = new ArrayList<>();
         internPosts.append(createTestInternPost("IP001"));
         internPosts.append(createTestInternPost("IP002"));
 
@@ -95,16 +95,16 @@ public class CompanyDAOTest {
         Location location = new Location("New York", "123 Tech Street");
         OrderPair<Double, Double> salaryRange = new OrderPair<>(3000.0, 5000.0);
 
-        Set<Qualification> qualifications = new HashSet<>();
+        SetInterface<Qualification> qualifications = new HashSet<>();
         qualifications.add(new Qualification("Q001", Qualification.QualificationType.BACHELOR_DEGREE, "CS Degree", 3, "Tech University", 2024));
 
-        Set<Skill> skills = new HashSet<>();
+        SetInterface<Skill> skills = new HashSet<>();
         skills.add(new Skill("S001", Skill.SkillType.PROGRAMMING, "Java", 5));
 
-        Set<Experience> experiences = new HashSet<>();
+        SetInterface<Experience> experiences = new HashSet<>();
         experiences.add(new Experience("E001", "Software Development", Experience.IndustryType.TECHNOLOGY, 12));
 
-        List<Application> applications = new ArrayList<>();
+        ListInterface<Application> applications = new ArrayList<>();
 
         return new InternPost(postId, title, desc, location, salaryRange, qualifications, experiences, skills, applications);
     }

@@ -2,8 +2,6 @@ package dao;
 
 import adt.ArrayList;
 import adt.HashSet;
-import adt.List;
-import adt.Set;
 import entity.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import adt.SetInterface;
+import adt.ListInterface;
 
 /**
  *
@@ -45,8 +45,8 @@ public class StudentDAO {
         }
     }
 
-    public static List<Student> getStudents() {
-        List<Student> tempStudents = new ArrayList<>();
+    public static ListInterface<Student> getStudents() {
+        ListInterface<Student> tempStudents = new ArrayList<>();
 
         String sql = "SELECT * FROM student";
         try (Connection conn = DatabaseConnectionPool.getDataSource().getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -65,10 +65,10 @@ public class StudentDAO {
 
                     Location location = new Location(city, fullAddress);
 
-                    Set<Qualification> studentQualifications = getStudentQualifications(userId, conn);
-                    Set<Skill> studentSkills = getStudentSkills(userId, conn);
-                    Set<Experience> studentExperiences = getStudentExperiences(userId, conn);
-                    List<Application> studentApplications = getStudentApplications(userId, conn);
+                    SetInterface<Qualification> studentQualifications = getStudentQualifications(userId, conn);
+                    SetInterface<Skill> studentSkills = getStudentSkills(userId, conn);
+                    SetInterface<Experience> studentExperiences = getStudentExperiences(userId, conn);
+                    ListInterface<Application> studentApplications = getStudentApplications(userId, conn);
 
                     tempStudents.append(new Student(userId, username, password, contactno, email, location, name, age,
                             studentQualifications, studentExperiences, studentSkills, studentApplications));
@@ -102,10 +102,10 @@ public class StudentDAO {
 
                     Location location = new Location(city, fullAddress);
 
-                    Set<Qualification> studentQualifications = getStudentQualifications(userId, conn);
-                    Set<Skill> studentSkills = getStudentSkills(userId, conn);
-                    Set<Experience> studentExperiences = getStudentExperiences(userId, conn);
-                    List<Application> studentApplications = getStudentApplications(userId, conn);
+                    SetInterface<Qualification> studentQualifications = getStudentQualifications(userId, conn);
+                    SetInterface<Skill> studentSkills = getStudentSkills(userId, conn);
+                    SetInterface<Experience> studentExperiences = getStudentExperiences(userId, conn);
+                    ListInterface<Application> studentApplications = getStudentApplications(userId, conn);
 
                     student = new Student(userId, username, password, contactno, email, location, name, age,
                             studentQualifications, studentExperiences, studentSkills, studentApplications);
@@ -234,8 +234,8 @@ public class StudentDAO {
         }
     }
 
-    private static Set<Qualification> getStudentQualifications(String userId, Connection conn) throws SQLException {
-        Set<Qualification> qualifications = new HashSet<>();
+    private static SetInterface<Qualification> getStudentQualifications(String userId, Connection conn) throws SQLException {
+        SetInterface<Qualification> qualifications = new HashSet<>();
         String sql = "SELECT * FROM student_qualification WHERE userId = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -257,8 +257,8 @@ public class StudentDAO {
         return qualifications;
     }
 
-    private static Set<Skill> getStudentSkills(String userId, Connection conn) throws SQLException {
-        Set<Skill> skills = new HashSet<>();
+    private static SetInterface<Skill> getStudentSkills(String userId, Connection conn) throws SQLException {
+        SetInterface<Skill> skills = new HashSet<>();
         String sql = "SELECT * FROM student_skill WHERE userId = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -278,8 +278,8 @@ public class StudentDAO {
         return skills;
     }
 
-    private static Set<Experience> getStudentExperiences(String userId, Connection conn) throws SQLException {
-        Set<Experience> experiences = new HashSet<>();
+    private static SetInterface<Experience> getStudentExperiences(String userId, Connection conn) throws SQLException {
+        SetInterface<Experience> experiences = new HashSet<>();
         String sql = "SELECT * FROM student_experience WHERE userId = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -299,8 +299,8 @@ public class StudentDAO {
         return experiences;
     }
 
-    private static List<Application> getStudentApplications(String userId, Connection conn) throws SQLException {
-        List<Application> applications = new ArrayList<>();
+    private static ListInterface<Application> getStudentApplications(String userId, Connection conn) throws SQLException {
+        ListInterface<Application> applications = new ArrayList<>();
         String sql = "SELECT * FROM application WHERE applicantId = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {

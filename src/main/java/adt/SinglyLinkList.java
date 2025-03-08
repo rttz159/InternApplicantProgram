@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
  * @author rttz159
  * @param <T>
  */
-public class SinglyLinkList<T> implements List<T>, Iterable<T> {
+public class SinglyLinkList<T> implements ListInterface<T>, Iterable<T> {
 
     private Node<T> headNode;
     private int numberOfNodes;

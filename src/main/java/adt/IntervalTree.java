@@ -7,7 +7,7 @@ import java.util.Iterator;
  *
  * @author rttz159
  */
-public class IntervalTree<T extends Comparable<T>> implements Iterable<Interval<T>>, Tree<Interval<T>> {
+public class IntervalTree<T extends Comparable<T>> implements Iterable<Interval<T>>, TreeInterface<Interval<T>> {
 
     private class Node {
 
@@ -133,13 +133,13 @@ public class IntervalTree<T extends Comparable<T>> implements Iterable<Interval<
         return node;
     }
 
-    public List<Interval<T>> searchForOverlapping(Interval<T> query) {
-        List<Interval<T>> result = new ArrayList<>();
+    public ListInterface<Interval<T>> searchForOverlapping(Interval<T> query) {
+        ListInterface<Interval<T>> result = new ArrayList<>();
         searchForOverlapping(rootNode, query, result);
         return result;
     }
 
-    private void searchForOverlapping(Node node, Interval<T> query, List<Interval<T>> result) {
+    private void searchForOverlapping(Node node, Interval<T> query, ListInterface<Interval<T>> result) {
         if (node == null || query.start.compareTo(node.maxEnd) > 0) {
             return;
         }
@@ -245,12 +245,12 @@ public class IntervalTree<T extends Comparable<T>> implements Iterable<Interval<
 
     @Override
     public Iterator<Interval<T>> iterator() {
-        List<Interval<T>> list = new ArrayList<>();
+        ListInterface<Interval<T>> list = new ArrayList<>();
         inorderTraversal(rootNode, list);
         return list.iterator();
     }
 
-    private void inorderTraversal(Node node, List<Interval<T>> list) {
+    private void inorderTraversal(Node node, ListInterface<Interval<T>> list) {
         if (node == null) {
             return;
         }

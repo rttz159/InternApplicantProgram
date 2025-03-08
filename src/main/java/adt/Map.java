@@ -13,9 +13,9 @@ public interface Map<K, V> extends Iterable<Map.Entry<K, V>>{
     boolean containsValue(V value);
     int size();
     boolean isEmpty();
-    Set<K> keySet();
-    List<V> values();
-    Set<Entry<K, V>> entrySet();
+    SetInterface<K> keySet();
+    ListInterface<V> values();
+    SetInterface<Entry<K, V>> entrySet();
 
     interface Entry<K, V> {
         K getKey();

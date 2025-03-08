@@ -6,7 +6,7 @@ import java.util.Iterator;
  *
  * @author rttz159
  */
-public class ArrayStack<T> implements Stack<T>, Iterable<T> {
+public class ArrayStack<T> implements StackInterface<T>, Iterable<T> {
     
     private int numberOfEntries;
     private int capacity;

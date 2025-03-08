@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  *
  * @author rttz159
  */
-public class HashSet<T> implements Set<T>, Iterable<T> {
+public class HashSet<T> implements SetInterface<T>, Iterable<T> {
 
     private static final int INITIAL_CAPACITY = 10;
     private static final double LOAD_FACTOR = 0.75;

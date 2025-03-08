@@ -118,12 +118,12 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>> {
     }
 
     @Override
-    public Set<K> keySet() {
+    public SetInterface<K> keySet() {
         if (isEmpty()) {
             return null;
         }
 
-        Set<K> temp = new HashSet<>();
+        SetInterface<K> temp = new HashSet<>();
 
         for (var entry : this) {
             temp.add(entry.getKey());
@@ -133,11 +133,11 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>> {
     }
 
     @Override
-    public List<V> values() {
+    public ListInterface<V> values() {
         if (isEmpty()) {
             return null;
         }
-        List<V> temp = new ArrayList<>();
+        ListInterface<V> temp = new ArrayList<>();
 
         for (var entry : this) {
             temp.append(entry.getValue());
@@ -147,12 +147,12 @@ public class HashMap<K, V> implements Map<K, V>, Iterable<Map.Entry<K, V>> {
     }
 
     @Override
-    public Set<Map.Entry<K, V>> entrySet() {
+    public SetInterface<Map.Entry<K, V>> entrySet() {
         if (isEmpty()) {
             return null;
         }
 
-        Set<Map.Entry<K, V>> temp = new HashSet<>();
+        SetInterface<Map.Entry<K, V>> temp = new HashSet<>();
 
         for (var entry : this) {
             temp.add(entry);

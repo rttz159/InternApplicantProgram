@@ -2,9 +2,9 @@ package entity;
 
 import adt.ArrayList;
 import adt.HashSet;
-import adt.List;
-import adt.Set;
 import adt.OrderPair;
+import adt.SetInterface;
+import adt.ListInterface;
 
 /**
  *
@@ -17,10 +17,10 @@ public class InternPost {
     private String desc;
     private Location location;
     private OrderPair<Double, Double> minMaxSalary;
-    private Set<Qualification> internPostQualifications;
-    private Set<Experience> interPostExperiences;
-    private Set<Skill> internPostSkills;
-    private List<Application> internPostApplications;
+    private SetInterface<Qualification> internPostQualifications;
+    private SetInterface<Experience> interPostExperiences;
+    private SetInterface<Skill> internPostSkills;
+    private ListInterface<Application> internPostApplications;
 
     public InternPost(String interPostId, String title, String desc, Location location, OrderPair<Double, Double> minMaxSalary) {
         this.interPostId = interPostId;
@@ -34,7 +34,7 @@ public class InternPost {
         this.internPostApplications = new ArrayList<>();
     }
 
-    public InternPost(String interPostId, String title, String desc, Location location, OrderPair<Double, Double> minMaxSalary, Set<Qualification> internPostQualifications, Set<Experience> interPostExperiences, Set<Skill> internPostSkills, List<Application> internPostApplications) {
+    public InternPost(String interPostId, String title, String desc, Location location, OrderPair<Double, Double> minMaxSalary, SetInterface<Qualification> internPostQualifications, SetInterface<Experience> interPostExperiences, SetInterface<Skill> internPostSkills, ListInterface<Application> internPostApplications) {
         this.interPostId = interPostId;
         this.title = title;
         this.desc = desc;
@@ -86,7 +86,7 @@ public class InternPost {
         this.minMaxSalary = minMaxSalary;
     }
 
-    public Set<Qualification> getInternPostQualifications() {
+    public SetInterface<Qualification> getInternPostQualifications() {
         return internPostQualifications;
     }
 
@@ -94,7 +94,7 @@ public class InternPost {
         this.internPostQualifications = internPostQualifications;
     }
 
-    public Set<Experience> getInterPostExperiences() {
+    public SetInterface<Experience> getInterPostExperiences() {
         return interPostExperiences;
     }
 
@@ -102,7 +102,7 @@ public class InternPost {
         this.interPostExperiences = interPostExperiences;
     }
 
-    public Set<Skill> getInternPostSkills() {
+    public SetInterface<Skill> getInternPostSkills() {
         return internPostSkills;
     }
 
@@ -110,11 +110,11 @@ public class InternPost {
         this.internPostSkills = internPostSkills;
     }
 
-    public List<Application> getInternPostApplications() {
+    public ListInterface<Application> getInternPostApplications() {
         return internPostApplications;
     }
 
-    public void setInternPostApplications(List<Application> internPostApplications) {
+    public void setInternPostApplications(ListInterface<Application> internPostApplications) {
         this.internPostApplications = internPostApplications;
     }
 

@@ -6,7 +6,7 @@ import java.util.Iterator;
  *
  * @author rttz159
  */
-public class LinkListStack<T> implements Stack<T>, Iterable<T>{
+public class LinkListStack<T> implements StackInterface<T>, Iterable<T>{
     
     private int numberOfEntries;
     private Node<T> headNode;

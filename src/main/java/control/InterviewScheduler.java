@@ -2,10 +2,10 @@ package control;
 
 import adt.ArrayList;
 import adt.IntervalTree;
-import adt.List;
 import adt.interval.Interval;
 import adt.interval.TimeInterval;
 import java.time.LocalTime;
+import adt.ListInterface;
 
 /**
  *
@@ -22,8 +22,8 @@ public class InterviewScheduler {
         this.bookedSlots = new IntervalTree<>();
     }
 
-    public List<TimeInterval> showAvailableSlots() {
-        List<TimeInterval> temp = new ArrayList<>();
+    public ListInterface<TimeInterval> showAvailableSlots() {
+        ListInterface<TimeInterval> temp = new ArrayList<>();
         LocalTime current = START_TIME;
         while (current.plusMinutes(SLOT_DURATION).isBefore(END_TIME.plusMinutes(1))) {
             TimeInterval slot = new TimeInterval(current, current.plusMinutes(SLOT_DURATION));
@@ -59,8 +59,8 @@ public class InterviewScheduler {
         return false;
     }
 
-    public List<Interval<LocalTime>> showBookedSlots() {
-        List<Interval<LocalTime>> temp = new ArrayList<>();
+    public ListInterface<Interval<LocalTime>> showBookedSlots() {
+        ListInterface<Interval<LocalTime>> temp = new ArrayList<>();
         for (Interval<LocalTime> slot : bookedSlots) {
             temp.append(slot);
         }

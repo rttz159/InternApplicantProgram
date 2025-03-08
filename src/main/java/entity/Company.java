@@ -1,8 +1,8 @@
 package entity;
 
-import adt.List;
 import control.InterviewManager;
 import entity.Experience.IndustryType;
+import adt.ListInterface;
 
 /**
  *
@@ -13,9 +13,9 @@ public class Company extends User{
     private String companyName;
     private IndustryType industryType;
     private InterviewManager interviewManager;
-    private List<InternPost> internPosts;
+    private ListInterface<InternPost> internPosts;
 
-    public Company(String userId, String username, String password, String contactno, String email, Location location, String companyName, IndustryType industryType, List<InternPost> internPosts) {
+    public Company(String userId, String username, String password, String contactno, String email, Location location, String companyName, IndustryType industryType, ListInterface<InternPost> internPosts) {
         super(userId,username,password,contactno,email,location);
         this.companyName = companyName;
         this.industryType = industryType;
@@ -23,7 +23,7 @@ public class Company extends User{
         this.interviewManager = new InterviewManager();
     }
 
-    public Company(String userId, String username, String password, String contactno, String email, Location location, String companyName, IndustryType industryType, List<InternPost> internPosts, InterviewManager interviewManager) {
+    public Company(String userId, String username, String password, String contactno, String email, Location location, String companyName, IndustryType industryType, ListInterface<InternPost> internPosts, InterviewManager interviewManager) {
         super(userId,username,password,contactno,email,location);
         this.companyName = companyName;
         this.industryType = industryType;
@@ -47,11 +47,11 @@ public class Company extends User{
         this.industryType = industryType;
     }
 
-    public List<InternPost> getInternPosts() {
+    public ListInterface<InternPost> getInternPosts() {
         return internPosts;
     }
 
-    public void setInternPosts(List<InternPost> internPosts) {
+    public void setInternPosts(ListInterface<InternPost> internPosts) {
         this.internPosts = internPosts;
     }
 

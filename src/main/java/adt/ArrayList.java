@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
  * @author rttz159
  * @param <T>
  */
-public class ArrayList<T> implements List<T>, Iterable<T> {
+public class ArrayList<T> implements ListInterface<T>, Iterable<T> {
 
     private int numberOfEntries;
     private int capacity;

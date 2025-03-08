@@ -4,7 +4,7 @@ package adt;
  *
  * @author rttz159
  */
-public interface Tree<T> extends Iterable<T>{
+public interface TreeInterface<T> extends Iterable<T>{
     public void add(T newEntry);
     public void remove(T entry);
     public void clear();

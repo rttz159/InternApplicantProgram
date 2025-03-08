@@ -1,7 +1,6 @@
 package dao;
 
 import adt.ArrayList;
-import adt.List;
 import control.InterviewManager;
 import entity.*;
 import java.sql.Connection;
@@ -10,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import adt.ListInterface;
 
 /**
  *
@@ -227,7 +227,7 @@ public class CompanyDAO {
                         String industryType = rs.getString("industryType");
 
                         Location location = new Location(city, fullAddress);
-                        List<InternPost> internPosts = InternPostDAOHelper.getInternPostByCompanyId(companyId, conn);
+                        ListInterface<InternPost> internPosts = InternPostDAOHelper.getInternPostByCompanyId(companyId, conn);
                         InterviewManager tempInterviewManager = getInterviewManagerById(companyId, conn);
 
                         tempCompany = new Company(companyId, username, password, contactno, email, location, companyName, Experience.IndustryType.valueOf(industryType),
@@ -244,8 +244,8 @@ public class CompanyDAO {
 
     }
 
-    public static List<Company> getCompanies() throws SQLException {
-        List<Company> tempCompanies = new ArrayList<>();
+    public static ListInterface<Company> getCompanies() throws SQLException {
+        ListInterface<Company> tempCompanies = new ArrayList<>();
         String sql = "SELECT * FROM company";
 
         try (Connection conn = DatabaseConnectionPool.getDataSource().getConnection()) {
@@ -271,7 +271,7 @@ public class CompanyDAO {
                     String industryType = rs.getString("industryType");
 
                     Location location = new Location(city, fullAddress);
-                    List<InternPost> internPosts = InternPostDAOHelper.getInternPostByCompanyId(companyId, conn);
+                    ListInterface<InternPost> internPosts = InternPostDAOHelper.getInternPostByCompanyId(companyId, conn);
                     InterviewManager tempInterviewManager = getInterviewManagerById(companyId, conn);
 
                     tempCompanies.append(new Company(companyId, username, password, contactno, email, location, companyName, Experience.IndustryType.valueOf(industryType),

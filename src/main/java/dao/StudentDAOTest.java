@@ -2,9 +2,9 @@ package dao;
 
 import entity.*;
 import adt.HashSet;
-import adt.Set;
 import adt.ArrayList;
-import adt.List;
+import adt.SetInterface;
+import adt.ListInterface;
 
 public class StudentDAOTest {
 
@@ -13,13 +13,13 @@ public class StudentDAOTest {
         DatabaseSetup instance = new DatabaseSetup();
         Location location = new Location("Test City", "123 Test Address");
 
-        Set<Qualification> qualifications = new HashSet<>();
+        SetInterface<Qualification> qualifications = new HashSet<>();
         qualifications.add(new Qualification("Q1", Qualification.QualificationType.BACHELOR_DEGREE, "Computer Science", 3, "Test University", 2020));
 
-        Set<Skill> skills = new HashSet<>();
+        SetInterface<Skill> skills = new HashSet<>();
         skills.add(new Skill("S1", Skill.SkillType.PROGRAMMING, "Java", 5));
 
-        Set<Experience> experiences = new HashSet<>();
+        SetInterface<Experience> experiences = new HashSet<>();
         experiences.add(new Experience("E1", "Software Developer", Experience.IndustryType.TECHNOLOGY, 2));
 
         Student testStudent = new Student(
@@ -68,7 +68,7 @@ public class StudentDAOTest {
 
         // Test fetchall operation
         System.out.println("\nFetching students by ID...");
-        List<Student> retrievedStudents = StudentDAO.getStudents();
+        ListInterface<Student> retrievedStudents = StudentDAO.getStudents();
         for (var x : retrievedStudents) {
             if (x != null) {
                 System.out.println("Student found:");

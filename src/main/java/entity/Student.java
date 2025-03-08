@@ -1,9 +1,9 @@
 package entity;
 
 import adt.ArrayList;
-import adt.List;
 import adt.HashSet;
-import adt.Set;
+import adt.SetInterface;
+import adt.ListInterface;
 
 /**
  *
@@ -13,10 +13,10 @@ public class Student extends User{
 
     private String name;
     private int age;
-    private Set<Qualification> studentQualifications;
-    private Set<Experience> studentExperiences;
-    private Set<Skill> studentSkills;
-    private List<Application> studentApplications;
+    private SetInterface<Qualification> studentQualifications;
+    private SetInterface<Experience> studentExperiences;
+    private SetInterface<Skill> studentSkills;
+    private ListInterface<Application> studentApplications;
 
     public Student(String userId, String username, String password, String contactno, String email, Location location, String name, int age) {
         super(userId,username,password,contactno,email,location);
@@ -28,7 +28,7 @@ public class Student extends User{
         this.studentApplications = new ArrayList<>();
     }
 
-    public Student(String userId, String username, String password, String contactno, String email, Location location, String name, int age, Set<Qualification> studentQualifications, Set<Experience> studentExperiences, Set<Skill> studentSkills, List<Application> studentApplications) {
+    public Student(String userId, String username, String password, String contactno, String email, Location location, String name, int age, SetInterface<Qualification> studentQualifications, SetInterface<Experience> studentExperiences, SetInterface<Skill> studentSkills, ListInterface<Application> studentApplications) {
         super(userId,username,password,contactno,email,location);
         this.name = name;
         this.age = age;
@@ -54,7 +54,7 @@ public class Student extends User{
         this.age = age;
     }
 
-    public Set<Qualification> getStudentQualifications() {
+    public SetInterface<Qualification> getStudentQualifications() {
         return studentQualifications;
     }
 
@@ -62,7 +62,7 @@ public class Student extends User{
         this.studentQualifications = studentQualifications;
     }
 
-    public Set<Experience> getStudentExperiences() {
+    public SetInterface<Experience> getStudentExperiences() {
         return studentExperiences;
     }
 
@@ -70,7 +70,7 @@ public class Student extends User{
         this.studentExperiences = studentExperiences;
     }
 
-    public Set<Skill> getStudentSkills() {
+    public SetInterface<Skill> getStudentSkills() {
         return studentSkills;
     }
 
@@ -78,7 +78,7 @@ public class Student extends User{
         this.studentSkills = studentSkills;
     }
 
-    public List<Application> getStudentApplications() {
+    public ListInterface<Application> getStudentApplications() {
         return studentApplications;
     }
 

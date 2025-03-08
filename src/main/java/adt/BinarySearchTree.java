@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  *
  * @author rttz159
  */
-public class BinarySearchTree<T extends Comparable<T>> implements Tree<T>, Iterable<T> {
+public class BinarySearchTree<T extends Comparable<T>> implements TreeInterface<T>, Iterable<T> {
 
     private Node rootNode;
 

@@ -6,7 +6,7 @@ import java.util.Comparator;
  *
  * @author rttz159
  */
-public interface List<T> extends Iterable<T> {
+public interface ListInterface<T> extends Iterable<T> {
 
     void append(T newEntry);
 
