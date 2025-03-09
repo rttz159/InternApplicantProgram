@@ -118,4 +118,21 @@ public class InternPost {
         this.internPostApplications = internPostApplications;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        InternPost internPost = (InternPost) obj;
+        return interPostId.equals(internPost.interPostId);
+    }
+
+    @Override
+    public int hashCode() {
+        return interPostId.hashCode();
+    }
+
 }

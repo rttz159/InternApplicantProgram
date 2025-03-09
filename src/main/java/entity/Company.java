@@ -8,7 +8,7 @@ import adt.ListInterface;
  *
  * @author rttz159
  */
-public class Company extends User{
+public class Company extends User {
 
     private String companyName;
     private IndustryType industryType;
@@ -16,7 +16,7 @@ public class Company extends User{
     private ListInterface<InternPost> internPosts;
 
     public Company(String userId, String username, String password, String contactno, String email, Location location, String companyName, IndustryType industryType, ListInterface<InternPost> internPosts) {
-        super(userId,username,password,contactno,email,location);
+        super(userId, username, password, contactno, email, location);
         this.companyName = companyName;
         this.industryType = industryType;
         this.internPosts = internPosts;
@@ -24,7 +24,7 @@ public class Company extends User{
     }
 
     public Company(String userId, String username, String password, String contactno, String email, Location location, String companyName, IndustryType industryType, ListInterface<InternPost> internPosts, InterviewManager interviewManager) {
-        super(userId,username,password,contactno,email,location);
+        super(userId, username, password, contactno, email, location);
         this.companyName = companyName;
         this.industryType = industryType;
         this.internPosts = internPosts;
@@ -57,5 +57,22 @@ public class Company extends User{
 
     public InterviewManager getInterviewManager() {
         return this.interviewManager;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Company company = (Company) obj;
+        return userId.equals(company.userId);
+    }
+
+    @Override
+    public int hashCode() {
+        return userId.hashCode();
     }
 }

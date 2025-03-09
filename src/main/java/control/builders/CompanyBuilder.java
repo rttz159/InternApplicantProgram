@@ -1,5 +1,6 @@
-package control;
+package control.builders;
 import adt.ListInterface;
+import control.InterviewManager;
 import entity.Company;
 import entity.Experience;
 import entity.InternPost;

@@ -10,7 +10,7 @@ public class StudentDAOTest {
 
     public static void main(String[] args) {
         // Create a test student with qualifications, skills, and experiences
-        DatabaseSetup instance = new DatabaseSetup();
+        DatabaseSetup.setUpDatabase();
         Location location = new Location("Test City", "123 Test Address");
 
         SetInterface<Qualification> qualifications = new HashSet<>();

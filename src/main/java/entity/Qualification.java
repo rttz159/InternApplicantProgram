@@ -5,6 +5,7 @@ package entity;
  * @author rttz159
  */
 public class Qualification {
+
     private String qualificationId;
     private QualificationType qualificationType;
     private String desc;
@@ -68,7 +69,24 @@ public class Qualification {
     public void setQualificationType(QualificationType qualificationType) {
         this.qualificationType = qualificationType;
     }
-    
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Qualification qualification = (Qualification) obj;
+        return qualificationId.equals(qualification.qualificationId);
+    }
+
+    @Override
+    public int hashCode() {
+        return qualificationId.hashCode();
+    }
+
     public enum QualificationType {
         HIGH_SCHOOL_DIPLOMA,
         ASSOCIATE_DEGREE,

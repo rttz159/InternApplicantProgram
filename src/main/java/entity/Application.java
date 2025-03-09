@@ -60,6 +60,23 @@ public class Application {
         this.interview = interview;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Application that = (Application) obj;
+        return applicationId.equals(that.applicationId);
+    }
+
+    @Override
+    public int hashCode() {
+        return applicationId.hashCode();
+    }
+
     public enum Status {
         SUCCESS,
         PENDING,

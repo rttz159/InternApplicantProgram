@@ -104,7 +104,12 @@ public class HashMap<K, V> implements MapInterface<K, V>, Iterable<MapInterface.
 
     @Override
     public boolean containsValue(V value) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for(var x: this.values()){
+            if(x.equals(value)){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

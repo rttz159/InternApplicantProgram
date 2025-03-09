@@ -61,7 +61,7 @@ public class CustomComparators {
 
         @Override
         public int compare(Location o1, Location o2) {
-            return o1.getCity().compareTo(o2.getCity());
+            return o1.getState().compareTo(o2.getState());
         }
 
     }

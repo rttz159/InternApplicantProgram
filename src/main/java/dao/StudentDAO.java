@@ -30,7 +30,7 @@ public class StudentDAO {
                 pstmt.setString(3, student.getPassword());
                 pstmt.setString(4, student.getContactno());
                 pstmt.setString(5, student.getEmail());
-                pstmt.setString(6, student.getLocation().getCity());
+                pstmt.setString(6, student.getLocation().getState());
                 pstmt.setString(7, student.getLocation().getFullAddress());
                 pstmt.setString(8, student.getName());
                 pstmt.setInt(9, student.getAge());
@@ -129,7 +129,7 @@ public class StudentDAO {
                 pstmt.setString(2, student.getPassword());
                 pstmt.setString(3, student.getContactno());
                 pstmt.setString(4, student.getEmail());
-                pstmt.setString(5, student.getLocation().getCity());
+                pstmt.setString(5, student.getLocation().getState());
                 pstmt.setString(6, student.getLocation().getFullAddress());
                 pstmt.setString(7, student.getName());
                 pstmt.setInt(8, student.getAge());

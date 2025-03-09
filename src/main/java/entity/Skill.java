@@ -5,6 +5,7 @@ package entity;
  * @author rttz159
  */
 public class Skill {
+
     private String skillId;
     private SkillType skilltype;
     private String name;
@@ -48,8 +49,24 @@ public class Skill {
     public void setProficiencyLevel(int proficiencyLevel) {
         this.proficiencyLevel = proficiencyLevel;
     }
-    
-    
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Skill skill = (Skill) obj;
+        return skillId.equals(skill.skillId);
+    }
+
+    @Override
+    public int hashCode() {
+        return skillId.hashCode();
+    }
+
     public enum SkillType {
         TECHNICAL,
         SOFT,

@@ -9,7 +9,7 @@ import adt.ListInterface;
  *
  * @author rttz159
  */
-public class Student extends User{
+public class Student extends User {
 
     private String name;
     private int age;
@@ -19,7 +19,7 @@ public class Student extends User{
     private ListInterface<Application> studentApplications;
 
     public Student(String userId, String username, String password, String contactno, String email, Location location, String name, int age) {
-        super(userId,username,password,contactno,email,location);
+        super(userId, username, password, contactno, email, location);
         this.name = name;
         this.age = age;
         this.studentQualifications = new HashSet<>();
@@ -29,7 +29,7 @@ public class Student extends User{
     }
 
     public Student(String userId, String username, String password, String contactno, String email, Location location, String name, int age, SetInterface<Qualification> studentQualifications, SetInterface<Experience> studentExperiences, SetInterface<Skill> studentSkills, ListInterface<Application> studentApplications) {
-        super(userId,username,password,contactno,email,location);
+        super(userId, username, password, contactno, email, location);
         this.name = name;
         this.age = age;
         this.studentQualifications = studentQualifications;
@@ -84,6 +84,23 @@ public class Student extends User{
 
     public void setStudentApplications(ArrayList<Application> studentApplications) {
         this.studentApplications = studentApplications;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Student student = (Student) obj;
+        return userId.equals(student.userId);
+    }
+
+    @Override
+    public int hashCode() {
+        return userId.hashCode();
     }
 
 }

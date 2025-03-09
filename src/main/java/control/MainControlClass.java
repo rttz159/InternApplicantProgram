@@ -10,13 +10,14 @@ import entity.Company;
 import entity.Student;
 import entity.User;
 import java.sql.SQLException;
+import java.util.NoSuchElementException;
 
 /**
  *
  * @author rttz159
  */
 public class MainControlClass {
-    
+
     private static MainControlHelperClass instance;
 
     public static MainControlHelperClass getInstance() {
@@ -104,20 +105,24 @@ class MainControlHelperClass {
     }
 
     public boolean login(String username, String password, boolean isStudent) {
-        if (isStudent) {
-            Student student = studentMap.get(username);
-            if (student != null && student.getPassword().equals(password)) {
-                this.currentUser = student;
-                return true;
+        try {
+            if (isStudent) {
+                Student student = studentMap.get(username);
+                if (student != null && student.getPassword().equals(password)) {
+                    this.currentUser = student;
+                    return true;
+                }
+            } else {
+                Company company = companyMap.get(username);
+                if (company != null && company.getPassword().equals(password)) {
+                    this.currentUser = company;
+                    return true;
+                }
             }
-        } else {
-            Company company = companyMap.get(username);
-            if (company != null && company.getPassword().equals(password)) {
-                this.currentUser = company;
-                return true;
-            }
+            return false;
+        } catch (NoSuchElementException ex) {
+            return false;
         }
-        return false;
     }
 
     public boolean signup(User user) {
@@ -127,7 +132,7 @@ class MainControlHelperClass {
                 return false;
             }
             this.students.append(student);
-            studentMap.put(student.getUsername(), student); 
+            studentMap.put(student.getUsername(), student);
             StudentDAO.insertStudent(student);
             return true;
         }
@@ -135,7 +140,7 @@ class MainControlHelperClass {
         if (user instanceof Company) {
             Company company = (Company) user;
             if (companyMap.containsKey(company.getUsername())) {
-                return false; 
+                return false;
             }
             this.companies.append(company);
             companyMap.put(company.getUsername(), company);

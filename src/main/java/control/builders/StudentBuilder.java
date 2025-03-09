@@ -1,4 +1,4 @@
-package control;
+package control.builders;
 
 import adt.HashSet;
 import adt.SetInterface;

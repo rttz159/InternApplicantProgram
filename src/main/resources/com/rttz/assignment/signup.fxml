@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -18,19 +17,27 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" stylesheets="@css/login_signup.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.SignupPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="768.0" minWidth="1024.0" stylesheets="@css/login_signup.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.SignupPageController">
    <center>
       <HBox fx:id="backgroundHBox" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #221d53;" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label text="Hello !" textFill="#f4b818">
+                  <Label text="Hello," textFill="#f4b818">
                      <VBox.margin>
-                        <Insets bottom="20.0" />
+                        <Insets bottom="5.0" />
                      </VBox.margin>
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
+                  </Label>
+                  <Label text="Already Have an Account?" textFill="#f4b818">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
                   </Label>
                   <Button fx:id="logInSignUpBtn" mnemonicParsing="false" styleClass="signupformbuttons" text="Log In" />
                </children>
@@ -48,7 +55,7 @@
                         <Insets bottom="20.0" top="20.0" />
                      </VBox.margin>
                   </Label>
-                  <TabPane tabClosingPolicy="UNAVAILABLE">
+                  <TabPane fx:id="signupTabPane" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                       <Tab text="Company">
                            <content>
@@ -73,21 +80,21 @@
                                        <children>
                                           <Label text="Username" />
                                           <Label text="Password" GridPane.rowIndex="1" />
-                                          <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <TextField GridPane.columnIndex="1" />
-                                          <Button fx:id="signUpBtn" mnemonicParsing="false" styleClass="signupformbuttons" text="Sign up" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                          <TextField fx:id="signupCompanyUsernameTextField" GridPane.columnIndex="1" />
+                                          <Button fx:id="singupCompanyBtn" mnemonicParsing="false" styleClass="signupformbuttons" text="Sign up" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                                           <Label text="Contact No" GridPane.rowIndex="2" />
-                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <TextField fx:id="signupCompanyContactNoTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <TextField fx:id="signupCompanyEmailTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                           <Label text="Email" GridPane.rowIndex="3" />
-                                          <Label text="Location" GridPane.rowIndex="4" />
+                                          <Label text="City" GridPane.rowIndex="4" />
                                           <Label text="Comp. Name" GridPane.rowIndex="6" />
-                                          <TextArea GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                          <TextArea fx:id="signupCompanyAddressTextArea" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                           <Label text="Industry Type" GridPane.rowIndex="7" />
-                                          <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                          <ComboBox fx:id="signupCompanyCityComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                           <Label text="Full Address" GridPane.rowIndex="5" />
-                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                          <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                          <TextField fx:id="signupCompanyCompNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                          <ComboBox fx:id="signupCompanyIndustryTypeComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                          <TextField fx:id="signupCompanyPasswordTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                        </children>
                                        <padding>
                                           <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
@@ -119,21 +126,21 @@
                                        <children>
                                           <Label text="Username" />
                                           <Label text="Password" GridPane.rowIndex="1" />
-                                          <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <TextField GridPane.columnIndex="1" />
-                                          <Button fx:id="signUpBtn1" mnemonicParsing="false" styleClass="signupformbuttons" text="Sign up" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                          <TextField fx:id="signupStudentUsernameTextField" GridPane.columnIndex="1" />
+                                          <Button fx:id="signupStudentBtn" mnemonicParsing="false" styleClass="signupformbuttons" text="Sign up" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                                           <Label text="Contact No" GridPane.rowIndex="2" />
-                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <TextField fx:id="signupStudentContactNoTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <TextField fx:id="signupStudentEmailTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                           <Label text="Email" GridPane.rowIndex="3" />
-                                          <Label text="Location" GridPane.rowIndex="4" />
+                                          <Label text="City" GridPane.rowIndex="4" />
                                           <Label text="Name" GridPane.rowIndex="6" />
-                                          <TextArea GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                          <TextArea fx:id="signupStudentAddressTextArea" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                           <Label text="Age" GridPane.rowIndex="7" />
-                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                          <TextField fx:id="signupStudentAgeTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                           <Label text="Full Address" GridPane.rowIndex="5" />
-                                          <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                          <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                          <ComboBox fx:id="signupStudentCityComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                          <TextField fx:id="signupStudentNameTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                          <TextField fx:id="signupStudentPasswordTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                        </children>
                                        <padding>
                                           <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
@@ -144,6 +151,9 @@
                            </content>
                       </Tab>
                     </tabs>
+                     <padding>
+                        <Insets left="15.0" right="15.0" />
+                     </padding>
                   </TabPane>
                </children>
                <padding>

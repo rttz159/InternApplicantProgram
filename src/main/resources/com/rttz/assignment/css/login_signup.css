@@ -1,6 +1,7 @@
 .loginformbuttons {
   -fx-background-color: #221d53;
   -fx-text-fill: white;
+  -fx-padding: 10px;
 }
 
 .loginformbuttons:hover{
@@ -10,6 +11,7 @@
 .signupformbuttons {
   -fx-background-color:  #F4B818;
   -fx-text-fill: black;
+  -fx-padding: 10px;
 }
 
 .signupformbuttons:hover{

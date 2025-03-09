@@ -1,4 +1,4 @@
-package control;
+package control.builders;
 
 import com.fasterxml.uuid.Generators;
 import entity.Location;

@@ -50,6 +50,23 @@ public class Experience {
         this.duration = duration;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Experience experience = (Experience) obj;
+        return experienceId.equals(experience.experienceId);
+    }
+
+    @Override
+    public int hashCode() {
+        return experienceId.hashCode();
+    }
+
     public enum IndustryType {
         TECHNOLOGY,
         HEALTHCARE,

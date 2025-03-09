@@ -22,10 +22,10 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
         Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
-        scene = new Scene(loadFXML("login"), 640, 480);
+        scene = new Scene(loadFXML("login"), 1024, 768); 
         stage.setScene(scene);
-        stage.setMinHeight(480);
-        stage.setMinWidth(640);
+        stage.setMinHeight(768);
+        stage.setMinWidth(1024);
         stage.setTitle("Log In Page");
         stage.show();
     }

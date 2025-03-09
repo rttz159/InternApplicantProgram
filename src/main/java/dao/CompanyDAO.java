@@ -28,7 +28,7 @@ public class CompanyDAO {
                 pstmt.setString(2, company.getPassword());
                 pstmt.setString(3, company.getContactno());
                 pstmt.setString(4, company.getEmail());
-                pstmt.setString(5, company.getLocation().getCity());
+                pstmt.setString(5, company.getLocation().getState());
                 pstmt.setString(6, company.getLocation().getFullAddress());
                 pstmt.setString(7, company.getCompanyName());
                 pstmt.setString(8, company.getIndustryType().toString());
@@ -62,7 +62,7 @@ public class CompanyDAO {
                 pstmt.setString(3, company.getPassword());
                 pstmt.setString(4, company.getContactno());
                 pstmt.setString(5, company.getEmail());
-                pstmt.setString(6, company.getLocation().getCity());
+                pstmt.setString(6, company.getLocation().getState());
                 pstmt.setString(7, company.getLocation().getFullAddress());
                 pstmt.setString(8, company.getCompanyName());
                 pstmt.setString(9, company.getIndustryType().toString());
@@ -99,7 +99,7 @@ public class CompanyDAO {
                 pstmt.setString(2, x.getInterPostId());
                 pstmt.setString(3, x.getTitle());
                 pstmt.setString(4, x.getDesc());
-                pstmt.setString(5, x.getLocation().getCity());
+                pstmt.setString(5, x.getLocation().getState());
                 pstmt.setString(6, x.getLocation().getFullAddress());
                 pstmt.setDouble(7, x.getMinMaxSalary().getX());
                 pstmt.setDouble(8, x.getMinMaxSalary().getY());

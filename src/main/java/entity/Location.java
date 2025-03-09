@@ -5,20 +5,21 @@ package entity;
  * @author rttz159
  */
 public class Location {
-    private String city;
+
+    private String state;
     private String fullAddress;
 
     public Location(String city, String fullAddress) {
-        this.city = city;
+        this.state = city;
         this.fullAddress = fullAddress;
     }
 
-    public String getCity() {
-        return city;
+    public String getState() {
+        return state;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getFullAddress() {
@@ -27,5 +28,24 @@ public class Location {
 
     public void setFullAddress(String fullAddress) {
         this.fullAddress = fullAddress;
+    }
+
+    public enum MalaysianRegion {
+        JOHOR,
+        KEDAH,
+        KELANTAN,
+        MALACCA,
+        NEGERI_SEMBILAN,
+        PAHANG,
+        PERAK,
+        PERLIS,
+        PENANG,
+        SABAH,
+        SARAWAK,
+        SELANGOR,
+        TERENGGANU,
+        KUALA_LUMPUR,
+        LABUAN,
+        PUTRAJAYA;
     }
 }
