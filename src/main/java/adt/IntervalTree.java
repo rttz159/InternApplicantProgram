@@ -7,7 +7,7 @@ import java.util.Iterator;
  *
  * @author rttz159
  */
-public class IntervalTree<T extends Comparable<T>> implements Iterable<Interval<T>>, TreeInterface<Interval<T>> {
+public class IntervalTree<T extends Comparable<T>> implements TreeInterface<Interval<T>> {
 
     private class Node {
 

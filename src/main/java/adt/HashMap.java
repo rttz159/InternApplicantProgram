@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  *
  * @author rttz159
  */
-public class HashMap<K, V> implements MapInterface<K, V>, Iterable<MapInterface.Entry<K, V>> {
+public class HashMap<K, V> implements MapInterface<K, V> {
 
     int INITIAL_CAPACITY = 10;
     ArrayList<SinglyLinkList<Entry<K, V>>> buckets;

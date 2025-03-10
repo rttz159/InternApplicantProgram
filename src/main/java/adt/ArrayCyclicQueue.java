@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  *
  * @author rttz159
  */
-public class ArrayCyclicQueue<T> implements QueueInterface<T>, Iterable<T> {
+public class ArrayCyclicQueue<T> implements QueueInterface<T> {
 
     private int capacity;
     private int numberOfEntries;
@@ -91,7 +91,7 @@ public class ArrayCyclicQueue<T> implements QueueInterface<T>, Iterable<T> {
         capacity = newCapacity;
         arrayInstance = newArrayInstance;
     }
-
+    
     @Override
     public Iterator<T> iterator() {
         return new ArrayCyclicQueueIterator();

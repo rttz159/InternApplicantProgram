@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  *
  * @author rttz159
  */
-public class HashSet<T> implements SetInterface<T>, Iterable<T> {
+public class HashSet<T> implements SetInterface<T> {
 
     private static final int INITIAL_CAPACITY = 10;
     private static final double LOAD_FACTOR = 0.75;
@@ -118,7 +118,91 @@ public class HashSet<T> implements SetInterface<T>, Iterable<T> {
         return new HashSetIterator();
     }
 
+    @Override
+    public boolean isSubSet(SetInterface anotherSet) {
+        if (anotherSet == null || !(anotherSet instanceof HashSet)) {
+            return false;
+        }
+
+        HashSet<T> tempSet = (HashSet) anotherSet;
+        if (this.size > tempSet.size) {
+            return false;
+        }
+
+        boolean valid = true;
+        for (var x : this) {
+            boolean found = false;
+            for (var y : tempSet) {
+                if (y.equals(x)) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                valid = false;
+                break;
+            }
+        }
+
+        return valid;
+    }
+    
+    @Override
+    public <A> boolean isSubSetByAttribute(SetInterface<T> anotherSet, AttributeExtractor<T, A> extractor) {
+        if (anotherSet == null || !(anotherSet instanceof HashSet)) {
+            return false;
+        }
+
+        HashSet<T> tempSet = (HashSet<T>) anotherSet;
+        if (this.size > tempSet.size) {
+            return false;
+        }
+
+        for (T x : this) {
+            boolean found = false;
+            A attributeX = extractor.extract(x); 
+
+            for (T y : tempSet) {
+                A attributeY = extractor.extract(y); 
+                if (attributeX.equals(attributeY)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void union(SetInterface anotherSet) {
+        if (anotherSet == null || !(anotherSet instanceof HashSet)) {
+            return;
+        }
+
+        HashSet<T> tempSet = (HashSet) anotherSet;
+        for (var x : tempSet) {
+            this.add(x);
+        }
+    }
+
+    @Override
+    public SetInterface intersection(SetInterface anotherSet) {
+        SetInterface tempSet = new HashSet<T>();
+        HashSet<T> anotherHashSet = (HashSet) anotherSet;
+        for (var y : anotherHashSet) {
+            if (this.contains(y)) {
+                tempSet.add(y);
+            }
+        }
+        return tempSet;
+    }
+
     private class HashSetIterator implements Iterator<T> {
+
         private int currentBucketIdx;
         private int currentNodeIdx;
         private SinglyLinkList<T> currentBucket;
@@ -160,7 +244,7 @@ public class HashSet<T> implements SetInterface<T>, Iterable<T> {
                 }
                 currentBucketIdx++;
             }
-            currentBucket = null; 
+            currentBucket = null;
         }
     }
 

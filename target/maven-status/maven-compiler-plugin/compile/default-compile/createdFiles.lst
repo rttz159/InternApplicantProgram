@@ -50,6 +50,7 @@ adt\StackInterface.class
 dao\StudentDAO.class
 adt\LinkListStack.class
 control\builders\ExperienceBuilder.class
+adt\HashSetTest.class
 adt\MapInterface$Entry.class
 control\CustomComparators$SkillByProficiencyLevelComparator.class
 entity\InternPost.class
@@ -59,6 +60,7 @@ control\CustomComparators$CompanyByNameComparator.class
 control\CustomComparators$LocationByCityComparator.class
 dao\DatabaseSetup.class
 adt\Node.class
+adt\AttributeExtractor.class
 adt\HashSet$HashSetIterator.class
 adt\ArrayCyclicQueue$ArrayCyclicQueueIterator.class
 adt\QueueInterface.class
