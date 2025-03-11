@@ -41,7 +41,7 @@ public class LoginPageController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         logInSignUpBtn.setOnAction(eh -> {
             try {
-                Scene scene = new Scene(loadFXML("signup"), 1024, 768);
+                Scene scene = new Scene(loadFXML("signup"), 800, 600);
                 App.getPrimaryStage().setScene(scene);
                 App.getPrimaryStage().setTitle("Sign Up Page");
             } catch (IOException ex) {
@@ -85,7 +85,7 @@ public class LoginPageController implements Initializable {
                 return;
             }
         }
-        showErrorDialog("Invalid Credentials");
+        showErrorDialog("Invalid Credentials || User not found.");
     }
 
     public void showErrorDialog(String errorMessage) {

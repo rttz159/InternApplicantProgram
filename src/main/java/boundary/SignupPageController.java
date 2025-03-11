@@ -95,7 +95,7 @@ public class SignupPageController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         logInSignUpBtn.setOnAction(eh -> {
             try {
-                Scene scene = new Scene(loadFXML("login"), 1024, 768);
+                Scene scene = new Scene(loadFXML("login"), 800, 600);
                 App.getPrimaryStage().setScene(scene);
                 App.getPrimaryStage().setTitle("Log In Page");
             } catch (IOException ex) {
@@ -264,7 +264,7 @@ public class SignupPageController implements Initializable {
             if (MainControlClass.signUp(tempUser)) {
                 showSuccessDialog("Sign Up Successfully");
                 try {
-                    Scene scene = new Scene(loadFXML("login"), 1024, 768);
+                    Scene scene = new Scene(loadFXML("login"), 800, 600);
                     App.getPrimaryStage().setScene(scene);
                     App.getPrimaryStage().setTitle("Log In Page");
                 } catch (IOException ex) {

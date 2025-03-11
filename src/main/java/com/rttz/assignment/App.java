@@ -1,6 +1,5 @@
 package com.rttz.assignment;
 
-import atlantafx.base.theme.PrimerLight;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,11 +20,11 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
-        Application.setUserAgentStylesheet(new PrimerLight().getUserAgentStylesheet());
-        scene = new Scene(loadFXML("login"), 1024, 768); 
+        Application.setUserAgentStylesheet(App.class.getResource("css/theme.css").toString());
+        scene = new Scene(loadFXML("interviewStudentScheduler"), 800, 600); 
         stage.setScene(scene);
-        stage.setMinHeight(768);
-        stage.setMinWidth(1024);
+        stage.setMinHeight(600);
+        stage.setMinWidth(800);
         stage.setTitle("Log In Page");
         stage.show();
     }

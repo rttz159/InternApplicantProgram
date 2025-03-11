@@ -1,0 +1,9 @@
+.action-buttons {
+  -fx-background-color: #221d53;
+  -fx-text-fill: white;
+  -fx-padding: 10px;
+}
+
+.action-buttons:hover{
+    -fx-cursor:hand;
+}

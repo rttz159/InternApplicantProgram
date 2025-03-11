@@ -50,7 +50,6 @@ adt\StackInterface.class
 dao\StudentDAO.class
 adt\LinkListStack.class
 control\builders\ExperienceBuilder.class
-adt\HashSetTest.class
 adt\MapInterface$Entry.class
 control\CustomComparators$SkillByProficiencyLevelComparator.class
 entity\InternPost.class
@@ -78,6 +77,7 @@ adt\IntervalTree.class
 entity\Student.class
 entity\Location$MalaysianRegion.class
 entity\User.class
+boundary\InterviewStudentSchedulerController.class
 control\CustomComparators$InternPostByMinSalaryComparator.class
 control\CustomComparators$UserByIdComparator.class
 entity\Location.class
