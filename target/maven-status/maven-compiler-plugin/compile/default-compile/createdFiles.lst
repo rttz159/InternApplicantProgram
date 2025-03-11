@@ -12,6 +12,7 @@ entity\Skill.class
 control\builders\ApplicationBuilder.class
 control\MainControlClass.class
 control\builders\SkillBuilder.class
+entity\CompanyTest.class
 adt\SetInterface.class
 control\builders\CompanyBuilder.class
 control\CustomComparators.class
@@ -35,6 +36,7 @@ control\InterviewScheduler.class
 dao\DatabaseConnectionPool.class
 entity\Skill$SkillType.class
 adt\SinglyLinkList$Node.class
+boundary\InterviewStudentSchedulerController$1.class
 entity\Experience$IndustryType.class
 adt\ArrayList.class
 entity\Company.class

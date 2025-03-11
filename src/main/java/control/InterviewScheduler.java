@@ -16,7 +16,7 @@ public class InterviewScheduler {
     private IntervalTree<LocalTime> bookedSlots;
     private static final LocalTime START_TIME = LocalTime.of(8, 0);
     private static final LocalTime END_TIME = LocalTime.of(17, 0);
-    private static final int SLOT_DURATION = 60; // 30 mins
+    private static final int SLOT_DURATION = 30; // 30 mins
 
     public InterviewScheduler() {
         this.bookedSlots = new IntervalTree<>();
@@ -63,6 +63,17 @@ public class InterviewScheduler {
         ListInterface<Interval<LocalTime>> temp = new ArrayList<>();
         for (Interval<LocalTime> slot : bookedSlots) {
             temp.append(slot);
+        }
+        return temp;
+    }
+
+    public static ListInterface<TimeInterval> showAllSlots() {
+        ListInterface<TimeInterval> temp = new ArrayList<>();
+        LocalTime current = START_TIME;
+        while (current.plusMinutes(SLOT_DURATION).isBefore(END_TIME.plusMinutes(1))) {
+            TimeInterval slot = new TimeInterval(current, current.plusMinutes(SLOT_DURATION));
+            temp.append(slot);
+            current = current.plusMinutes(SLOT_DURATION);
         }
         return temp;
     }
