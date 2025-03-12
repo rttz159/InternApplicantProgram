@@ -83,4 +83,15 @@ public class Application {
         REJECTED,
         CANCELLED
     }
+
+    public Application deepCopy() {
+        return new Application(
+                this.applicationId,
+                this.internPostId,
+                this.applicantId,
+                this.status,
+                this.interview != null ? this.interview.deepCopy() : null
+        );
+    }
+
 }

@@ -1,5 +1,6 @@
 package entity;
 
+import adt.ArrayList;
 import control.InterviewManager;
 import entity.Experience.IndustryType;
 import adt.ListInterface;
@@ -75,4 +76,24 @@ public class Company extends User {
     public int hashCode() {
         return userId.hashCode();
     }
+
+    public Company deepCopy() {
+        ListInterface<InternPost> copiedInternPosts = new ArrayList<>();
+        for (InternPost post : this.internPosts) {
+            copiedInternPosts.append(post.deepCopy());
+        }
+
+        return new Company(
+                this.getUserId(),
+                this.getUsername(),
+                this.getPassword(),
+                this.getContactno(),
+                this.getEmail(),
+                this.getLocation() != null ? this.getLocation().deepCopy() : null,
+                this.companyName,
+                this.industryType,
+                copiedInternPosts
+        );
+    }
+
 }

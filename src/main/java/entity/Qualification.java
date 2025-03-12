@@ -99,4 +99,16 @@ public class Qualification {
         VOCATIONAL_TRAINING,
         ONLINE_COURSE
     }
+
+    public Qualification deepCopy() {
+        return new Qualification(
+                this.qualificationId,
+                this.qualificationType,
+                this.desc,
+                this.level,
+                this.institution,
+                this.yearOfComplete
+        );
+    }
+
 }

@@ -60,4 +60,12 @@ public class Interview {
         return interviewId.hashCode();
     }
 
+    public Interview deepCopy() {
+        return new Interview(
+                this.interviewId,
+                this.date,
+                this.start_time
+        );
+    }
+
 }

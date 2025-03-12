@@ -84,4 +84,14 @@ public class Experience {
         HOSPITALITY,
         REAL_ESTATE
     }
+
+    public Experience deepCopy() {
+        return new Experience(
+                this.experienceId,
+                this.desc,
+                this.industryType,
+                this.duration
+        );
+    }
+
 }

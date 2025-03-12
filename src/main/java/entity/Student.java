@@ -103,4 +103,41 @@ public class Student extends User {
         return userId.hashCode();
     }
 
+    public Student deepCopy() {
+        SetInterface<Qualification> copiedQualifications = new HashSet<>();
+        for (Qualification q : this.studentQualifications) {
+            copiedQualifications.add(q.deepCopy());
+        }
+
+        SetInterface<Experience> copiedExperiences = new HashSet<>();
+        for (Experience e : this.studentExperiences) {
+            copiedExperiences.add(e.deepCopy());
+        }
+
+        SetInterface<Skill> copiedSkills = new HashSet<>();
+        for (Skill s : this.studentSkills) {
+            copiedSkills.add(s.deepCopy());
+        }
+
+        ListInterface<Application> copiedApplications = new ArrayList<>();
+        for (Application a : this.studentApplications) {
+            copiedApplications.append(a.deepCopy());
+        }
+
+        return new Student(
+                this.getUserId(),
+                this.getUsername(),
+                this.getPassword(),
+                this.getContactno(),
+                this.getEmail(),
+                this.getLocation() != null ? this.getLocation().deepCopy() : null,
+                this.name,
+                this.age,
+                copiedQualifications,
+                copiedExperiences,
+                copiedSkills,
+                copiedApplications
+        );
+    }
+
 }

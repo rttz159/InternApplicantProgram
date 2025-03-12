@@ -1,4 +1,4 @@
-package control.builders;
+package utils;
 import adt.ListInterface;
 import control.InterviewManager;
 import entity.Company;

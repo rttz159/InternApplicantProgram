@@ -68,4 +68,7 @@ public abstract class User {
     public void setLocation(Location location) {
         this.location = location;
     }
+    
+    public abstract User deepCopy();
+
 }

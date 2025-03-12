@@ -89,4 +89,14 @@ public class Skill {
         DATABASE_MANAGEMENT,
         CLOUD_COMPUTING
     }
+
+    public Skill deepCopy() {
+        return new Skill(
+                this.skillId,
+                this.skilltype,
+                this.name,
+                this.proficiencyLevel
+        );
+    }
+
 }

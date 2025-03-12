@@ -48,4 +48,12 @@ public class Location {
         LABUAN,
         PUTRAJAYA;
     }
+
+    public Location deepCopy() {
+        return new Location(
+                this.state,
+                this.fullAddress
+        );
+    }
+
 }

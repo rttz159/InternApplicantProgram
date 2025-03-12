@@ -135,4 +135,38 @@ public class InternPost {
         return interPostId.hashCode();
     }
 
+    public InternPost deepCopy() {
+        SetInterface<Qualification> copiedQualifications = new HashSet<>();
+        for (Qualification q : this.internPostQualifications) {
+            copiedQualifications.add(q.deepCopy());
+        }
+
+        SetInterface<Experience> copiedExperiences = new HashSet<>();
+        for (Experience e : this.interPostExperiences) {
+            copiedExperiences.add(e.deepCopy());
+        }
+
+        SetInterface<Skill> copiedSkills = new HashSet<>();
+        for (Skill s : this.internPostSkills) {
+            copiedSkills.add(s.deepCopy());
+        }
+
+        ListInterface<Application> copiedApplications = new ArrayList<>();
+        for (Application a : this.internPostApplications) {
+            copiedApplications.append(a.deepCopy());
+        }
+
+        return new InternPost(
+                this.interPostId,
+                this.title,
+                this.desc,
+                this.location != null ? this.location.deepCopy() : null,
+                this.minMaxSalary,
+                copiedQualifications,
+                copiedExperiences,
+                copiedSkills,
+                copiedApplications
+        );
+    }
+
 }

@@ -173,7 +173,7 @@ public class ArrayList<T> implements ListInterface<T>{
 
     public void mergeSort(int left, int right, T[] array, Comparator<T> comparator) {
         if (left < right) {
-            int mid = (int) array.length / 2;
+            int mid = left + (right - left) / 2;
             mergeSort(left, mid, array, comparator);
             mergeSort(mid + 1, right, array, comparator);
 

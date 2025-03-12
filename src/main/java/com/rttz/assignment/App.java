@@ -21,7 +21,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
         Application.setUserAgentStylesheet(App.class.getResource("css/theme.css").toString());
-        scene = new Scene(loadFXML("interviewStudentScheduler"), 800, 600); 
+        scene = new Scene(loadFXML("InternJobSearch"), 800, 600); 
         stage.setScene(scene);
         stage.setMinHeight(600);
         stage.setMinWidth(800);
