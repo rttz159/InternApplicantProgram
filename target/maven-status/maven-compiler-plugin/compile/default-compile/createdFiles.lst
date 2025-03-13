@@ -8,6 +8,7 @@ entity\Skill.class
 control\MainControlClass.class
 entity\CompanyTest.class
 adt\SetInterface.class
+boundary\InternJobPostDetailsController$3.class
 control\CustomComparators.class
 adt\IntervalTree$Node.class
 entity\Interview.class
@@ -23,7 +24,9 @@ entity\Experience$IndustryType.class
 adt\ArrayCyclicQueue.class
 control\InterviewManager.class
 dao\InternPostDAOHelper.class
+boundary\InternJobPostDetailsController.class
 utils\InternPostBuilder.class
+utils\QualificationChecker.class
 control\CustomComparators$CompanyByNameComparator.class
 adt\Node.class
 adt\QueueInterface.class
@@ -49,6 +52,7 @@ adt\ArrayList$ArrayListIterator.class
 control\MainControlHelperClass.class
 utils\StudentBuilder.class
 adt\ListInterface.class
+boundary\InternJobPostDetailsController$2.class
 boundary\InternJobSearchController.class
 utils\CompanyBuilder.class
 adt\SinglyLinkList.class
@@ -84,9 +88,11 @@ adt\HashMap$Entry.class
 control\CustomComparators$LocationByCityComparator.class
 dao\DatabaseSetup.class
 adt\AttributeExtractor.class
+utils\InternshipSimulation.class
 adt\HashSet$HashSetIterator.class
 adt\ArrayCyclicQueue$ArrayCyclicQueueIterator.class
 utils\QualificationBuilder.class
 entity\Location$MalaysianRegion.class
+boundary\InternJobPostDetailsController$1.class
 control\CustomComparators$InternPostByMinSalaryComparator.class
 entity\Location.class

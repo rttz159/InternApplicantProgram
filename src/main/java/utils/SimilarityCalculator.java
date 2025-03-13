@@ -1,4 +1,5 @@
 package utils;
+
 import entity.*;
 import adt.SetInterface;
 
@@ -7,22 +8,25 @@ import adt.SetInterface;
  * @author rttz159
  */
 public class SimilarityCalculator {
+
     public static double calculateSimilarity(Student student, InternPost post) {
         double qualificationScore = calculateQualificationScore(student.getStudentQualifications(), post.getInternPostQualifications());
         double experienceScore = calculateExperienceScore(student.getStudentExperiences(), post.getInterPostExperiences());
         double skillScore = calculateSkillScore(student.getStudentSkills(), post.getInternPostSkills());
         double locationScore = calculateLocationScore(student.getLocation(), post.getLocation());
 
-        double w1 = 0.4; 
-        double w2 = 0.3; 
-        double w3 = 0.2; 
-        double w4 = 0.1; 
+        double w1 = 0.4;
+        double w2 = 0.3;
+        double w3 = 0.2;
+        double w4 = 0.1;
 
         return (w1 * qualificationScore) + (w2 * experienceScore) + (w3 * skillScore) + (w4 * locationScore);
     }
 
     public static double calculateQualificationScore(SetInterface<Qualification> studentQualifications, SetInterface<Qualification> postQualifications) {
-        if (postQualifications.isEmpty()) return 1.0;
+        if (postQualifications.isEmpty()) {
+            return 1.0;
+        }
         int totalMatch = 0;
         for (Qualification q : studentQualifications) {
             for (Qualification pq : postQualifications) {
@@ -36,7 +40,9 @@ public class SimilarityCalculator {
     }
 
     public static double calculateExperienceScore(SetInterface<Experience> studentExperiences, SetInterface<Experience> postExperiences) {
-        if (postExperiences.isEmpty()) return 1.0;
+        if (postExperiences.isEmpty()) {
+            return 1.0;
+        }
         int totalMatch = 0;
         for (Experience e : studentExperiences) {
             for (Experience pe : postExperiences) {
@@ -50,7 +56,9 @@ public class SimilarityCalculator {
     }
 
     public static double calculateSkillScore(SetInterface<Skill> studentSkills, SetInterface<Skill> postSkills) {
-        if (postSkills.isEmpty()) return 1.0;
+        if (postSkills.isEmpty()) {
+            return 1.0;
+        }
         int totalMatch = 0;
         for (Skill s : studentSkills) {
             for (Skill ps : postSkills) {
@@ -64,6 +72,6 @@ public class SimilarityCalculator {
     }
 
     public static double calculateLocationScore(Location studentLocation, Location postLocation) {
-        return studentLocation.getState().equalsIgnoreCase(postLocation.getState()) ? 1.0 : 0.0;
+        return Location.MalaysianRegion.distanceBetween(Location.MalaysianRegion.valueOf(studentLocation.getState()), Location.MalaysianRegion.valueOf(postLocation.getState()));
     }
 }

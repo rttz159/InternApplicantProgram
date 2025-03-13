@@ -3,16 +3,11 @@ package boundary;
 import adt.ArrayList;
 import adt.HashSet;
 import adt.ListInterface;
-import adt.OrderPair;
 import adt.SetInterface;
 import atlantafx.base.theme.Styles;
 import com.rttz.assignment.App;
 import control.MainControlClass;
 import entity.Application;
-import utils.ExperienceBuilder;
-import utils.InternPostBuilder;
-import utils.QualificationBuilder;
-import utils.SkillBuilder;
 import entity.Experience;
 import entity.InternPost;
 import entity.Location;
@@ -21,7 +16,6 @@ import entity.Skill;
 import entity.Student;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Comparator;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,6 +31,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.util.Callback;
+import utils.InternshipSimulation;
 import utils.SimilarityCalculator;
 
 /**
@@ -67,8 +62,6 @@ public class InternJobSearchController implements Initializable {
 
     private ListInterface<InternPost> filteredPost = new ArrayList<>();
 
-    private ObservableList<InternPost> post;
-
     private Student currentStudent;
 
     private ToggleGroup toggleGroup;
@@ -80,8 +73,15 @@ public class InternJobSearchController implements Initializable {
         internJobListView.setFixedCellSize(100);
         Styles.toggleStyleClass(internJobListView, Styles.STRIPED);
 
-        post = FXCollections.observableArrayList();
-        resetBtn.setOnAction(eh -> resetFilterList());
+        resetBtn.setOnAction(eh -> {
+            filteredPost.clear();
+            for (InternPost post : originalPost) {
+                filteredPost.append(post.deepCopy());
+            }
+            addFilteredListToObservableList();
+            toggleGroup.selectToggle(null);
+            searchTextField.setText("");
+        });
 
         searchBtn.setOnAction(eh -> filterInternPostsBySearch());
 
@@ -98,177 +98,19 @@ public class InternJobSearchController implements Initializable {
             }
         });
 
-        //Testing Purpose
-        buildSampleData();
-        for (var x : originalPost) {
-            this.filteredPost.append(x.deepCopy());
-        }
-        //Testing Purpose End
-
+        enrichOriginalPostList();
         addFilteredListToObservableList();
-    }
-
-    private void buildSampleData() {
-
-        SetInterface<Qualification> softwareQualifications = new HashSet<>();
-        softwareQualifications.add(new QualificationBuilder()
-                .qualificationType(Qualification.QualificationType.DIPLOMA)
-                .desc("Bachelor's degree in Computer Science or related field")
-                .level(1)
-                .institution("Any accredited university")
-                .yearOfComplete(2025)
-                .build());
-
-        SetInterface<Skill> softwareSkills = new HashSet<>();
-        softwareSkills.add(new SkillBuilder()
-                .skillType(Skill.SkillType.PROGRAMMING)
-                .name("Java")
-                .proficiencyLevel(4)
-                .build());
-        softwareSkills.add(new SkillBuilder()
-                .skillType(Skill.SkillType.PROGRAMMING)
-                .name("Python")
-                .proficiencyLevel(3)
-                .build());
-
-        SetInterface<Experience> softwareExperiences = new HashSet<>();
-        softwareExperiences.add(new ExperienceBuilder()
-                .desc("Developed a web application using Spring Boot")
-                .industryType(Experience.IndustryType.TECHNOLOGY)
-                .duration(6)
-                .build());
-
-        InternPost softwareIntern = new InternPostBuilder()
-                .title("Software Engineering Intern")
-                .desc("Work on real-world projects, collaborate with developers, and learn modern software development practices.")
-                .location(new Location("San Francisco", "CA"))
-                .minMaxSalary(new OrderPair<>(3000.0, 5000.0))
-                .qualifications(softwareQualifications)
-                .skills(softwareSkills)
-                .experiences(softwareExperiences)
-                .build();
-        SetInterface<Qualification> marketingQualifications = new HashSet<>();
-        marketingQualifications.add(new QualificationBuilder()
-                .qualificationType(Qualification.QualificationType.DIPLOMA)
-                .desc("Bachelor's degree in Marketing or Business Administration")
-                .level(1)
-                .institution("Any accredited university")
-                .yearOfComplete(2024)
-                .build());
-
-        SetInterface<Skill> marketingSkills = new HashSet<>();
-        marketingSkills.add(new SkillBuilder()
-                .skillType(Skill.SkillType.MARKETING)
-                .name("Social Media Management")
-                .proficiencyLevel(4)
-                .build());
-        marketingSkills.add(new SkillBuilder()
-                .skillType(Skill.SkillType.MARKETING)
-                .name("SEO Optimization")
-                .proficiencyLevel(3)
-                .build());
-
-        SetInterface<Experience> marketingExperiences = new HashSet<>();
-        marketingExperiences.add(new ExperienceBuilder()
-                .desc("Managed a company's social media presence and increased engagement by 30%")
-                .industryType(Experience.IndustryType.MANUFACTURING)
-                .duration(12)
-                .build());
-
-        InternPost marketingIntern = new InternPostBuilder()
-                .title("Marketing Intern")
-                .desc("Assist in content creation, social media management, and market research.")
-                .location(new Location("Selangor", "NY"))
-                .minMaxSalary(new OrderPair<>(2500.0, 4000.0))
-                .qualifications(marketingQualifications)
-                .skills(marketingSkills)
-                .experiences(marketingExperiences)
-                .build();
-        SetInterface<Qualification> dataScienceQualifications = new HashSet<>();
-        dataScienceQualifications.add(new QualificationBuilder()
-                .qualificationType(Qualification.QualificationType.DOCTORATE)
-                .desc("Master's degree in Data Science or related field")
-                .level(2)
-                .institution("Top universities")
-                .yearOfComplete(2025)
-                .build());
-
-        SetInterface<Skill> dataScienceSkills = new HashSet<>();
-        dataScienceSkills.add(new SkillBuilder()
-                .skillType(Skill.SkillType.DATA_ANALYSIS)
-                .name("Machine Learning")
-                .proficiencyLevel(5)
-                .build());
-        dataScienceSkills.add(new SkillBuilder()
-                .skillType(Skill.SkillType.DATA_ANALYSIS)
-                .name("Python (Pandas, NumPy, Scikit-learn)")
-                .proficiencyLevel(4)
-                .build());
-
-        SetInterface<Experience> dataScienceExperiences = new HashSet<>();
-        dataScienceExperiences.add(new ExperienceBuilder()
-                .desc("Built predictive models for sales forecasting using regression analysis")
-                .industryType(Experience.IndustryType.TECHNOLOGY)
-                .duration(8)
-                .build());
-
-        InternPost dataScienceIntern = new InternPostBuilder()
-                .title("Data Science Intern")
-                .desc("Analyze data, create machine learning models, and generate insights for business growth.")
-                .location(new Location("Remote", "HJEHURHAJEH"))
-                .minMaxSalary(new OrderPair<>(3500.0, 6000.0))
-                .qualifications(dataScienceQualifications)
-                .skills(dataScienceSkills)
-                .experiences(dataScienceExperiences)
-                .build();
-
-        originalPost.append(softwareIntern);
-        originalPost.append(marketingIntern);
-        originalPost.append(dataScienceIntern);
-        originalPost.append(softwareIntern);
-        originalPost.append(marketingIntern);
-        originalPost.append(dataScienceIntern);
-    }
-
-    public static Student getMockStudent() {
-        Location location = new Location("Selangor", "123, Jalan University, Petaling Jaya");
-
-        SetInterface<Qualification> qualifications = new HashSet<>();
-        qualifications.add(new Qualification("Q1", Qualification.QualificationType.BACHELOR_DEGREE, "Computer Science", 1, "University of Malaya", 2024));
-        qualifications.add(new Qualification("Q2", Qualification.QualificationType.CERTIFICATION, "AWS Certified Developer", 1, "AWS", 2023));
-
-        SetInterface<Experience> experiences = new HashSet<>();
-        experiences.add(new Experience("E1", "Software Development Intern at ABC Corp", Experience.IndustryType.TECHNOLOGY, 6));
-        experiences.add(new Experience("E2", "Freelance Web Developer", Experience.IndustryType.TECHNOLOGY, 12));
-
-        SetInterface<Skill> skills = new HashSet<>();
-        skills.add(new Skill("S1", Skill.SkillType.PROGRAMMING, "Java", 5));
-        skills.add(new Skill("S2", Skill.SkillType.PROGRAMMING, "Python", 4));
-        skills.add(new Skill("S3", Skill.SkillType.CLOUD_COMPUTING, "AWS", 3));
-
-        ListInterface<Application> applications = new ArrayList<>();
-
-        return new Student(
-                "S12345",
-                "john_doe",
-                "password123",
-                "012-3456789",
-                "john.doe@example.com",
-                location,
-                "John Doe",
-                22,
-                qualifications,
-                experiences,
-                skills,
-                applications
-        );
     }
 
     private void filterInternPostsBySearch() {
         String query = searchTextField.getText().trim().toLowerCase();
 
-        if (query.isEmpty()) {
-            resetFilterList();
+        if (query.isEmpty() || query.isBlank() || query.equals("") || query.trim().isEmpty() || query.trim().isBlank()) {
+            filteredPost.clear();
+            for (InternPost post : originalPost) {
+                filteredPost.append(post.deepCopy());
+            }
+            addFilteredListToObservableList();
             return;
         }
 
@@ -283,7 +125,7 @@ public class InternJobSearchController implements Initializable {
     }
 
     private boolean fuzzyMatch(String query, String text) {
-        int threshold = 4;
+        int threshold = 8;
 
         if (text.contains(query)) {
             return true;
@@ -328,14 +170,8 @@ public class InternJobSearchController implements Initializable {
     }
 
     private void resetFilterList() {
-        this.filteredPost.clear();
-        for (var x : originalPost) {
-            this.filteredPost.append(x.deepCopy());
-        }
-        internJobListView.getItems().clear();
-        for (var x : filteredPost) {
-            internJobListView.getItems().add(x);
-        }
+        filterInternPostsBySearch();
+        toggleGroup.selectToggle(null);
     }
 
     private void addFilteredListToObservableList() {
@@ -346,7 +182,7 @@ public class InternJobSearchController implements Initializable {
     }
 
     private void rankInternPostsBySimilarity() {
-        currentStudent = getMockStudent();//(Student) MainControlClass.getCurrentUser();
+        currentStudent = InternshipSimulation.getMockStudent();//(Student) MainControlClass.getCurrentUser();
         if (currentStudent == null) {
             return;
         }
@@ -360,7 +196,7 @@ public class InternJobSearchController implements Initializable {
     }
 
     private void rankInternPostsByLocation() {
-        currentStudent = getMockStudent();//(Student) MainControlClass.getCurrentUser();
+        currentStudent = InternshipSimulation.getMockStudent();//(Student) MainControlClass.getCurrentUser();
         if (currentStudent == null) {
             return;
         }
@@ -368,7 +204,7 @@ public class InternJobSearchController implements Initializable {
         filteredPost.sort((InternPost post1, InternPost post2) -> {
             double score1 = SimilarityCalculator.calculateLocationScore(currentStudent.getLocation(), post1.getLocation());
             double score2 = SimilarityCalculator.calculateLocationScore(currentStudent.getLocation(), post2.getLocation());
-            return Double.compare(score2, score1);
+            return Double.compare(score1, score2);
         });
         addFilteredListToObservableList();
     }
