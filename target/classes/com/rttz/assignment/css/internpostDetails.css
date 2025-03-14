@@ -5,3 +5,13 @@
 .form-hbox {
     -fx-padding: 5px 0 0 0;
 }
+
+.custom_button {
+  -fx-background-color: #221d53;
+  -fx-text-fill: white;
+  -fx-padding: 10px;
+}
+
+.custom_button:hover{
+    -fx-cursor:hand;
+}

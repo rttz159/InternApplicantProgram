@@ -35,6 +35,10 @@ public class MainControlClass {
         return getInstance().getCurrentUser();
     }
 
+    public static void setCurrentUser(User user) {
+        getInstance().setCurrentUser(user);
+    }
+
     public static boolean logIn(String username, String password, boolean isStudent) {
         return getInstance().login(username, password, isStudent);
     }
@@ -102,6 +106,10 @@ class MainControlHelperClass {
 
     public User getCurrentUser() {
         return this.currentUser;
+    }
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
     }
 
     public boolean login(String username, String password, boolean isStudent) {

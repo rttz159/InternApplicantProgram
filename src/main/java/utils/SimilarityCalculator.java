@@ -13,14 +13,12 @@ public class SimilarityCalculator {
         double qualificationScore = calculateQualificationScore(student.getStudentQualifications(), post.getInternPostQualifications());
         double experienceScore = calculateExperienceScore(student.getStudentExperiences(), post.getInterPostExperiences());
         double skillScore = calculateSkillScore(student.getStudentSkills(), post.getInternPostSkills());
-        double locationScore = calculateLocationScore(student.getLocation(), post.getLocation());
 
         double w1 = 0.4;
         double w2 = 0.3;
-        double w3 = 0.2;
-        double w4 = 0.1;
+        double w3 = 0.3;
 
-        return (w1 * qualificationScore) + (w2 * experienceScore) + (w3 * skillScore) + (w4 * locationScore);
+        return (w1 * qualificationScore) + (w2 * experienceScore) + (w3 * skillScore) ;
     }
 
     public static double calculateQualificationScore(SetInterface<Qualification> studentQualifications, SetInterface<Qualification> postQualifications) {
@@ -71,7 +69,7 @@ public class SimilarityCalculator {
         return (double) totalMatch / postSkills.size();
     }
 
-    public static double calculateLocationScore(Location studentLocation, Location postLocation) {
+    public static double calculateLocationDistance(Location studentLocation, Location postLocation) {
         return Location.MalaysianRegion.distanceBetween(Location.MalaysianRegion.valueOf(studentLocation.getState()), Location.MalaysianRegion.valueOf(postLocation.getState()));
     }
 }

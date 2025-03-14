@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 /**
  *
@@ -29,13 +30,13 @@ public class InternJobCardController {
 
     private InternPost internPost;
 
-    public void setInternPost(InternPost internpost) {
-        this.internPost = internpost;
-        setUp();
+    public void setInternPost(InternPost post, double similarityScore) {
+        this.internPost = post;
+        setUp(similarityScore);
     }
 
-    private void setUp() {
-        this.titleLabel.setText(internPost.getTitle() + " [ " + internPost.getLocation().getState() + " ]");
+    private void setUp(double similarityScore) {
+        this.titleLabel.setText(internPost.getTitle() + " [ " + internPost.getLocation().getState() + " ]" + String.format(" [Similarity: %.2f%%]", similarityScore * 100));
         this.descriptionLabel.setWrapText(true);
         this.descriptionLabel.setText(internPost.getDesc());
         this.detailsButton.setOnAction(ev -> {
@@ -49,6 +50,9 @@ public class InternJobCardController {
                 alert.setTitle("Internship Details");
                 alert.setHeaderText("");
                 alert.getDialogPane().setContent(node);
+                alert.getButtonTypes().clear();
+                Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.setOnCloseRequest(event -> stage.close());
                 alert.showAndWait();
 
             } catch (IOException ex) {

@@ -1,18 +1,13 @@
 package boundary;
 
 import adt.ArrayList;
-import adt.HashSet;
+import adt.HashMap;
 import adt.ListInterface;
-import adt.SetInterface;
+import adt.MapInterface;
 import atlantafx.base.theme.Styles;
 import com.rttz.assignment.App;
 import control.MainControlClass;
-import entity.Application;
-import entity.Experience;
 import entity.InternPost;
-import entity.Location;
-import entity.Qualification;
-import entity.Skill;
 import entity.Student;
 import java.io.IOException;
 import java.net.URL;
@@ -31,7 +26,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.util.Callback;
-import utils.InternshipSimulation;
 import utils.SimilarityCalculator;
 
 /**
@@ -66,9 +60,19 @@ public class InternJobSearchController implements Initializable {
 
     private ToggleGroup toggleGroup;
 
+    private MapInterface<InternPost, Double> similarityScores = new HashMap<>();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        internJobListView.setCellFactory(new CustomListCellFactory());
+        currentStudent = (Student) MainControlClass.getCurrentUser();
+        enrichOriginalPostList();
+
+        for (InternPost post : filteredPost) {
+            double score = SimilarityCalculator.calculateSimilarity(currentStudent, post);
+            similarityScores.put(post, score);
+        }
+
+        internJobListView.setCellFactory(new CustomListCellFactory(similarityScores));
         internJobListView.setSelectionModel(new NullSelectionModel());
         internJobListView.setFixedCellSize(100);
         Styles.toggleStyleClass(internJobListView, Styles.STRIPED);
@@ -96,9 +100,9 @@ public class InternJobSearchController implements Initializable {
             } else {
                 resetFilterList();
             }
+            internJobListView.scrollTo(0);
         });
 
-        enrichOriginalPostList();
         addFilteredListToObservableList();
     }
 
@@ -182,28 +186,25 @@ public class InternJobSearchController implements Initializable {
     }
 
     private void rankInternPostsBySimilarity() {
-        currentStudent = InternshipSimulation.getMockStudent();//(Student) MainControlClass.getCurrentUser();
         if (currentStudent == null) {
             return;
         }
 
-        filteredPost.sort((InternPost post1, InternPost post2) -> {
-            double score1 = SimilarityCalculator.calculateSimilarity(currentStudent, post1);
-            double score2 = SimilarityCalculator.calculateSimilarity(currentStudent, post2);
-            return Double.compare(score2, score1);
-        });
+        filteredPost.sort((post1, post2)
+                -> Double.compare(similarityScores.get(post2), similarityScores.get(post1))
+        );
+
         addFilteredListToObservableList();
     }
 
     private void rankInternPostsByLocation() {
-        currentStudent = InternshipSimulation.getMockStudent();//(Student) MainControlClass.getCurrentUser();
         if (currentStudent == null) {
             return;
         }
 
         filteredPost.sort((InternPost post1, InternPost post2) -> {
-            double score1 = SimilarityCalculator.calculateLocationScore(currentStudent.getLocation(), post1.getLocation());
-            double score2 = SimilarityCalculator.calculateLocationScore(currentStudent.getLocation(), post2.getLocation());
+            double score1 = SimilarityCalculator.calculateLocationDistance(currentStudent.getLocation(), post1.getLocation());
+            double score2 = SimilarityCalculator.calculateLocationDistance(currentStudent.getLocation(), post2.getLocation());
             return Double.compare(score1, score2);
         });
         addFilteredListToObservableList();
@@ -212,6 +213,12 @@ public class InternJobSearchController implements Initializable {
 }
 
 class CustomListCellFactory implements Callback<ListView<InternPost>, ListCell<InternPost>> {
+
+    private MapInterface<InternPost, Double> similarityScores;
+
+    public CustomListCellFactory(MapInterface<InternPost, Double> similarityScores) {
+        this.similarityScores = similarityScores;
+    }
 
     @Override
     public ListCell<InternPost> call(ListView<InternPost> listView) {
@@ -237,17 +244,19 @@ class CustomListCellFactory implements Callback<ListView<InternPost>, ListCell<I
                         }
                     }
                     if (controller != null) {
-                        controller.setInternPost(item);
+                        double score;
+                        try {
+                            score = similarityScores.get(item);
+                        } catch (Exception e) {
+                            score = 0;
+                        }
+                        controller.setInternPost(item, score);
                     }
                     this.setGraphic(node);
-                    this.setMaxWidth(Double.MAX_VALUE);
-                    this.setMinHeight(USE_COMPUTED_SIZE);
-                    this.setWrapText(true);
                 }
             }
         };
     }
-
 }
 
 class NullSelectionModel<T> extends MultipleSelectionModel<T> {

@@ -54,6 +54,36 @@ public class InternshipSimulation {
         );
     }
 
+    public static Student getQualifiedHospitalityStudent() {
+        Location location = new Location("KUALA_LUMPUR", "Company HQ, KUALA_LUMPUR");
+
+        SetInterface<Qualification> qualifications = new HashSet<>();
+        qualifications.add(new Qualification("Q1", Qualification.QualificationType.DOCTORATE, "Hospitality Management", 4, "University of Kuala Lumpur", 2022));
+
+        SetInterface<Experience> experiences = new HashSet<>();
+        experiences.add(new Experience("E1", "Hotel Manager", Experience.IndustryType.HOSPITALITY, 5));
+
+        SetInterface<Skill> skills = new HashSet<>();
+        skills.add(new Skill("S1", Skill.SkillType.LEADERSHIP, "Team Management", 2));
+
+        ListInterface<Application> applications = new ArrayList<>();
+
+        return new Student(
+                "S67890",
+                "jane_doe",
+                "securePass456",
+                "013-9876543",
+                "jane.doe@example.com",
+                location,
+                "Jane Doe",
+                30,
+                qualifications,
+                experiences,
+                skills,
+                applications
+        );
+    }
+
     public static void main(String[] args) {
         Random rand = new Random();
 

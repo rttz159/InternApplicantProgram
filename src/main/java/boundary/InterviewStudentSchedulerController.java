@@ -5,7 +5,6 @@ import adt.ListInterface;
 import adt.interval.Interval;
 import adt.interval.TimeInterval;
 import control.InterviewScheduler;
-import java.net.URL;
 import control.MainControlClass;
 import entity.Company;
 import entity.InternPost;
@@ -15,7 +14,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -40,7 +38,7 @@ import javafx.stage.Stage;
  *
  * @author rttz159
  */
-public class InterviewStudentSchedulerController implements Initializable {
+public class InterviewStudentSchedulerController {
 
     @FXML
     private Button cancelBtn;
@@ -68,69 +66,10 @@ public class InterviewStudentSchedulerController implements Initializable {
     private TimeInterval selectedTime;
 
     private Interview interview;
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        internPost = MainControlClass.getCompanies().getEntry(0).getInternPosts().getEntry(0); // Added due to testing purpose
-        toggleGroup = new ToggleGroup();
-        selectedDate = workingDate();
-
-        toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                ToggleButton selectedButton = (ToggleButton) newValue;
-                selectedTime = (TimeInterval) selectedButton.getUserData();
-            } else {
-                selectedTime = null;
-            }
-
-        });
-
-        interviewSchedulerDatePicker.setValue(selectedDate);
-
-        interviewSchedulerDatePicker.setDayCellFactory(picker -> new javafx.scene.control.DateCell() {
-            @Override
-            public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                if (date.isBefore(LocalDate.now()) || date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
-                    setDisable(true);
-                }
-            }
-        });
-
-        interviewSchedulerDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null && !newValue.equals(oldValue)) {
-                this.selectedDate = newValue;
-                updatePagination();
-            }
-        });
-
-        cancelBtn.setOnAction(eh -> {
-            ((Stage) cancelBtn.getScene().getWindow()).close();
-        });
-
-        confirmBtn.setOnAction(eh -> {
-            if (selectedDate == null) {
-                showErrorDialog("Please select a date");
-                return;
-            }
-
-            if (selectedTime == null) {
-                showErrorDialog("Please select a time");
-                return;
-            }
-
-            Optional<ButtonType> result = showConfirmationDialog(String.format("Selected Date and Time Slot: %s, %s", selectedDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), selectedTime.toString()));
-
-            if (result.isPresent()) {
-                if (result.get().getButtonData() == ButtonData.YES) {
-                    ((Stage) cancelBtn.getScene().getWindow()).close();
-                    System.out.println(String.format("Selected Date and Time Slot: %s, %s", selectedDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), selectedTime.toString()));
-                }
-            }
-        });
-
-        updatePagination();
-        setUp(); // Added due to testing purpose
+    
+    public void setInternPost (InternPost post){
+        this.internPost = post;
+        setUp();
     }
 
     public void showErrorDialog(String errorMessage) {
@@ -160,7 +99,7 @@ public class InterviewStudentSchedulerController implements Initializable {
     private LocalDate workingDate() {
         LocalDate workingDate = LocalDate.now();
         while (workingDate.getDayOfWeek() == DayOfWeek.SATURDAY || workingDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
-            workingDate.plusDays(1);
+            workingDate = workingDate.plusDays(1);
         }
         return workingDate;
     }
@@ -233,11 +172,64 @@ public class InterviewStudentSchedulerController implements Initializable {
     public void setUp() {
         findCompany(this.internPost);
         jobtitleTextLabel.setText(this.internPost.getTitle().toUpperCase() + "'s Interview Slot");
-    }
+        toggleGroup = new ToggleGroup();
+        selectedDate = workingDate();
 
-    public void setInternPost(InternPost internPost) {
-        this.internPost = internPost;
-        setUp();
+        toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                ToggleButton selectedButton = (ToggleButton) newValue;
+                selectedTime = (TimeInterval) selectedButton.getUserData();
+            } else {
+                selectedTime = null;
+            }
+
+        });
+
+        interviewSchedulerDatePicker.setValue(selectedDate);
+
+        interviewSchedulerDatePicker.setDayCellFactory(picker -> new javafx.scene.control.DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if (date.isBefore(LocalDate.now()) || date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                    setDisable(true);
+                }
+            }
+        });
+
+        interviewSchedulerDatePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && !newValue.equals(oldValue)) {
+                this.selectedDate = newValue;
+                updatePagination();
+            }
+        });
+
+        cancelBtn.setOnAction(eh -> {
+            ((Stage) cancelBtn.getScene().getWindow()).close();
+        });
+
+        confirmBtn.setOnAction(eh -> {
+            if (selectedDate == null) {
+                showErrorDialog("Please select a date");
+                return;
+            }
+
+            if (selectedTime == null) {
+                showErrorDialog("Please select a time");
+                return;
+            }
+
+            Optional<ButtonType> result = showConfirmationDialog(String.format("Selected Date and Time Slot: %s, %s", selectedDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), selectedTime.toString()));
+
+            if (result.isPresent()) {
+                if (result.get().getButtonData() == ButtonData.YES) {
+                    ((Stage) cancelBtn.getScene().getWindow()).close();
+                    System.out.println(String.format("Selected Date and Time Slot: %s, %s", selectedDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")), selectedTime.toString()));
+                }
+            }
+        });
+
+        updatePagination();
     }
 
     public void findCompany(InternPost internPost) {

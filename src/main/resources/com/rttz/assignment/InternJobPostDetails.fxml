@@ -83,7 +83,8 @@
                   </ScrollPane>
                   <HBox alignment="CENTER" VBox.vgrow="NEVER">
                      <children>
-                        <Button fx:id="applyBtn" mnemonicParsing="false" text="Apply">
+                        <Button fx:id="cancelBtn" mnemonicParsing="false" styleClass="custom_button" text="Cancel" />
+                        <Button fx:id="applyBtn" mnemonicParsing="false" styleClass="custom_button" text="Apply">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>

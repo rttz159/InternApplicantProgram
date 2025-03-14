@@ -46,6 +46,7 @@ boundary\NullSelectionModel.class
 entity\User.class
 boundary\InterviewStudentSchedulerController.class
 boundary\InternJobCardController.class
+boundary\DrawerMenuStudentController.class
 control\CustomComparators$UserByIdComparator.class
 utils\InterviewBuilder.class
 adt\ArrayList$ArrayListIterator.class
@@ -55,6 +56,7 @@ adt\ListInterface.class
 boundary\InternJobPostDetailsController$2.class
 boundary\InternJobSearchController.class
 utils\CompanyBuilder.class
+boundary\MainStudentDashboardController.class
 adt\SinglyLinkList.class
 adt\ArrayStack.class
 control\CustomComparators$InterviewComparator.class

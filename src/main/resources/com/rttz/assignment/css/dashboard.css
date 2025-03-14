@@ -1,0 +1,13 @@
+.drawer-button:hover{
+    -fx-cursor:hand;
+}
+
+#hamburger{
+    -fx-spacing: 5;
+    -fx-cursor: hand;
+}
+#hamburger{
+    -fx-pref-width: 40px;
+    -fx-pref-height: 7px;
+    -fx-background-radius : 5px;
+}
