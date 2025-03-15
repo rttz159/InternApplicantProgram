@@ -85,6 +85,7 @@ public class InternJobSearchController implements Initializable {
             addFilteredListToObservableList();
             toggleGroup.selectToggle(null);
             searchTextField.setText("");
+            internJobListView.scrollTo(0);
         });
 
         searchBtn.setOnAction(eh -> filterInternPostsBySearch());

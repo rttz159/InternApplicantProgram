@@ -3,8 +3,6 @@ package boundary;
 import com.rttz.assignment.App;
 import entity.InternPost;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -56,7 +54,7 @@ public class InternJobCardController {
                 alert.showAndWait();
 
             } catch (IOException ex) {
-                Logger.getLogger(InternJobCardController.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getMessage());
             }
         });
     }

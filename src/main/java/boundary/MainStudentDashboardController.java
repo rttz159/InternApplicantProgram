@@ -8,8 +8,6 @@ import com.rttz.assignment.App;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.Interpolator;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -65,13 +63,13 @@ public class MainStudentDashboardController {
                     drawerStack.toggle(drawer);
                     overlayVbox.setOpacity(.15);
                     overlayVbox.setMouseTransparent(false);
-                    transition.setRate(4);
+                    transition.setRate(2);
                     opened = true;
                 } else {
                     drawer.close();
                     overlayVbox.setOpacity(0);
                     overlayVbox.setMouseTransparent(true);
-                    transition.setRate(-4);
+                    transition.setRate(-2);
                     opened = false;
                 }
                 transition.play();
@@ -82,7 +80,7 @@ public class MainStudentDashboardController {
                     drawer.close();
                     overlayVbox.setOpacity(0);
                     overlayVbox.setMouseTransparent(true);
-                    transition.setRate(-4);
+                    transition.setRate(-2);
                     transition.play();
                 }
             });
