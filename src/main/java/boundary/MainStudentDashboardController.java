@@ -1,5 +1,6 @@
 package boundary;
 
+import boundary.joblisting.ApplicationSharedState;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXDrawersStack;
 import com.jfoenix.controls.JFXHamburger;
@@ -46,7 +47,7 @@ public class MainStudentDashboardController {
         try {
             opened = false;
             HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(hamburger);
-            
+
             transition.setInterpolator(Interpolator.EASE_BOTH);
             for (Node node : hamburger.getChildren()) {
                 if (node instanceof StackPane) {
@@ -107,12 +108,19 @@ public class MainStudentDashboardController {
 
             drawer.setOnDrawerClosed(event -> drawer.setOverLayVisible(false));
 
+            ApplicationSharedState.getInstance().addAppliedListener((obs, oldValue, newValue) -> {
+                if (newValue) {
+                    changeMainContent("StudentApplicationHistory");
+                    menuController.setIdx(1);
+                }
+            });
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void changeMainContent(String fxmlFileName)  {
+    public void changeMainContent(String fxmlFileName) {
         mainContent.getChildren().clear();
         try {
             mainContent.getChildren().add(FXMLLoader.load(App.class.getResource(fxmlFileName + ".fxml")));

@@ -45,7 +45,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        MainControlClass.setCurrentUser(InternshipSimulation.getQualifiedHospitalityStudent());//testing purpose
+        MainControlClass.setCurrentUser(MainControlClass.getStudentsMap().get("bobo1231231"));//testing purpose
         launch();
     }
 

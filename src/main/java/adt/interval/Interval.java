@@ -9,7 +9,7 @@ public class Interval<T extends Comparable<T>> {
     public T start, end;
 
     public Interval(T start, T end) {
-        if (start.compareTo(end) > 0) {
+        if (start.compareTo(end) >= 0) {
             throw new IllegalArgumentException("Start must be <= end");
         }
         this.start = start;

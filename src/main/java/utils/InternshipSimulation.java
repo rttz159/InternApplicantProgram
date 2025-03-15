@@ -1,5 +1,12 @@
 package utils;
 
+import utils.builders.ExperienceBuilder;
+import utils.builders.InterviewBuilder;
+import utils.builders.CompanyBuilder;
+import utils.builders.StudentBuilder;
+import utils.builders.ApplicationBuilder;
+import utils.builders.QualificationBuilder;
+import utils.builders.InternPostBuilder;
 import adt.HashSet;
 import adt.OrderPair;
 import adt.ArrayList;

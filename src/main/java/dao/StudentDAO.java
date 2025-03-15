@@ -178,7 +178,7 @@ public class StudentDAO {
             "DELETE FROM student_qualification WHERE userId = ?",
             "DELETE FROM student_skill WHERE userId = ?",
             "DELETE FROM student_experience WHERE userId = ?",
-            "DELETE FROM interview WHERE applicationId IN (SELECT applicationId FROM application WHERE applicantId = ?)",
+            "DELETE FROM interview_student WHERE applicationId IN (SELECT applicationId FROM application WHERE applicantId = ?)",
             "DELETE FROM application WHERE applicantId = ?"
         };
 
@@ -194,6 +194,8 @@ public class StudentDAO {
         String qualificationSql = "INSERT INTO student_qualification (qualificationId, userId, qualificationType, desc, level, institution, yearOfComplete) VALUES (?, ?, ?, ?, ?, ?, ?)";
         String skillSql = "INSERT INTO student_skill (skillId, userId, skilltype, name, proficiencyLevel) VALUES (?, ?, ?, ?, ?)";
         String experienceSql = "INSERT INTO student_experience (experienceId, userId, desc, industryType, duration) VALUES (?, ?, ?, ?, ?)";
+        String applicationSql = "INSERT INTO application (applicationId, internPostId, applicantId, status) VALUES (?, ?, ?, ?)";
+        String interviewSql = "INSERT INTO interview_student (interviewId,applicationId,date,start_time) VALUES (?,?,?,?)";
 
         try (PreparedStatement pstmt = conn.prepareStatement(qualificationSql)) {
             for (Qualification qualification : student.getStudentQualifications()) {
@@ -228,6 +230,28 @@ public class StudentDAO {
                 pstmt.setString(3, experience.getDesc());
                 pstmt.setString(4, experience.getIndustryType().toString());
                 pstmt.setInt(5, experience.getDuration());
+                pstmt.addBatch();
+            }
+            pstmt.executeBatch();
+        }
+
+        try (PreparedStatement pstmt = conn.prepareStatement(applicationSql)) {
+            for (Application application : student.getStudentApplications()) {
+                pstmt.setString(1, application.getApplicationId());
+                pstmt.setString(2, application.getInternPostId());
+                pstmt.setString(3, student.getUserId());
+                pstmt.setString(4, application.getStatus().toString());
+                pstmt.addBatch();
+            }
+            pstmt.executeBatch();
+        }
+
+        try (PreparedStatement pstmt = conn.prepareStatement(interviewSql)) {
+            for (Application application : student.getStudentApplications()) {
+                pstmt.setString(1, application.getInterview().getInterviewId());
+                pstmt.setString(2, application.getApplicationId());
+                pstmt.setString(3, application.getInterview().getDate().toString());
+                pstmt.setString(4, application.getInterview().getStart_time().toString());
                 pstmt.addBatch();
             }
             pstmt.executeBatch();
@@ -322,7 +346,7 @@ public class StudentDAO {
     }
 
     private static Interview getInterviewByApplicationId(String applicationId, Connection conn) throws SQLException {
-        String sql = "SELECT * FROM interview WHERE applicationId = ?";
+        String sql = "SELECT * FROM interview_student WHERE applicationId = ?";
         Interview interview = null;
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {

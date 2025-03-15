@@ -1,5 +1,6 @@
 package control;
 
+import adt.ArrayList;
 import adt.HashMap;
 import adt.ListInterface;
 import adt.MapInterface;
@@ -7,6 +8,7 @@ import dao.CompanyDAO;
 import dao.DatabaseSetup;
 import dao.StudentDAO;
 import entity.Company;
+import entity.InternPost;
 import entity.Student;
 import entity.User;
 import java.sql.SQLException;
@@ -55,6 +57,10 @@ public class MainControlClass {
         return getInstance().getCompanies();
     }
 
+    public static ListInterface<InternPost> getInternPost() {
+        return getInstance().getInternPost();
+    }
+
     public static MapInterface<String, Student> getStudentsMap() {
         return getInstance().getStudentsMap();
     }
@@ -62,14 +68,20 @@ public class MainControlClass {
     public static MapInterface<String, Company> getCompanyMap() {
         return getInstance().getCompanyMap();
     }
+
+    public static MapInterface<String, InternPost> getInternPostMap() {
+        return getInstance().getInternPostMap();
+    }
 }
 
 class MainControlHelperClass {
 
     private ListInterface<Student> students;
     private ListInterface<Company> companies;
+    private ListInterface<InternPost> internpost;
     private MapInterface<String, Student> studentMap = new HashMap<>();
     private MapInterface<String, Company> companyMap = new HashMap<>();
+    private MapInterface<String, InternPost> internpostMap = new HashMap<>();
     private User currentUser;
 
     public MainControlHelperClass() {
@@ -83,6 +95,18 @@ class MainControlHelperClass {
             for (var x : companies) {
                 companyMap.put(x.getUsername(), x);
             }
+            internpost = new ArrayList<>();
+            for (var x : this.companies) {
+                if (x.getInternPosts() != null) {
+                    for (var y : x.getInternPosts()) {
+                        internpost.append(y);
+                    }
+                }
+            }
+            for (var x : internpost) {
+                internpostMap.put(x.getInterPostId(), x);
+            }
+
         } catch (SQLException ex) {
             System.out.println("Error happened when loading data from database.");
         }
@@ -96,12 +120,20 @@ class MainControlHelperClass {
         return this.companies;
     }
 
+    public ListInterface<InternPost> getInternPost() {
+        return this.internpost;
+    }
+
     public MapInterface<String, Student> getStudentsMap() {
         return this.studentMap;
     }
 
     public MapInterface<String, Company> getCompanyMap() {
         return this.companyMap;
+    }
+
+    public MapInterface<String, InternPost> getInternPostMap() {
+        return this.internpostMap;
     }
 
     public User getCurrentUser() {

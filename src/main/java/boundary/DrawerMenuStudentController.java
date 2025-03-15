@@ -38,7 +38,7 @@ public class DrawerMenuStudentController {
         this.applicationBtn.setOnAction(ev -> {
             if (selectedIdx != 1) {
                 System.out.println("Clicked 1");
-                //parentController.changeMainContent("InternJobSearch");
+                parentController.changeMainContent("StudentApplicationHistory");
                 selectedIdx = 1;
             }
         });
@@ -49,5 +49,9 @@ public class DrawerMenuStudentController {
                 selectedIdx = 2;
             }
         });
+    }
+
+    public void setIdx(int idx) {
+        this.selectedIdx = idx;
     }
 }
