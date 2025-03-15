@@ -146,7 +146,7 @@ public class HashSet<T> implements SetInterface<T> {
 
         return valid;
     }
-    
+
     @Override
     public <A> boolean isSubSetByAttribute(SetInterface<T> anotherSet, AttributeExtractor<T, A> extractor) {
         if (anotherSet == null || !(anotherSet instanceof HashSet)) {
@@ -160,10 +160,10 @@ public class HashSet<T> implements SetInterface<T> {
 
         for (T x : this) {
             boolean found = false;
-            A attributeX = extractor.extract(x); 
+            A attributeX = extractor.extract(x);
 
             for (T y : tempSet) {
-                A attributeY = extractor.extract(y); 
+                A attributeY = extractor.extract(y);
                 if (attributeX.equals(attributeY)) {
                     found = true;
                     break;
@@ -175,6 +175,59 @@ public class HashSet<T> implements SetInterface<T> {
             }
         }
         return true;
+    }
+
+    @Override
+    public <A, B extends Comparable<B>> boolean isSupSetByAttributes(SetInterface<T> anotherSet, AttributeExtractor<T, A> extractor, AttributeExtractor<T, B> levelExtractor) {
+        if (anotherSet == null || !(anotherSet instanceof HashSet)) {
+            return false;
+        }
+
+        HashSet<T> tempSet = (HashSet<T>) anotherSet;
+        if (this.size > tempSet.size) {
+            return false;
+        }
+
+        for (T x : tempSet) {
+            boolean found = false;
+            A attributeX = extractor.extract(x);
+            B levelX = levelExtractor.extract(x);
+
+            for (T y : this) {
+                A attributeY = extractor.extract(y);
+                B levelY = levelExtractor.extract(y);
+                if (attributeX.equals(attributeY) && levelX.compareTo(levelY) != 1) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public <A, B extends Comparable<B>> double fulfillmentScore(SetInterface<T> anotherSet, AttributeExtractor<T, A> extractor, AttributeExtractor<T, B> levelExtractor) {
+        if (anotherSet.isEmpty()) {
+            return 1.0;
+        }
+        int totalMatch = 0;
+        for (T x : this) {
+            A attributeX = extractor.extract(x);
+            B levelX = levelExtractor.extract(x);
+            for (T y : anotherSet) {
+                A attributeY = extractor.extract(y);
+                B levelY = levelExtractor.extract(y);
+                if (attributeX.equals(attributeY) && levelX.compareTo(levelY) != -1) {
+                    totalMatch++;
+                    break;
+                }
+            }
+        }
+        return (double) totalMatch / anotherSet.size();
     }
 
     @Override
