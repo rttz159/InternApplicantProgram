@@ -19,7 +19,6 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 /**
  *
@@ -113,7 +112,7 @@ public class MainStudentDashboardController {
                     }else if(newValue.equals(1)){
                         changeMainContent("StudentApplicationHistory");
                     }else if(newValue.equals(2)){
-                        //changeMainContent("StudentApplicationHistory");
+                        changeMainContent("StudentProfileManagement");
                     }
                 }
             });

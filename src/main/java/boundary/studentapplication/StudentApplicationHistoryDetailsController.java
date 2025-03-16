@@ -1,6 +1,5 @@
 package boundary.studentapplication;
 
-import boundary.joblisting.*;
 import control.MainControlClass;
 import dao.CompanyDAO;
 import dao.StudentDAO;
@@ -12,8 +11,6 @@ import entity.Interview;
 import entity.Qualification;
 import entity.Skill;
 import entity.Student;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import javafx.fxml.FXML;
@@ -24,13 +21,12 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import utils.builders.ApplicationBuilder;
 
 /**
  *
  * @author rttz159
  */
-public class StudentApplicationHistoryDetails {
+public class StudentApplicationHistoryDetailsController {
 
     @FXML
     private Button okBtn;

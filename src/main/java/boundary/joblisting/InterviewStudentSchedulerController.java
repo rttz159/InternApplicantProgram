@@ -86,7 +86,7 @@ public class InterviewStudentSchedulerController {
         alert.showAndWait();
     }
 
-    public Optional<ButtonType> showConfirmationDialog(String message) {
+    private Optional<ButtonType> showConfirmationDialog(String message) {
         var alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Are you sure?");

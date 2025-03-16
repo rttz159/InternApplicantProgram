@@ -31,7 +31,7 @@ public class App extends Application {
                     }else if(newValue.equals(1)){
                         stage.setTitle("Application History");
                     }else if(newValue.equals(2)){
-                        //changeMainContent("StudentApplicationHistory");
+                        stage.setTitle("Profile Management");
                     }
                 }
             });

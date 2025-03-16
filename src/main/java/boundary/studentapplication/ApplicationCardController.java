@@ -48,7 +48,7 @@ public class ApplicationCardController {
         this.detailsButton.setOnAction(eh -> {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("StudentApplicationHistoryDetails.fxml"));
             Node node = null;
-            StudentApplicationHistoryDetails controller = null;
+            StudentApplicationHistoryDetailsController controller = null;
             try {
                 node = fxmlLoader.load();
                 controller = fxmlLoader.getController();

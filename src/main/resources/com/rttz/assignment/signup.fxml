@@ -86,7 +86,7 @@
                                           <TextField fx:id="signupCompanyContactNoTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                           <TextField fx:id="signupCompanyEmailTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                           <Label text="Email" GridPane.rowIndex="3" />
-                                          <Label text="City" GridPane.rowIndex="4" />
+                                          <Label text="State" GridPane.rowIndex="4" />
                                           <Label text="Comp. Name" GridPane.rowIndex="6" />
                                           <TextArea fx:id="signupCompanyAddressTextArea" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                           <Label text="Industry Type" GridPane.rowIndex="7" />
@@ -132,7 +132,7 @@
                                           <TextField fx:id="signupStudentContactNoTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                           <TextField fx:id="signupStudentEmailTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                           <Label text="Email" GridPane.rowIndex="3" />
-                                          <Label text="City" GridPane.rowIndex="4" />
+                                          <Label text="State" GridPane.rowIndex="4" />
                                           <Label text="Name" GridPane.rowIndex="6" />
                                           <TextArea fx:id="signupStudentAddressTextArea" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                           <Label text="Age" GridPane.rowIndex="7" />

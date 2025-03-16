@@ -24,6 +24,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
+import utils.Validation;
 
 /**
  *
@@ -184,58 +185,70 @@ public class SignupPageController implements Initializable {
     private void validateFieldsAndSignUp(boolean isStudent) {
         boolean valid = true;
         if (isStudent) {
-            valid = validateUsername(signupStudentUsernameTextField.getText());
-            signupStudentUsernameTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !valid);
-            signupStudentUsernameTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, valid);
+            boolean usernameValid = validateUsername(signupStudentUsernameTextField.getText());
+            signupStudentUsernameTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !usernameValid);
+            signupStudentUsernameTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, usernameValid);
+            valid &= usernameValid;
 
-            valid = validatePassword(signupStudentPasswordTextField.getText());
-            signupStudentPasswordTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !valid);
-            signupStudentPasswordTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, valid);
+            boolean passwordValid = validatePassword(signupStudentPasswordTextField.getText());
+            signupStudentPasswordTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !passwordValid);
+            signupStudentPasswordTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, passwordValid);
+            valid &= passwordValid;
 
-            valid = validateContactNo(signupStudentContactNoTextField.getText());
-            signupStudentContactNoTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !valid);
-            signupStudentContactNoTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, valid);
+            boolean contactValid = validateContactNo(signupStudentContactNoTextField.getText());
+            signupStudentContactNoTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !contactValid);
+            signupStudentContactNoTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, contactValid);
+            valid &= contactValid;
 
-            valid = validateEmail(signupStudentEmailTextField.getText());
-            signupStudentEmailTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !valid);
-            signupStudentEmailTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, valid);
+            boolean emailValid = validateEmail(signupStudentEmailTextField.getText());
+            signupStudentEmailTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !emailValid);
+            signupStudentEmailTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, emailValid);
+            valid &= emailValid;
 
-            valid = validateAddress(signupStudentAddressTextArea.getText());
-            signupStudentAddressTextArea.pseudoClassStateChanged(Styles.STATE_DANGER, !valid);
-            signupStudentAddressTextArea.pseudoClassStateChanged(Styles.STATE_SUCCESS, valid);
+            boolean addressValid = validateAddress(signupStudentAddressTextArea.getText());
+            signupStudentAddressTextArea.pseudoClassStateChanged(Styles.STATE_DANGER, !addressValid);
+            signupStudentAddressTextArea.pseudoClassStateChanged(Styles.STATE_SUCCESS, addressValid);
+            valid &= addressValid;
 
-            valid = validateName(signupStudentNameTextField.getText());
-            signupStudentNameTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !valid);
-            signupStudentNameTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, valid);
+            boolean nameValid = validateName(signupStudentNameTextField.getText());
+            signupStudentNameTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !nameValid);
+            signupStudentNameTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, nameValid);
+            valid &= nameValid;
 
-            valid = validateAge(signupStudentAgeTextField.getText());
-            signupStudentAgeTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !valid);
-            signupStudentAgeTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, valid);
+            boolean ageValid = validateAge(signupStudentAgeTextField.getText());
+            signupStudentAgeTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !ageValid);
+            signupStudentAgeTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, ageValid);
+            valid &= ageValid;
         } else {
+            boolean usernameValid = validateUsername(signupCompanyUsernameTextField.getText());
+            signupCompanyUsernameTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !usernameValid);
+            signupCompanyUsernameTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, usernameValid);
+            valid &= usernameValid;
 
-            valid = validateUsername(signupCompanyUsernameTextField.getText());
-            signupCompanyUsernameTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !valid);
-            signupCompanyUsernameTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, valid);
+            boolean passwordValid = validatePassword(signupCompanyPasswordTextField.getText());
+            signupCompanyPasswordTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !passwordValid);
+            signupCompanyPasswordTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, passwordValid);
+            valid &= passwordValid;
 
-            valid = validatePassword(signupCompanyPasswordTextField.getText());
-            signupCompanyPasswordTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !valid);
-            signupCompanyPasswordTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, valid);
+            boolean contactValid = validateContactNo(signupCompanyContactNoTextField.getText());
+            signupCompanyContactNoTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !contactValid);
+            signupCompanyContactNoTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, contactValid);
+            valid &= contactValid;
 
-            valid = validateContactNo(signupCompanyContactNoTextField.getText());
-            signupCompanyContactNoTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !valid);
-            signupCompanyContactNoTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, valid);
+            boolean emailValid = validateEmail(signupCompanyEmailTextField.getText());
+            signupCompanyEmailTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !emailValid);
+            signupCompanyEmailTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, emailValid);
+            valid &= emailValid;
 
-            valid = validateEmail(signupCompanyEmailTextField.getText());
-            signupCompanyEmailTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !valid);
-            signupCompanyEmailTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, valid);
+            boolean addressValid = validateAddress(signupCompanyAddressTextArea.getText());
+            signupCompanyAddressTextArea.pseudoClassStateChanged(Styles.STATE_DANGER, !addressValid);
+            signupCompanyAddressTextArea.pseudoClassStateChanged(Styles.STATE_SUCCESS, addressValid);
+            valid &= addressValid;
 
-            valid = validateAddress(signupCompanyAddressTextArea.getText());
-            signupCompanyAddressTextArea.pseudoClassStateChanged(Styles.STATE_DANGER, !valid);
-            signupCompanyAddressTextArea.pseudoClassStateChanged(Styles.STATE_SUCCESS, valid);
-
-            valid = validateName(signupCompanyCompNameTextField.getText());
-            signupCompanyCompNameTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !valid);
-            signupCompanyCompNameTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, valid);
+            boolean nameValid = validateName(signupCompanyCompNameTextField.getText());
+            signupCompanyCompNameTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !nameValid);
+            signupCompanyCompNameTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, nameValid);
+            valid &= nameValid;
         }
 
         if (valid) {
@@ -288,11 +301,11 @@ public class SignupPageController implements Initializable {
     }
 
     private boolean validateContactNo(String contactNo) {
-        return isValidPhoneNumber(contactNo);
+        return Validation.isValidPhoneNumber(contactNo);
     }
 
     private boolean validateEmail(String email) {
-        return isValidEmail(email);
+        return Validation.isValidEmail(email);
     }
 
     private boolean validateAddress(String address) {
@@ -334,20 +347,4 @@ public class SignupPageController implements Initializable {
         alert.setResizable(false);
         alert.showAndWait();
     }
-
-    private boolean isTextFieldNotEmpty(TextField textField) {
-        String text = textField.getText();
-        return text != null && !text.trim().isEmpty();
-    }
-
-    private boolean isValidEmail(String email) {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        return email != null && email.matches(emailRegex);
-    }
-
-    private boolean isValidPhoneNumber(String phoneNumber) {
-        String phoneRegex = "^(\\+?6?01)[0-46-9]-*[0-9]{7,8}$";
-        return phoneNumber != null && phoneNumber.matches(phoneRegex);
-    }
-
 }
