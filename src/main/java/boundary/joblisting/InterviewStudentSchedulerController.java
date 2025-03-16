@@ -256,7 +256,7 @@ public class InterviewStudentSchedulerController {
         updatePagination();
     }
 
-    public void findCompany(InternPost internPost) {
+    private void findCompany(InternPost internPost) {
         for (var x : MainControlClass.getCompanies()) {
             if (x.getInternPosts().contains(internPost)) {
                 this.company = x;

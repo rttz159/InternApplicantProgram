@@ -1,5 +1,6 @@
 package com.rttz.assignment;
 
+import boundary.MainSharedState;
 import control.MainControlClass;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import utils.InternshipSimulation;
 
 /**
  *
@@ -24,6 +24,17 @@ public class App extends Application {
         primaryStage = stage;
         Application.setUserAgentStylesheet(App.class.getResource("css/theme.css").toString());
         scene = new Scene(loadFXML("dashboard"), 800, 600);
+        MainSharedState.getInstance().addSelectedIdxListener((obs, oldValue, newValue) -> {
+                if(MainSharedState.getInstance().isStudent() && oldValue != newValue){
+                    if(newValue.equals(0)){
+                        stage.setTitle("Intern Post Listing");
+                    }else if(newValue.equals(1)){
+                        stage.setTitle("Application History");
+                    }else if(newValue.equals(2)){
+                        //changeMainContent("StudentApplicationHistory");
+                    }
+                }
+            });
         stage.setScene(scene);
         stage.setMinHeight(600);
         stage.setMinWidth(800);
@@ -46,6 +57,8 @@ public class App extends Application {
 
     public static void main(String[] args) {
         MainControlClass.setCurrentUser(MainControlClass.getStudentsMap().get("bobo1231231"));//testing purpose
+        MainSharedState.getInstance().setIsStudent(true);//testing purpose
+        MainSharedState.getInstance().setIsLogined(true);//testing purpose
         launch();
     }
 

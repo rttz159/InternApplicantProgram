@@ -1,13 +1,17 @@
 package boundary;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 /**
  *
  * @author rttz159
  */
-public class DrawerMenuStudentController {
+public class DrawerMenuStudentController implements Initializable {
 
     @FXML
     private Button applicationBtn;
@@ -18,40 +22,29 @@ public class DrawerMenuStudentController {
     @FXML
     private Button profileBtn;
 
-    private int selectedIdx = 0;
-
-    private MainStudentDashboardController parentController;
-
-    public void setDashboardController(MainStudentDashboardController parentController) {
-        this.parentController = parentController;
-        setUp();
-    }
-
     public void setUp() {
         this.homeBtn.setOnAction(ev -> {
-            if (selectedIdx != 0) {
+            if (MainSharedState.getInstance().getSelectedIdx() != 0) {
                 System.out.println("Clicked 0");
-                parentController.changeMainContent("InternJobSearch");
-                selectedIdx = 0;
+                MainSharedState.getInstance().setSelectedIdx(0);
             }
         });
         this.applicationBtn.setOnAction(ev -> {
-            if (selectedIdx != 1) {
+            if (MainSharedState.getInstance().getSelectedIdx() != 1) {
                 System.out.println("Clicked 1");
-                parentController.changeMainContent("StudentApplicationHistory");
-                selectedIdx = 1;
+                MainSharedState.getInstance().setSelectedIdx(1);
             }
         });
         this.profileBtn.setOnAction(ev -> {
-            if (selectedIdx != 2) {
+            if (MainSharedState.getInstance().getSelectedIdx() != 2) {
                 System.out.println("Clicked 2");
-                //parentController.changeMainContent("InternJobSearch");
-                selectedIdx = 2;
+                MainSharedState.getInstance().setSelectedIdx(2);
             }
         });
     }
 
-    public void setIdx(int idx) {
-        this.selectedIdx = idx;
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        setUp();
     }
 }

@@ -184,7 +184,7 @@ public class HashSet<T> implements SetInterface<T> {
         }
 
         HashSet<T> tempSet = (HashSet<T>) anotherSet;
-        if (this.size > tempSet.size) {
+        if (this.size < tempSet.size) {
             return false;
         }
 
@@ -196,7 +196,7 @@ public class HashSet<T> implements SetInterface<T> {
             for (T y : this) {
                 A attributeY = extractor.extract(y);
                 B levelY = levelExtractor.extract(y);
-                if (attributeX.equals(attributeY) && levelX.compareTo(levelY) != 1) {
+                if (attributeX.equals(attributeY) && levelY.compareTo(levelX) >= 0) {
                     found = true;
                     break;
                 }

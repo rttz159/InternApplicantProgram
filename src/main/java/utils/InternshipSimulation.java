@@ -1,5 +1,6 @@
 package utils;
 
+import utils.builders.SkillBuilder;
 import utils.builders.ExperienceBuilder;
 import utils.builders.InterviewBuilder;
 import utils.builders.CompanyBuilder;

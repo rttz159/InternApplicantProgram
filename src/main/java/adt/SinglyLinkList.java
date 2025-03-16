@@ -92,6 +92,7 @@ public class SinglyLinkList<T> implements ListInterface<T> {
         return removedNode.data;
     }
 
+    @Override
     public T remove(T item) {
         if (isEmpty()) {
             throw new NoSuchElementException();

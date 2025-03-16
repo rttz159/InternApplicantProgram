@@ -18,6 +18,7 @@ import entity.Student;
 public class test {
 
     public static void main(String[] args) {
+        StudentDAO.deleteStudentById(getQualifiedStudent().getUserId());
         StudentDAO.insertStudent(getQualifiedStudent()); //bobo1231231
     }
 
@@ -26,12 +27,15 @@ public class test {
 
         SetInterface<Qualification> qualifications = new HashSet<>();
         qualifications.add(new Qualification("Q1", Qualification.QualificationType.MASTER_DEGREE, "Hospitality Management", 5, "University of Kuala Lumpur", 2022));
+        qualifications.add(new Qualification("Q2", Qualification.QualificationType.DOCTORATE, "Hospitality Management", 5, "University of Kuala Lumpur", 2022));
 
         SetInterface<Experience> experiences = new HashSet<>();
         experiences.add(new Experience("E1", "Hotel Manager", Experience.IndustryType.RETAIL, 5));
+        experiences.add(new Experience("E2", "Energy Manager", Experience.IndustryType.ENERGY, 6));
 
         SetInterface<Skill> skills = new HashSet<>();
         skills.add(new Skill("S1", Skill.SkillType.NETWORKING, "Team Management", 4));
+        skills.add(new Skill("S2", Skill.SkillType.PROJECT_MANAGEMENT, "Team Management", 4));
 
         ListInterface<Application> applications = new ArrayList<>();
 

@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
  * @author rttz159
  * @param <T>
  */
-public class ArrayList<T> implements ListInterface<T>{
+public class ArrayList<T> implements ListInterface<T> {
 
     private int numberOfEntries;
     private int capacity;
@@ -77,6 +77,29 @@ public class ArrayList<T> implements ListInterface<T>{
         System.arraycopy(this.arrayInstance, givenPosition + 1, this.arrayInstance, givenPosition, numberOfItemsNeedToCopy);
         this.numberOfEntries--;
         return entry;
+    }
+
+    @Override
+    public T remove(T givenEntry) {
+        int idx = -1;
+        T temp = null;
+        
+        for (int i = 0; i < numberOfEntries; i++) {
+            if (this.arrayInstance[i].equals(givenEntry)) {
+                idx = i;
+                temp = this.arrayInstance[i];
+                break;
+            }
+        }
+
+        if (idx == -1) {
+            return null;
+        }
+
+        int numberOfItemsNeedToCopy = this.numberOfEntries - (idx + 1);
+        System.arraycopy(this.arrayInstance, idx + 1, this.arrayInstance, idx, numberOfItemsNeedToCopy);
+        this.numberOfEntries--;
+        return temp;
     }
 
     @Override
@@ -163,12 +186,12 @@ public class ArrayList<T> implements ListInterface<T>{
 
     @Override
     public void sort() {
-        mergeSort(0,numberOfEntries - 1, arrayInstance, null);
+        mergeSort(0, numberOfEntries - 1, arrayInstance, null);
     }
 
     @Override
     public void sort(Comparator<T> comparator) {
-        mergeSort(0,numberOfEntries - 1, arrayInstance, comparator);
+        mergeSort(0, numberOfEntries - 1, arrayInstance, comparator);
     }
 
     public void mergeSort(int left, int right, T[] array, Comparator<T> comparator) {

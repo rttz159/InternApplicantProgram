@@ -19,35 +19,36 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 /**
  *
  * @author rttz159
  */
 public class MainStudentDashboardController {
-
+    
     @FXML
     private JFXDrawersStack drawerStack;
-
+    
     @FXML
     private JFXHamburger hamburger;
-
+    
     @FXML
     private VBox mainContent;
-
+    
     @FXML
     private VBox overlayVbox;
-
+    
     private JFXDrawer drawer;
-
+    
     private boolean opened;
-
+    
     @FXML
     public void initialize() {
         try {
             opened = false;
             HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(hamburger);
-
+            
             transition.setInterpolator(Interpolator.EASE_BOTH);
             for (Node node : hamburger.getChildren()) {
                 if (node instanceof StackPane) {
@@ -58,7 +59,7 @@ public class MainStudentDashboardController {
             }
             overlayVbox.setOpacity(0);
             overlayVbox.setMouseTransparent(true);
-
+            
             hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                 if (drawer.isClosed()) {
                     drawerStack.toggle(drawer);
@@ -75,7 +76,7 @@ public class MainStudentDashboardController {
                 }
                 transition.play();
             });
-
+            
             overlayVbox.addEventHandler(MouseEvent.MOUSE_CLICKED, eh -> {
                 if (opened) {
                     drawer.close();
@@ -85,41 +86,43 @@ public class MainStudentDashboardController {
                     transition.play();
                 }
             });
-
+            
             drawer = new JFXDrawer();
             FXMLLoader loader = new FXMLLoader(App.class.getResource("drawerMenuStudent.fxml"));
             VBox drawerContent = loader.load();
-
-            DrawerMenuStudentController menuController = loader.getController();
-            menuController.setDashboardController(this);
             drawer.setSidePane(drawerContent);
-
             drawer.setDefaultDrawerSize(250);
             drawer.setOverLayVisible(true);
             drawer.setResizableOnDrag(false);
-
             drawer.close();
-
-            hamburger.setOnMouseClicked(event -> {
-
-            });
-
+            
             mainContent.getChildren().add(FXMLLoader.load(App.class.getResource("InternJobSearch.fxml")));
-
+            
             drawer.setOnDrawerClosed(event -> drawer.setOverLayVisible(false));
-
+            
             ApplicationSharedState.getInstance().addAppliedListener((obs, oldValue, newValue) -> {
                 if (newValue) {
-                    changeMainContent("StudentApplicationHistory");
-                    menuController.setIdx(1);
+                    MainSharedState.getInstance().setSelectedIdx(1);
                 }
             });
-
+            
+            MainSharedState.getInstance().addSelectedIdxListener((obs, oldValue, newValue) -> {
+                if(MainSharedState.getInstance().isStudent() && oldValue != newValue){
+                    if(newValue.equals(0)){
+                        changeMainContent("InternJobSearch");
+                    }else if(newValue.equals(1)){
+                        changeMainContent("StudentApplicationHistory");
+                    }else if(newValue.equals(2)){
+                        //changeMainContent("StudentApplicationHistory");
+                    }
+                }
+            });
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
+    
     public void changeMainContent(String fxmlFileName) {
         mainContent.getChildren().clear();
         try {
@@ -128,5 +131,5 @@ public class MainStudentDashboardController {
             ex.printStackTrace();
         }
     }
-
+    
 }

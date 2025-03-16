@@ -11,6 +11,7 @@ public interface ListInterface<T> extends Iterable<T>{
     void append(T newEntry);
     boolean insert(Integer newPosition, T newEntry);
     T remove(Integer givenPosition);
+    T remove(T givenEntry);
     void clear();
     boolean replace(Integer givenPosition, T newEntry);
     T getEntry(Integer givenPosition);

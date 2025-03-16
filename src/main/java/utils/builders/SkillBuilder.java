@@ -1,4 +1,4 @@
-package utils;
+package utils.builders;
 
 import com.fasterxml.uuid.Generators;
 import entity.Skill;

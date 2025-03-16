@@ -2,6 +2,7 @@ package boundary.joblisting;
 
 import com.rttz.assignment.App;
 import control.MainControlClass;
+import entity.Application;
 import entity.Experience;
 import entity.InternPost;
 import entity.Qualification;
@@ -16,7 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import utils.builders.QualificationChecker;
+import utils.QualificationChecker;
 
 /**
  *
@@ -101,7 +102,7 @@ public class InternJobPostDetailsController {
         
         if(!notApplyBefore()){
             applyBtn.setDisable(true);
-            applyBtn.setText("Applied");
+            applyBtn.setText("Pending");
         }
 
         applyBtn.setOnAction(eh -> {
@@ -149,7 +150,7 @@ public class InternJobPostDetailsController {
         boolean valid = true;
         Student stud = (Student) MainControlClass.getCurrentUser();
         for (var x : stud.getStudentApplications()) {
-            if (x.getInternPostId().equals(internpost.getInterPostId())) {
+            if (x.getInternPostId().equals(internpost.getInterPostId()) && x.getStatus().equals(Application.Status.PENDING)) {
                 valid = false;
                 break;
             }

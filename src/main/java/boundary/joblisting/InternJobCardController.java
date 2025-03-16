@@ -43,7 +43,7 @@ public class InternJobCardController {
                 Node node = fxmlLoader.load();
                 InternJobPostDetailsController controller = fxmlLoader.getController();
                 controller.setInternPost(internPost);
-
+                ApplicationSharedState.getInstance().setApplied(false);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Internship Details");
                 alert.setHeaderText("");

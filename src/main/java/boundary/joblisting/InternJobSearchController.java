@@ -78,7 +78,7 @@ public class InternJobSearchController implements Initializable {
         resetBtn.setOnAction(eh -> {
             filteredPost.clear();
             for (InternPost post : originalPost) {
-                filteredPost.append(post.deepCopy());
+                filteredPost.append(post);
             }
             addFilteredListToObservableList();
             toggleGroup.selectToggle(null);
@@ -111,7 +111,7 @@ public class InternJobSearchController implements Initializable {
         if (query.isEmpty() || query.isBlank() || query.equals("") || query.trim().isEmpty() || query.trim().isBlank()) {
             filteredPost.clear();
             for (InternPost post : originalPost) {
-                filteredPost.append(post.deepCopy());
+                filteredPost.append(post);
             }
             addFilteredListToObservableList();
             return;
@@ -120,7 +120,7 @@ public class InternJobSearchController implements Initializable {
         filteredPost.clear();
         for (InternPost post : originalPost) {
             if (fuzzyMatch(query, post.getTitle().toLowerCase()) || fuzzyMatch(query, post.getDesc().toLowerCase())) {
-                filteredPost.append(post.deepCopy());
+                filteredPost.append(post);
             }
         }
 
@@ -162,7 +162,7 @@ public class InternJobSearchController implements Initializable {
         this.originalPost = MainControlClass.getInternPost();
         this.filteredPost = new ArrayList<>();
         for (var x : originalPost) {
-            this.filteredPost.append(x.deepCopy());
+            this.filteredPost.append(x);
         }
     }
 

@@ -38,6 +38,11 @@
                                  </HBox.margin>
                               </ToggleButton>
                               <ToggleButton fx:id="locationBtn" mnemonicParsing="false" text="Sort by Location" />
+                              <ToggleButton fx:id="statusToggleButton" mnemonicParsing="false" text="Sort by Status">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </ToggleButton>
                            </children>
                            <VBox.margin>
                               <Insets top="5.0" />

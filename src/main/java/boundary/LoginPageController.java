@@ -81,6 +81,8 @@ public class LoginPageController implements Initializable {
 
         if (valid) {
             if (MainControlClass.logIn(loginUsernameTextField.getText(), loginPasswordPasswordField.getText(), isStudent)) {
+                MainSharedState.getInstance().setIsLogined(true);
+                MainSharedState.getInstance().setIsStudent(isStudent);
                 showSuccessDialog("Login Successfully");
                 return;
             }
