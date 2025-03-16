@@ -39,7 +39,7 @@ public class InternJobCardController {
         this.descriptionLabel.setText(internPost.getDesc());
         this.detailsButton.setOnAction(ev -> {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("InternJobPostDetails.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("JobListingStudent/InternJobPostDetails.fxml"));
                 Node node = fxmlLoader.load();
                 InternJobPostDetailsController controller = fxmlLoader.getController();
                 controller.setInternPost(internPost);

@@ -95,7 +95,7 @@ public class MainStudentDashboardController {
             drawer.setResizableOnDrag(false);
             drawer.close();
             
-            mainContent.getChildren().add(FXMLLoader.load(App.class.getResource("InternJobSearch.fxml")));
+            mainContent.getChildren().add(FXMLLoader.load(App.class.getResource("JobListingStudent/InternJobSearch.fxml")));
             
             drawer.setOnDrawerClosed(event -> drawer.setOverLayVisible(false));
             
@@ -108,11 +108,11 @@ public class MainStudentDashboardController {
             MainSharedState.getInstance().addSelectedIdxListener((obs, oldValue, newValue) -> {
                 if(MainSharedState.getInstance().isStudent() && oldValue != newValue){
                     if(newValue.equals(0)){
-                        changeMainContent("InternJobSearch");
+                        changeMainContent("JobListingStudent/InternJobSearch");
                     }else if(newValue.equals(1)){
-                        changeMainContent("StudentApplicationHistory");
+                        changeMainContent("studentapplication/StudentApplicationHistory");
                     }else if(newValue.equals(2)){
-                        changeMainContent("StudentProfileManagement");
+                        changeMainContent("studentprofile/StudentProfileManagement");
                     }
                 }
             });

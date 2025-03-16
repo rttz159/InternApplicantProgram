@@ -106,7 +106,7 @@ public class InternJobPostDetailsController {
         }
 
         applyBtn.setOnAction(eh -> {
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("interviewStudentScheduler.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("JobListingStudent/interviewStudentScheduler.fxml"));
             Node node = null;
             InterviewStudentSchedulerController controller = null;
             try {

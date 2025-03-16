@@ -124,7 +124,7 @@ public class StudentProfileManagmentController implements Initializable {
         });
         Styles.toggleStyleClass(experienceListView, Styles.STRIPED);
         experienceAddBtn.setOnAction(eh -> {
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("StudentProfileExperience.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("studentprofile/StudentProfileExperience.fxml"));
             Node node = null;
             ExperienceDetailController controller = null;
             try {
@@ -171,7 +171,7 @@ public class StudentProfileManagmentController implements Initializable {
         });
         Styles.toggleStyleClass(qualificationListView, Styles.STRIPED);
         qualificationAddBtn.setOnAction(eh -> {
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("StudentProfileQualification.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("studentprofile/StudentProfileQualification.fxml"));
             Node node = null;
             QualificationDetailController controller = null;
             try {
@@ -218,7 +218,7 @@ public class StudentProfileManagmentController implements Initializable {
         });
         Styles.toggleStyleClass(skillListView, Styles.STRIPED);
         skillAddBtn.setOnAction(eh -> {
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("StudentProfileSkill.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("studentprofile/StudentProfileSkill.fxml"));
             Node node = null;
             SkillDetailController controller = null;
             try {

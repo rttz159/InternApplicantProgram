@@ -229,7 +229,7 @@ class CustomListCellFactory implements Callback<ListView<InternPost>, ListCell<I
                 } else {
                     if (fxmlLoader == null) {
                         try {
-                            fxmlLoader = new FXMLLoader(App.class.getResource("InternJobCard.fxml"));
+                            fxmlLoader = new FXMLLoader(App.class.getResource("JobListingStudent/InternJobCard.fxml"));
                             node = fxmlLoader.load();
                             controller = fxmlLoader.getController();
                         } catch (IOException e) {

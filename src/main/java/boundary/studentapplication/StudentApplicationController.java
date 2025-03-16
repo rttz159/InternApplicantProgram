@@ -155,7 +155,7 @@ class CustomListCellFactory implements Callback<ListView<Application>, ListCell<
                 } else {
                     if (fxmlLoader == null) {
                         try {
-                            fxmlLoader = new FXMLLoader(App.class.getResource("ApplicationCard.fxml"));
+                            fxmlLoader = new FXMLLoader(App.class.getResource("studentapplication/ApplicationCard.fxml"));
                             node = fxmlLoader.load();
                             controller = fxmlLoader.getController();
                         } catch (IOException e) {

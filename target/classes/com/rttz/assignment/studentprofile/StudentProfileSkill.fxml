@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="600.0" stylesheets="@css/internpostDetails.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.studentprofile.QualificationDetailController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="600.0" stylesheets="@../css/internpostDetails.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.studentprofile.SkillDetailController">
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #221d53;" BorderPane.alignment="CENTER">
          <children>
-            <Label style="-fx-text-fill: #f4b818;" text="Qualification Details" textFill="#f4b818">
+            <Label style="-fx-text-fill: #f4b818;" text="Skill Details" textFill="#f4b818">
                <VBox.margin>
                   <Insets bottom="20.0" left="20.0" top="20.0" />
                </VBox.margin>
@@ -36,32 +36,20 @@
                                  <children>
                                     <HBox styleClass="form-hbox">
                                        <children>
-                                          <Label styleClass="form-label" text="Description:" HBox.hgrow="ALWAYS" />
-                                          <TextField fx:id="descTextField" HBox.hgrow="ALWAYS" />
+                                          <Label styleClass="form-label" text="Name:" HBox.hgrow="ALWAYS" />
+                                          <TextField fx:id="nameTextField" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
                                     <HBox styleClass="form-hbox" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <Label styleClass="form-label" text="Qualification Type:" HBox.hgrow="ALWAYS" />
-                                          <ComboBox fx:id="qualificationTypeComboBox" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                                          <Label styleClass="form-label" text="Skill Type:" HBox.hgrow="ALWAYS" />
+                                          <ComboBox fx:id="skillTypeComboBox" editable="true" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
                                     <HBox styleClass="form-hbox">
                                        <children>
-                                          <Label styleClass="form-label" text="Level:" />
-                                          <TextField fx:id="levelTextField" HBox.hgrow="ALWAYS" />
-                                       </children>
-                                    </HBox>
-                                    <HBox styleClass="form-hbox">
-                                       <children>
-                                          <Label styleClass="form-label" text="Institution:" />
-                                          <TextField fx:id="institutionTextField" HBox.hgrow="ALWAYS" />
-                                       </children>
-                                    </HBox>
-                                    <HBox styleClass="form-hbox">
-                                       <children>
-                                          <Label styleClass="form-label" text="Year of Complete" />
-                                          <TextField fx:id="yearOfCompleteTextField" HBox.hgrow="ALWAYS" />
+                                          <Label styleClass="form-label" text="Proficiency Level:" />
+                                          <TextField fx:id="proficiencyLevelTextField" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
                                  </children>

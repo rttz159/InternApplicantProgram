@@ -1,6 +1,5 @@
 package boundary.studentapplication;
 
-import boundary.joblisting.InterviewStudentSchedulerController;
 import com.rttz.assignment.App;
 import control.MainControlClass;
 import entity.Application;
@@ -46,7 +45,7 @@ public class ApplicationCardController {
         this.titleLabel.setText(post.getTitle() + String.format(" [%s]", formatter.format(application.getInterview().getDate())) + String.format(" [%s]", post.getLocation().getState()) + String.format(" [%s]", application.getStatus().toString()));
         this.descriptionLabel.setText(post.getDesc());
         this.detailsButton.setOnAction(eh -> {
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("StudentApplicationHistoryDetails.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("studentapplication/StudentApplicationHistoryDetails.fxml"));
             Node node = null;
             StudentApplicationHistoryDetailsController controller = null;
             try {
