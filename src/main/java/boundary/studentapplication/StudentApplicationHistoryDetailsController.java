@@ -1,6 +1,6 @@
 package boundary.studentapplication;
 
-import control.MainControlClass;
+import dao.MainControlClass;
 import dao.CompanyDAO;
 import dao.StudentDAO;
 import entity.Application;

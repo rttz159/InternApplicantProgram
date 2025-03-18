@@ -18,6 +18,7 @@ import entity.Student;
 public class test {
 
     public static void main(String[] args) {
+        DatabaseSetup.setUpDatabase();
         StudentDAO.deleteStudentById(getQualifiedStudent().getUserId());
         StudentDAO.insertStudent(getQualifiedStudent()); //bobo1231231
     }
@@ -32,10 +33,13 @@ public class test {
         SetInterface<Experience> experiences = new HashSet<>();
         experiences.add(new Experience("E1", "Hotel Manager", Experience.IndustryType.RETAIL, 5));
         experiences.add(new Experience("E2", "Energy Manager", Experience.IndustryType.ENERGY, 6));
+        experiences.add(new Experience("E3", "Energy Manager", Experience.IndustryType.MANUFACTURING, 6));
+        experiences.add(new Experience("E3", "Energy Manager", Experience.IndustryType.HOSPITALITY, 6));
 
         SetInterface<Skill> skills = new HashSet<>();
         skills.add(new Skill("S1", Skill.SkillType.NETWORKING, "Team Management", 4));
         skills.add(new Skill("S2", Skill.SkillType.PROJECT_MANAGEMENT, "Team Management", 4));
+        skills.add(new Skill("S3", Skill.SkillType.DATABASE_MANAGEMENT, "Team Management", 5));
 
         ListInterface<Application> applications = new ArrayList<>();
 

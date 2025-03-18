@@ -1,7 +1,7 @@
 package boundary.joblisting;
 
 import com.rttz.assignment.App;
-import control.MainControlClass;
+import dao.MainControlClass;
 import entity.Application;
 import entity.Experience;
 import entity.InternPost;

@@ -56,7 +56,8 @@ public class DatabaseSetup {
             + "    city TEXT,\n"
             + "    fullAddress TEXT,\n"
             + "    minSalary REAL,\n"
-            + "    maxSalary REAL\n"
+            + "    maxSalary REAL,\n"
+            + "    status BOOLEAN\n"
             + ");\n",
             "CREATE TABLE IF NOT EXISTS application(\n"
             + "    applicationId TEXT,\n"
@@ -176,7 +177,8 @@ CREATE TABLE IF NOT EXISTS internpost(
     city TEXT,
     fullAddress TEXT,
     minSalary REAL,
-    maxSalary REAL
+    maxSalary REAL,
+    status BOOLEAN
 );
 
 CREATE TABLE IF NOT EXISTS application(

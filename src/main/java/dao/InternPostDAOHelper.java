@@ -41,8 +41,9 @@ class InternPostDAOHelper {
                     SetInterface<Skill> tempSkill = InternPostDAOHelper.getInternPostSkills(interPostId, conn);
                     SetInterface<Experience> tempExperience = InternPostDAOHelper.getInternPostExperiences(interPostId, conn);
                     ListInterface<Application> tempApplication = InternPostDAOHelper.getInternPostApplications(interPostId, conn);
-
-                    internPost.append(new InternPost(interPostId, title, desc, new Location(city, fullAddress), new OrderPair<>(minSalary, maxSalary), tempQualification, tempExperience, tempSkill, tempApplication));
+                    boolean tempStatus = rs.getBoolean("status");
+                    
+                    internPost.append(new InternPost(interPostId, title, desc, new Location(city, fullAddress), new OrderPair<>(minSalary, maxSalary), tempQualification, tempExperience, tempSkill, tempApplication,tempStatus));
                 }
             }
         }

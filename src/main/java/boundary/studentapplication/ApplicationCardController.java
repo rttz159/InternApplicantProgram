@@ -1,7 +1,7 @@
 package boundary.studentapplication;
 
 import com.rttz.assignment.App;
-import control.MainControlClass;
+import dao.MainControlClass;
 import entity.Application;
 import entity.InternPost;
 import java.io.IOException;

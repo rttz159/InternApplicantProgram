@@ -21,6 +21,7 @@ public class InternPost {
     private SetInterface<Experience> interPostExperiences;
     private SetInterface<Skill> internPostSkills;
     private ListInterface<Application> internPostApplications;
+    private boolean status;
 
     public InternPost(String interPostId, String title, String desc, Location location, OrderPair<Double, Double> minMaxSalary) {
         this.interPostId = interPostId;
@@ -32,9 +33,10 @@ public class InternPost {
         this.interPostExperiences = new HashSet<>();
         this.internPostSkills = new HashSet<>();
         this.internPostApplications = new ArrayList<>();
+        this.status = true;
     }
 
-    public InternPost(String interPostId, String title, String desc, Location location, OrderPair<Double, Double> minMaxSalary, SetInterface<Qualification> internPostQualifications, SetInterface<Experience> interPostExperiences, SetInterface<Skill> internPostSkills, ListInterface<Application> internPostApplications) {
+    public InternPost(String interPostId, String title, String desc, Location location, OrderPair<Double, Double> minMaxSalary, SetInterface<Qualification> internPostQualifications, SetInterface<Experience> interPostExperiences, SetInterface<Skill> internPostSkills, ListInterface<Application> internPostApplications, boolean status) {
         this.interPostId = interPostId;
         this.title = title;
         this.desc = desc;
@@ -44,6 +46,7 @@ public class InternPost {
         this.interPostExperiences = interPostExperiences;
         this.internPostSkills = internPostSkills;
         this.internPostApplications = internPostApplications;
+        this.status = status;
     }
 
     public String getInterPostId() {
@@ -118,6 +121,14 @@ public class InternPost {
         this.internPostApplications = internPostApplications;
     }
 
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -165,7 +176,8 @@ public class InternPost {
                 copiedQualifications,
                 copiedExperiences,
                 copiedSkills,
-                copiedApplications
+                copiedApplications,
+                this.status
         );
     }
 

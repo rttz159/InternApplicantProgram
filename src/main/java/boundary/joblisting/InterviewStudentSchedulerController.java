@@ -5,7 +5,7 @@ import adt.ListInterface;
 import adt.interval.Interval;
 import adt.interval.TimeInterval;
 import control.InterviewScheduler;
-import control.MainControlClass;
+import dao.MainControlClass;
 import dao.CompanyDAO;
 import dao.StudentDAO;
 import entity.Application;

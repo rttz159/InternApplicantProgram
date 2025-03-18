@@ -4,7 +4,7 @@ import adt.ArrayList;
 import adt.ListInterface;
 import atlantafx.base.theme.Styles;
 import com.rttz.assignment.App;
-import control.MainControlClass;
+import dao.MainControlClass;
 import dao.StudentDAO;
 import entity.Experience;
 import entity.Location;

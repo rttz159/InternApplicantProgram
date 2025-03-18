@@ -79,7 +79,7 @@ public class CompanyDAO {
 
     private static void insertCompanyAssociations(Company company, Connection conn) throws SQLException {
         String interviewManagerSql = "INSERT INTO interview_interval (companyId, date,start_time) VALUES (?,?,?)";
-        String internPostSql = "INSERT INTO internpost (companyId,interPostId,title,desc,city,fullAddress,minSalary,maxSalary) VALUES (?,?,?,?,?,?,?,?)";
+        String internPostSql = "INSERT INTO internpost (companyId,interPostId,title,desc,city,fullAddress,minSalary,maxSalary,status) VALUES (?,?,?,?,?,?,?,?,?)";
 
         try (PreparedStatement pstmt = conn.prepareStatement(interviewManagerSql)) {
             for (var x : company.getInterviewManager().getBookingRecords()) {
@@ -103,6 +103,7 @@ public class CompanyDAO {
                 pstmt.setString(6, x.getLocation().getFullAddress());
                 pstmt.setDouble(7, x.getMinMaxSalary().getX());
                 pstmt.setDouble(8, x.getMinMaxSalary().getY());
+                pstmt.setBoolean(9, x.getStatus());
 
                 insertCompanyInternPostsAssociation(x, conn);
                 pstmt.addBatch();

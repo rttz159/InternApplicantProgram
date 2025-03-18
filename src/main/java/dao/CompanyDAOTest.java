@@ -106,6 +106,6 @@ public class CompanyDAOTest {
 
         ListInterface<Application> applications = new ArrayList<>();
 
-        return new InternPost(postId, title, desc, location, salaryRange, qualifications, experiences, skills, applications);
+        return new InternPost(postId, title, desc, location, salaryRange, qualifications, experiences, skills, applications,true);
     }
 }

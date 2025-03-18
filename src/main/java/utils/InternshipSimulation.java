@@ -197,7 +197,8 @@ public class InternshipSimulation {
                     .industryType(industry)
                     .duration(rand.nextInt(6) + 1)
                     .build());
-
+            
+            Random rd = new Random();
             InternPost post = new InternPostBuilder()
                     .title(industry.name().replace("_", " ") + " Internship")
                     .desc("Exciting opportunity in " + industry.name().replace("_", " "))
@@ -207,6 +208,7 @@ public class InternshipSimulation {
                     .skills(requiredSkills)
                     .experiences(requiredExperience)
                     .applications(new ArrayList<>())
+                    .status(rd.nextBoolean())
                     .build();
 
             internPosts.append(post);

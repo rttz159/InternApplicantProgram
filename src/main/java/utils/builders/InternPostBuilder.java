@@ -27,6 +27,7 @@ public class InternPostBuilder {
     private SetInterface<Experience> internPostExperiences = new HashSet<>();
     private SetInterface<Skill> internPostSkills = new HashSet<>();
     private ListInterface<Application> internPostApplications = new ArrayList<>();
+    private boolean status;
 
     public InternPostBuilder() {
         this.internPostId = generateUUIDv1();
@@ -75,8 +76,13 @@ public class InternPostBuilder {
         this.internPostApplications = applications;
         return this;
     }
+    
+    public InternPostBuilder status(boolean status){
+        this.status = status;
+        return this;
+    }
 
     public InternPost build() {
-        return new InternPost(internPostId, title, desc, location, minMaxSalary, internPostQualifications, internPostExperiences, internPostSkills, internPostApplications);
+        return new InternPost(internPostId, title, desc, location, minMaxSalary, internPostQualifications, internPostExperiences, internPostSkills, internPostApplications,status);
     }
 }

@@ -1,7 +1,7 @@
 package com.rttz.assignment;
 
 import boundary.MainSharedState;
-import control.MainControlClass;
+import dao.MainControlClass;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -4,7 +4,7 @@ import atlantafx.base.theme.Styles;
 import atlantafx.base.util.Animations;
 import com.rttz.assignment.App;
 import static com.rttz.assignment.App.loadFXML;
-import control.MainControlClass;
+import dao.MainControlClass;
 import utils.builders.CompanyBuilder;
 import utils.builders.StudentBuilder;
 import entity.Experience;

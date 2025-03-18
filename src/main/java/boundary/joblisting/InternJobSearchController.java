@@ -7,7 +7,7 @@ import adt.MapInterface;
 import atlantafx.base.theme.Styles;
 import boundary.NullSelectionModel;
 import com.rttz.assignment.App;
-import control.MainControlClass;
+import dao.MainControlClass;
 import entity.InternPost;
 import entity.Student;
 import java.io.IOException;
@@ -18,12 +18,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.util.Callback;
+import utils.QualificationChecker;
 import utils.SimilarityCalculator;
 
 /**
@@ -50,6 +53,12 @@ public class InternJobSearchController implements Initializable {
     @FXML
     private Button resetBtn;
 
+    @FXML
+    private Label countLabel;
+
+    @FXML
+    private ComboBox qualificationComboBox;
+
     private ListInterface<InternPost> originalPost = new ArrayList<>();
 
     private ListInterface<InternPost> filteredPost = new ArrayList<>();
@@ -65,14 +74,25 @@ public class InternJobSearchController implements Initializable {
         currentStudent = (Student) MainControlClass.getCurrentUser();
         enrichOriginalPostList();
 
+        countLabel.setText(String.format("[%d Jobs Found]", originalPost.getNumberOfEntries()));
+
         for (InternPost post : filteredPost) {
             double score = SimilarityCalculator.calculateSimilarity(currentStudent, post);
             similarityScores.put(post, score);
         }
 
+        qualificationComboBox.getItems().addAll("All", "Qualified", "Not Qualified");
+        qualificationComboBox.getSelectionModel().select("All");
+
+        qualificationComboBox.setOnAction(eh -> {
+            int selectedQualification = qualificationComboBox.getSelectionModel().getSelectedIndex();
+            filterInternPostsByQualification(selectedQualification);
+        });
+
         internJobListView.setCellFactory(new CustomListCellFactory(similarityScores));
         internJobListView.setSelectionModel(new NullSelectionModel());
         internJobListView.setFixedCellSize(100);
+        internJobListView.setPlaceholder(new Label("No job listing available"));
         Styles.toggleStyleClass(internJobListView, Styles.STRIPED);
 
         resetBtn.setOnAction(eh -> {
@@ -81,9 +101,11 @@ public class InternJobSearchController implements Initializable {
                 filteredPost.append(post);
             }
             addFilteredListToObservableList();
-            toggleGroup.selectToggle(null);
+            similarityScoreBtn.setSelected(true);
             searchTextField.setText("");
+            qualificationComboBox.getSelectionModel().select("All");
             internJobListView.scrollTo(0);
+            countLabel.setText(String.format("[%d Jobs Found]", originalPost.getNumberOfEntries()));
         });
 
         searchBtn.setOnAction(eh -> filterInternPostsBySearch());
@@ -91,18 +113,20 @@ public class InternJobSearchController implements Initializable {
         toggleGroup = new ToggleGroup();
         toggleGroup.getToggles().add(locationBtn);
         toggleGroup.getToggles().add(similarityScoreBtn);
+        similarityScoreBtn.setSelected(true);
         toggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                oldValue.setSelected(true);
+                return;
+            }
+
             if (newValue == locationBtn) {
                 rankInternPostsByLocation();
             } else if (newValue == similarityScoreBtn) {
                 rankInternPostsBySimilarity();
-            } else {
-                resetFilterList();
             }
-            internJobListView.scrollTo(0);
         });
-
-        addFilteredListToObservableList();
+        rankInternPostsBySimilarity();
     }
 
     private void filterInternPostsBySearch() {
@@ -125,6 +149,48 @@ public class InternJobSearchController implements Initializable {
         }
 
         addFilteredListToObservableList();
+    }
+
+    private void filterInternPostsByQualification(int idx) {
+        filterInternPostsBySearch();
+        if (idx == 0) {
+            return;
+        }
+
+        ArrayList<InternPost> tempPost = new ArrayList<>();
+        if (idx == 1) {
+            for (var x : filteredPost) {
+                if (checkQualification(x)) {
+                    tempPost.append(x);
+                }
+            }
+        } else {
+            for (var x : filteredPost) {
+                if (!checkQualification(x)) {
+                    tempPost.append(x);
+                }
+            }
+        }
+
+        filteredPost.clear();
+        for (var x : tempPost) {
+            filteredPost.append(x);
+        }
+
+        if (locationBtn.isSelected()) {
+            rankInternPostsByLocation();
+        } else if (similarityScoreBtn.isSelected()) {
+            rankInternPostsBySimilarity();
+        }
+    }
+
+    private boolean checkQualification(InternPost internpost) {
+        Student stud = (Student) MainControlClass.getCurrentUser();
+        boolean qualification = QualificationChecker.checkQualification(stud.getStudentQualifications(), internpost.getInternPostQualifications());
+        boolean experience = QualificationChecker.checkExperience(stud.getStudentExperiences(), internpost.getInterPostExperiences());
+        boolean skill = QualificationChecker.checkSkill(stud.getStudentSkills(), internpost.getInternPostSkills());
+
+        return qualification && experience && skill;
     }
 
     private boolean fuzzyMatch(String query, String text) {
@@ -159,7 +225,12 @@ public class InternJobSearchController implements Initializable {
     }
 
     private void enrichOriginalPostList() {
-        this.originalPost = MainControlClass.getInternPost();
+        this.originalPost = new ArrayList<>();
+        for (var x : MainControlClass.getInternPost()) {
+            if (x.getStatus()) {
+                originalPost.append(x);
+            }
+        }
         this.filteredPost = new ArrayList<>();
         for (var x : originalPost) {
             this.filteredPost.append(x);
@@ -176,6 +247,7 @@ public class InternJobSearchController implements Initializable {
         for (var x : filteredPost) {
             internJobListView.getItems().add(x);
         }
+        countLabel.setText(String.format("[%d Jobs Found]", filteredPost.getNumberOfEntries()));
     }
 
     private void rankInternPostsBySimilarity() {
@@ -188,6 +260,7 @@ public class InternJobSearchController implements Initializable {
         );
 
         addFilteredListToObservableList();
+        internJobListView.scrollTo(0);
     }
 
     private void rankInternPostsByLocation() {
@@ -201,6 +274,7 @@ public class InternJobSearchController implements Initializable {
             return Double.compare(score1, score2);
         });
         addFilteredListToObservableList();
+        internJobListView.scrollTo(0);
     }
 
 }

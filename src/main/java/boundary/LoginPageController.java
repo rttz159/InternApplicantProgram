@@ -3,7 +3,7 @@ package boundary;
 import atlantafx.base.theme.Styles;
 import com.rttz.assignment.App;
 import static com.rttz.assignment.App.loadFXML;
-import control.MainControlClass;
+import dao.MainControlClass;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
