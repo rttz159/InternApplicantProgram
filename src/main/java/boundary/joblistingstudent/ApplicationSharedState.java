@@ -1,4 +1,4 @@
-package boundary.joblisting;
+package boundary.joblistingstudent;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;

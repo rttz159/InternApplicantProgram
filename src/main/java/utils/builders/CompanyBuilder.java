@@ -1,5 +1,6 @@
 package utils.builders;
 import adt.ListInterface;
+import adt.ArrayList;
 import control.InterviewManager;
 import entity.Company;
 import entity.Experience;
@@ -11,7 +12,7 @@ import entity.InternPost;
 public class CompanyBuilder extends UserBuilder<CompanyBuilder> {
     private String companyName;
     private Experience.IndustryType industryType;
-    private ListInterface<InternPost> internPosts;
+    private ListInterface<InternPost> internPosts = new ArrayList<>();
     private InterviewManager interviewManager = new InterviewManager();
 
     public CompanyBuilder companyName(String companyName) {

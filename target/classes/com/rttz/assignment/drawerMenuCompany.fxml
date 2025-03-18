@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" spacing="10.0" style="-fx-background-color: #F4B818; -fx-padding: 10px;" stylesheets="@css/dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.DrawerMenuStudentController">
+<VBox alignment="TOP_CENTER" spacing="10.0" style="-fx-background-color: #F4B818; -fx-padding: 10px;" stylesheets="@css/dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.DrawerMenuCompanyController">
    <Label text="Navigation Menu">
       <font>
          <Font name="System Bold" size="18.0" />
@@ -16,11 +16,11 @@
          <Insets bottom="30.0" top="30.0" />
       </VBox.margin>
    </Label>
-    <Button fx:id="homeBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #221d53; -fx-text-fill: white;" styleClass="drawer-button" text="Job Listing">
+    <Button fx:id="homeBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #221d53; -fx-text-fill: white;" styleClass="drawer-button" text="Intern Post Management">
       <VBox.margin>
          <Insets />
       </VBox.margin></Button>
-    <Button fx:id="applicationBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #221d53; -fx-text-fill: white;" styleClass="drawer-button" text="Application" />
+    <Button fx:id="applicationBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #221d53; -fx-text-fill: white;" styleClass="drawer-button" text="Application Management" />
     <Button fx:id="profileBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #221d53; -fx-text-fill: white;" styleClass="drawer-button" text="Profile" />
    <Region VBox.vgrow="ALWAYS" />
    <Button fx:id="logoutBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #221d53; -fx-text-fill: white;" styleClass="drawer-button" text="Sign Out" />

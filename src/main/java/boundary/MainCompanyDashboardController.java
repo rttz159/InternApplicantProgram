@@ -1,6 +1,6 @@
 package boundary;
 
-import boundary.joblistingstudent.ApplicationSharedState;
+import boundary.*;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXDrawersStack;
 import com.jfoenix.controls.JFXHamburger;
@@ -24,7 +24,7 @@ import javafx.scene.paint.Color;
  *
  * @author rttz159
  */
-public class MainStudentDashboardController {
+public class MainCompanyDashboardController {
     
     @FXML
     private JFXDrawersStack drawerStack;
@@ -87,7 +87,7 @@ public class MainStudentDashboardController {
             });
             
             drawer = new JFXDrawer();
-            FXMLLoader loader = new FXMLLoader(App.class.getResource("drawerMenuStudent.fxml"));
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("drawerMenuCompany.fxml"));
             VBox drawerContent = loader.load();
             drawer.setSidePane(drawerContent);
             drawer.setDefaultDrawerSize(275);
@@ -95,24 +95,18 @@ public class MainStudentDashboardController {
             drawer.setResizableOnDrag(false);
             drawer.close();
             
-            mainContent.getChildren().add(FXMLLoader.load(App.class.getResource("JobListingStudent/InternJobSearch.fxml")));
+            //mainContent.getChildren().add(FXMLLoader.load(App.class.getResource("InternJobManager/InternJobSearch.fxml")));
             
             drawer.setOnDrawerClosed(event -> drawer.setOverLayVisible(false));
-            
-            ApplicationSharedState.getInstance().addAppliedListener((obs, oldValue, newValue) -> {
-                if (newValue) {
-                    MainSharedState.getInstance().setSelectedIdx(1);
-                }
-            });
-            
+                        
             MainSharedState.getInstance().addSelectedIdxListener((obs, oldValue, newValue) -> {
-                if(MainSharedState.getInstance().isStudent() && oldValue != newValue){
+                if(!MainSharedState.getInstance().isStudent() && oldValue != newValue){
                     if(newValue.equals(0)){
-                        changeMainContent("JobListingStudent/InternJobSearch");
+                        //changeMainContent("InternJobManager/InternJobSearch");
                     }else if(newValue.equals(1)){
-                        changeMainContent("studentapplication/StudentApplicationHistory");
+                        
                     }else if(newValue.equals(2)){
-                        changeMainContent("studentprofile/StudentProfileManagement");
+                        
                     }
                 }
             });

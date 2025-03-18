@@ -1,17 +1,17 @@
 package boundary;
 
+import boundary.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
 /**
  *
  * @author rttz159
  */
-public class DrawerMenuStudentController implements Initializable {
+public class DrawerMenuCompanyController implements Initializable {
 
     @FXML
     private Button applicationBtn;

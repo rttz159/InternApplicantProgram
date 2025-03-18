@@ -1,4 +1,4 @@
-package boundary.joblisting;
+package boundary.joblistingstudent;
 
 import com.rttz.assignment.App;
 import entity.InternPost;

@@ -16,13 +16,14 @@
          <Insets bottom="30.0" top="30.0" />
       </VBox.margin>
    </Label>
-    <Button fx:id="homeBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #221d53; -fx-text-fill: white;" styleClass="drawer-button" text="Home">
+    <Button fx:id="homeBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #221d53; -fx-text-fill: white;" styleClass="drawer-button" text="Job Listing">
       <VBox.margin>
          <Insets />
       </VBox.margin></Button>
     <Button fx:id="applicationBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #221d53; -fx-text-fill: white;" styleClass="drawer-button" text="Application" />
     <Button fx:id="profileBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #221d53; -fx-text-fill: white;" styleClass="drawer-button" text="Profile" />
    <Region VBox.vgrow="ALWAYS" />
+   <Button fx:id="logoutBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #221d53; -fx-text-fill: white;" styleClass="drawer-button" text="Sign Out" />
    <Label text="Copyright © 2025 rttz">
       <VBox.margin>
          <Insets bottom="20.0" />

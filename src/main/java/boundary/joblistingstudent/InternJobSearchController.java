@@ -1,4 +1,4 @@
-package boundary.joblisting;
+package boundary.joblistingstudent;
 
 import adt.ArrayList;
 import adt.HashMap;
