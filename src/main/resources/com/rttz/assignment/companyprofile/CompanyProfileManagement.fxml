@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -13,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" stylesheets="@../css/internpostDetails.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.StudentProfileManagmentController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" stylesheets="@../css/internpostDetails.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.companyprofile.CompanyProfileManagmentController">
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #221d53;" BorderPane.alignment="CENTER">
          <children>
@@ -38,14 +37,14 @@
                                  <children>
                                     <HBox styleClass="form-hbox">
                                        <children>
-                                          <Label styleClass="form-label" text="Name:" HBox.hgrow="ALWAYS" />
+                                          <Label styleClass="form-label" text="Company Name:" HBox.hgrow="ALWAYS" />
                                           <TextField fx:id="nameTextField" editable="false" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
                                     <HBox styleClass="form-hbox">
                                        <children>
-                                          <Label styleClass="form-label" text="Age:" HBox.hgrow="ALWAYS" />
-                                          <TextField fx:id="ageTextField" editable="false" HBox.hgrow="ALWAYS" />
+                                          <Label styleClass="form-label" text="Industry Type:" HBox.hgrow="ALWAYS" />
+                                          <ComboBox fx:id="indsutryTypeComboBox" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
                                     <HBox styleClass="form-hbox">
@@ -69,65 +68,8 @@
                                     <HBox prefHeight="42.0" prefWidth="760.0" styleClass="form-hbox">
                                        <children>
                                           <Label styleClass="form-label" text="Full Address:" />
-                                          <TextArea fx:id="addressTextArea" HBox.hgrow="ALWAYS" />
+                                          <TextArea fx:id="addressTextArea" minHeight="200.0" prefHeight="200.0" HBox.hgrow="ALWAYS" />
                                        </children>
-                                    </HBox>
-                                    <HBox styleClass="form-hbox">
-                                       <children>
-                                          <Label styleClass="form-label" text="Qualifications:" />
-                                          <ListView fx:id="qualificationListView" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                       </children>
-                                    </HBox>
-                                    <HBox fx:id="qualificationBtnHBox" alignment="CENTER" styleClass="form-hbox">
-                                       <children>
-                                          <Button fx:id="qualificationAddBtn" mnemonicParsing="false" prefWidth="80.0" text="Add">
-                                             <HBox.margin>
-                                                <Insets right="5.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                          <Button fx:id="qualificationRemoveBtn" mnemonicParsing="false" text="Remove" />
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="20.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <HBox styleClass="form-hbox">
-                                       <children>
-                                          <Label styleClass="form-label" text="Skills:" />
-                                          <ListView fx:id="skillListView" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                       </children>
-                                    </HBox>
-                                    <HBox fx:id="skillBtnHBox" alignment="CENTER" styleClass="form-hbox">
-                                       <children>
-                                          <Button fx:id="skillAddBtn" mnemonicParsing="false" prefWidth="80.0" text="Add">
-                                             <HBox.margin>
-                                                <Insets right="5.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                          <Button fx:id="skillRemoveBtn" mnemonicParsing="false" text="Remove" />
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="20.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <HBox styleClass="form-hbox">
-                                       <children>
-                                          <Label styleClass="form-label" text="Experiences:" />
-                                          <ListView fx:id="experienceListView" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                                       </children>
-                                    </HBox>
-                                    <HBox fx:id="experienceBtnHBox" alignment="CENTER" styleClass="form-hbox">
-                                       <children>
-                                          <Button fx:id="experienceAddBtn" mnemonicParsing="false" prefWidth="80.0" text="Add">
-                                             <HBox.margin>
-                                                <Insets right="5.0" />
-                                             </HBox.margin>
-                                          </Button>
-                                          <Button fx:id="experienceRemoveBtn" mnemonicParsing="false" text="Remove" />
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="20.0" />
-                                       </VBox.margin>
                                     </HBox>
                                  </children>
                                  <padding>

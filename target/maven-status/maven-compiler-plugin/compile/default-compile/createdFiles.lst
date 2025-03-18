@@ -19,6 +19,7 @@ adt\SetInterface.class
 control\CustomComparators.class
 adt\IntervalTree$Node.class
 entity\Interview.class
+boundary\companyprofile\CompanyProfileManagmentController.class
 control\CustomComparators$StudentByAgeComparator.class
 adt\BinarySearchTree.class
 boundary\SignupPageController.class

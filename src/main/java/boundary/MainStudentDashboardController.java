@@ -62,12 +62,14 @@ public class MainStudentDashboardController {
             hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                 if (drawer.isClosed()) {
                     drawerStack.toggle(drawer);
+                    drawerStack.setMouseTransparent(false);
                     overlayVbox.setOpacity(.15);
                     overlayVbox.setMouseTransparent(false);
                     transition.setRate(2);
                     opened = true;
                 } else {
                     drawer.close();
+                    drawerStack.setMouseTransparent(true);
                     overlayVbox.setOpacity(0);
                     overlayVbox.setMouseTransparent(true);
                     transition.setRate(-2);
@@ -79,6 +81,7 @@ public class MainStudentDashboardController {
             overlayVbox.addEventHandler(MouseEvent.MOUSE_CLICKED, eh -> {
                 if (opened) {
                     drawer.close();
+                    drawerStack.setMouseTransparent(true);
                     overlayVbox.setOpacity(0);
                     overlayVbox.setMouseTransparent(true);
                     transition.setRate(-2);
@@ -94,6 +97,7 @@ public class MainStudentDashboardController {
             drawer.setOverLayVisible(true);
             drawer.setResizableOnDrag(false);
             drawer.close();
+            drawerStack.setMouseTransparent(true);
             
             mainContent.getChildren().add(FXMLLoader.load(App.class.getResource("JobListingStudent/InternJobSearch.fxml")));
             

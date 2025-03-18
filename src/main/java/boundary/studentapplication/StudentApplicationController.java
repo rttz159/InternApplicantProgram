@@ -26,6 +26,10 @@ import javafx.scene.control.ToggleGroup;
 import javafx.util.Callback;
 import utils.SimilarityCalculator;
 
+/**
+ *
+ * @author rttz159
+ */
 public class StudentApplicationController implements Initializable {
 
     @FXML
@@ -78,9 +82,9 @@ public class StudentApplicationController implements Initializable {
                 return;
             }
 
-            if (oldValue != locationBtn && newValue == locationBtn) {
+            if (newValue == locationBtn) {
                 rankApplicationByLocation();
-            } else if (oldValue != dateToggleButton && newValue == dateToggleButton) {
+            } else if (newValue == dateToggleButton) {
                 rankApplicationByDate();
             }
             applicationListview.scrollTo(0);
