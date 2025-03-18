@@ -40,4 +40,16 @@ public class Validation {
         String phoneRegex = "^(\\+?6?01)[0-46-9]-*[0-9]{7,8}$";
         return phoneNumber != null && phoneNumber.matches(phoneRegex);
     }
+
+    public static boolean isValidDouble(String str) {
+        if (str == null || str.isEmpty()) {
+            return false;
+        }
+        try {
+            Double.valueOf(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }

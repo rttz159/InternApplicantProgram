@@ -1,4 +1,4 @@
-package boundary.studentprofile;
+package boundary;
 
 import atlantafx.base.theme.Styles;
 import entity.Skill;

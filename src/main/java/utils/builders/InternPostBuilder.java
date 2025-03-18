@@ -27,7 +27,7 @@ public class InternPostBuilder {
     private SetInterface<Experience> internPostExperiences = new HashSet<>();
     private SetInterface<Skill> internPostSkills = new HashSet<>();
     private ListInterface<Application> internPostApplications = new ArrayList<>();
-    private boolean status;
+    private boolean status = true;
 
     public InternPostBuilder() {
         this.internPostId = generateUUIDv1();

@@ -1,6 +1,5 @@
 package boundary;
 
-import boundary.*;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXDrawersStack;
 import com.jfoenix.controls.JFXHamburger;
@@ -95,14 +94,14 @@ public class MainCompanyDashboardController {
             drawer.setResizableOnDrag(false);
             drawer.close();
             
-            //mainContent.getChildren().add(FXMLLoader.load(App.class.getResource("InternJobManager/InternJobSearch.fxml")));
+            mainContent.getChildren().add(FXMLLoader.load(App.class.getResource("InternJobManager/InternPostManager.fxml")));
             
             drawer.setOnDrawerClosed(event -> drawer.setOverLayVisible(false));
                         
             MainSharedState.getInstance().addSelectedIdxListener((obs, oldValue, newValue) -> {
                 if(!MainSharedState.getInstance().isStudent() && oldValue != newValue){
                     if(newValue.equals(0)){
-                        //changeMainContent("InternJobManager/InternJobSearch");
+                        changeMainContent("InternJobManager/InternPostManager");
                     }else if(newValue.equals(1)){
                         
                     }else if(newValue.equals(2)){

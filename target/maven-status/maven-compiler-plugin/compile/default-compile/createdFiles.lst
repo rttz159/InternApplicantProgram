@@ -7,6 +7,7 @@ boundary\joblistingstudent\InternJobPostDetailsController$3.class
 utils\builders\InternPostBuilder.class
 utils\builders\InterviewBuilder.class
 boundary\LoginPageController.class
+boundary\joblistingemployee\InternJobPostDetailsController$3.class
 boundary\studentapplication\StudentApplicationHistoryDetailsController.class
 adt\HashMap.class
 entity\Skill.class
@@ -41,7 +42,6 @@ adt\Node.class
 boundary\joblistingstudent\InternJobPostDetailsController$2.class
 boundary\joblistingstudent\CustomListCellFactory.class
 adt\QueueInterface.class
-boundary\studentprofile\QualificationDetailController.class
 adt\TreeInterface.class
 adt\ArrayStack$ArrayStackIterator.class
 adt\BinarySearchTree$Node.class
@@ -53,13 +53,17 @@ adt\OrderPair.class
 utils\builders\UserBuilder.class
 adt\HashMap$HashMapIterator.class
 adt\IntervalTree.class
+boundary\SkillDetailController.class
 entity\Student.class
+boundary\ExperienceDetailController.class
 boundary\NullSelectionModel.class
 entity\User.class
 boundary\studentapplication\StudentApplicationHistoryDetailsController$1.class
 boundary\joblistingemployee\InternJobManagerController.class
 boundary\DrawerMenuStudentController.class
+boundary\joblistingemployee\InternJobPostDetailsController$1.class
 control\CustomComparators$UserByIdComparator.class
+utils\FuzzyMatch.class
 boundary\joblistingstudent\InternJobCardController.class
 adt\ArrayList$ArrayListIterator.class
 utils\Validation.class
@@ -72,6 +76,8 @@ boundary\studentapplication\StudentApplicationHistoryDetailsController$2.class
 control\CustomComparators$InterviewComparator.class
 boundary\joblistingstudent\InterviewStudentSchedulerController.class
 adt\BinarySearchTree$BinarySearchTreeIterator.class
+boundary\joblistingemployee\CustomListCellFactory.class
+boundary\joblistingemployee\InternJobPostDetailsController$2.class
 adt\SinglyLinkList$SinglyLinkListIterator.class
 boundary\joblistingstudent\InternJobSearchController.class
 dao\CompanyDAO.class
@@ -79,6 +85,7 @@ boundary\joblistingstudent\InternJobPostDetailsController$1.class
 entity\Qualification$QualificationType.class
 entity\Application.class
 adt\interval\TimeInterval.class
+boundary\joblistingemployee\CustomListCellFactory$1.class
 entity\Qualification.class
 utils\builders\ExperienceBuilder.class
 com\rttz\assignment\App.class
@@ -89,6 +96,7 @@ entity\Company.class
 adt\HashSet.class
 entity\Application$Status.class
 dao\test.class
+boundary\joblistingemployee\InternJobPostDetailsController.class
 boundary\MainCompanyDashboardController.class
 boundary\joblistingstudent\ApplicationSharedState.class
 boundary\studentprofile\StudentProfileManagmentController$2.class
@@ -102,11 +110,12 @@ utils\SimilarityCalculator.class
 adt\LinkListStack.class
 adt\MapInterface$Entry.class
 control\CustomComparators$SkillByProficiencyLevelComparator.class
-boundary\studentprofile\ExperienceDetailController.class
 entity\InternPost.class
 adt\HashMap$Entry.class
+boundary\QualificationDetailController.class
 control\CustomComparators$LocationByCityComparator.class
 dao\DatabaseSetup.class
+boundary\joblistingemployee\InternJobCardController.class
 utils\builders\StudentBuilder.class
 adt\AttributeExtractor.class
 utils\InternshipSimulation.class
@@ -115,7 +124,6 @@ utils\builders\CompanyBuilder.class
 adt\ArrayCyclicQueue$ArrayCyclicQueueIterator.class
 boundary\studentprofile\StudentProfileManagmentController$1.class
 boundary\studentapplication\ApplicationCardController.class
-boundary\studentprofile\SkillDetailController.class
 boundary\joblistingstudent\InterviewStudentSchedulerController$1.class
 entity\Location$MalaysianRegion.class
 control\CustomComparators$InternPostByMinSalaryComparator.class
