@@ -122,7 +122,7 @@ public class StudentProfileManagmentController implements Initializable {
             @Override
             protected void updateItem(Experience item, boolean empty) {
                 super.updateItem(item, empty);
-                setText((empty || item == null) ? null : String.format("Industry Type: %s, Duration: %d", item.getIndustryType().toString(), item.getDuration()));
+                setText((empty || item == null) ? null : String.format("Desc: %s, Industry Type: %s, Duration: %d", item.getDesc(), item.getIndustryType().toString(), item.getDuration()));
             }
         });
         Styles.toggleStyleClass(experienceListView, Styles.STRIPED);
@@ -169,7 +169,7 @@ public class StudentProfileManagmentController implements Initializable {
             @Override
             protected void updateItem(Qualification item, boolean empty) {
                 super.updateItem(item, empty);
-                setText((empty || item == null) ? null : String.format("Qualification Type: %s, Level: %d", item.getQualificationType().toString(), item.getLevel()));
+                setText((empty || item == null) ? null : String.format("Desc: %s, Qualification Type: %s, Level: %d", item.getDesc(), item.getQualificationType().toString(), item.getLevel()));
             }
         });
         Styles.toggleStyleClass(qualificationListView, Styles.STRIPED);
@@ -216,7 +216,7 @@ public class StudentProfileManagmentController implements Initializable {
             @Override
             protected void updateItem(Skill item, boolean empty) {
                 super.updateItem(item, empty);
-                setText((empty || item == null) ? null : String.format("Skill Type: %s, Proficiency Level: %d", item.getSkilltype().toString(), item.getProficiencyLevel()));
+                setText((empty || item == null) ? null : String.format("Name: %s, Skill Type: %s, Proficiency Level: %d", item.getName(), item.getSkilltype().toString(), item.getProficiencyLevel()));
             }
         });
         Styles.toggleStyleClass(skillListView, Styles.STRIPED);
