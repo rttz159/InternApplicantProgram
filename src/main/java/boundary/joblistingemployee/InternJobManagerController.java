@@ -194,30 +194,32 @@ public class InternJobManagerController implements Initializable {
 
     private void toggleSelectedInternPost() {
         InternPost tempInternPost = internJobListView.getSelectionModel().getSelectedItem();
-        
-        if(tempInternPost == null){
+
+        if (tempInternPost == null) {
             showErrorDialog("Please select an intern post before proceed");
             return;
         }
-        
-        tempInternPost.setStatus(!tempInternPost.getStatus());
-        for(var x: tempInternPost.getInternPostApplications()){
+        boolean tempStatus = tempInternPost.getStatus();
+        tempInternPost.setStatus(!tempStatus);
+        for (var x : tempInternPost.getInternPostApplications()) {
             x.setStatus(Application.Status.CANCELLED);
         }
-        
-        for(var x: MainControlClass.getStudents()){
-            boolean modified = false;
-            for(var y: x.getStudentApplications()){
-                if(y.getInternPostId().equals(tempInternPost.getInterPostId())){
-                    y.setStatus(Application.Status.CANCELLED);
-                    modified = true;
+
+        if (tempStatus) {
+            for (var x : MainControlClass.getStudents()) {
+                boolean modified = false;
+                for (var y : x.getStudentApplications()) {
+                    if (y.getInternPostId().equals(tempInternPost.getInterPostId())) {
+                        y.setStatus(Application.Status.CANCELLED);
+                        modified = true;
+                    }
+                }
+                if (modified) {
+                    StudentDAO.updateStudentById(x);
                 }
             }
-            if(modified){
-                StudentDAO.updateStudentById(x);
-            }
         }
-        
+
         CompanyDAO.updateCompanyById((Company) MainControlClass.getCurrentUser());
         reset();
         internJobListView.scrollTo(tempInternPost);
