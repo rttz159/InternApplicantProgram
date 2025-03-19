@@ -2,6 +2,7 @@ package boundary;
 
 import atlantafx.base.theme.Styles;
 import entity.Qualification;
+import entity.Skill;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import static utils.Validation.validateDigit;
 import static utils.Validation.validateText;
 import utils.builders.QualificationBuilder;
@@ -47,6 +49,22 @@ public class QualificationDetailController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         qualificationTypeComboBox.getItems().addAll(Qualification.QualificationType.values());
         qualificationTypeComboBox.getSelectionModel().selectFirst();
+        qualificationTypeComboBox.setEditable(false);
+        qualificationTypeComboBox.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Qualification.QualificationType qualificationType) {
+                return qualificationType == null ? "" : qualificationType.name();
+            }
+
+            @Override
+            public Qualification.QualificationType fromString(String string) {
+                try {
+                    return Qualification.QualificationType.valueOf(string);
+                } catch (IllegalArgumentException e) {
+                    return null;
+                }
+            }
+        });
 
         cancelBtn.setOnAction(eh -> {
             ((Stage) cancelBtn.getScene().getWindow()).close();

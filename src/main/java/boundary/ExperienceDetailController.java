@@ -2,6 +2,7 @@ package boundary;
 
 import atlantafx.base.theme.Styles;
 import entity.Experience;
+import entity.Qualification;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import static utils.Validation.validateDigit;
 import static utils.Validation.validateText;
 import utils.builders.ExperienceBuilder;
@@ -41,6 +43,22 @@ public class ExperienceDetailController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         industryTypeComboBox.getItems().addAll(Experience.IndustryType.values());
         industryTypeComboBox.getSelectionModel().selectFirst();
+        industryTypeComboBox.setEditable(false);
+        industryTypeComboBox.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Experience.IndustryType experienceType) {
+                return experienceType == null ? "" : experienceType.name();
+            }
+
+            @Override
+            public Experience.IndustryType fromString(String string) {
+                try {
+                    return Experience.IndustryType.valueOf(string);
+                } catch (IllegalArgumentException e) {
+                    return null;
+                }
+            }
+        });
 
         cancelBtn.setOnAction(eh -> {
             ((Stage) cancelBtn.getScene().getWindow()).close();

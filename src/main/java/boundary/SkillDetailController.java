@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import static utils.Validation.validateText;
 import static utils.Validation.validateDigit;
 import utils.builders.SkillBuilder;
@@ -41,6 +42,22 @@ public class SkillDetailController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         skillTypeComboBox.getItems().addAll(Skill.SkillType.values());
         skillTypeComboBox.getSelectionModel().selectFirst();
+        skillTypeComboBox.setEditable(false);
+        skillTypeComboBox.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Skill.SkillType skillType) {
+                return skillType == null ? "" : skillType.name();
+            }
+
+            @Override
+            public Skill.SkillType fromString(String string) {
+                try {
+                    return Skill.SkillType.valueOf(string);
+                } catch (IllegalArgumentException e) {
+                    return null;
+                }
+            }
+        });
 
         cancelBtn.setOnAction(eh -> {
             ((Stage) cancelBtn.getScene().getWindow()).close();
@@ -48,7 +65,7 @@ public class SkillDetailController implements Initializable {
 
         addBtn.setOnAction(eh -> {
             boolean valid = true;
-            
+
             boolean nameValid = validateText(nameTextField.getText());
             nameTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !nameValid);
             nameTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, nameValid);

@@ -4,6 +4,7 @@ adt\interval\Interval.class
 control\CustomComparators$QualificationBylevelComparator.class
 utils\builders\ApplicationBuilder.class
 boundary\joblistingstudent\InternJobPostDetailsController$3.class
+boundary\SkillDetailController$1.class
 utils\builders\InternPostBuilder.class
 utils\builders\InterviewBuilder.class
 boundary\LoginPageController.class
@@ -64,6 +65,7 @@ boundary\joblistingemployee\InternJobManagerController.class
 boundary\DrawerMenuStudentController.class
 boundary\joblistingemployee\InternJobPostDetailsController$1.class
 control\CustomComparators$UserByIdComparator.class
+boundary\QualificationDetailController$1.class
 utils\FuzzyMatch.class
 boundary\joblistingstudent\InternJobCardController.class
 adt\ArrayList$ArrayListIterator.class
@@ -80,6 +82,7 @@ adt\BinarySearchTree$BinarySearchTreeIterator.class
 boundary\joblistingemployee\CustomListCellFactory.class
 boundary\joblistingemployee\InternJobPostDetailsController$2.class
 adt\SinglyLinkList$SinglyLinkListIterator.class
+boundary\ExperienceDetailController$1.class
 boundary\joblistingstudent\InternJobSearchController.class
 dao\CompanyDAO.class
 boundary\joblistingstudent\InternJobPostDetailsController$1.class
