@@ -61,7 +61,7 @@ public class MainCompanyDashboardController {
             hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                 if (drawer.isClosed()) {
                     drawerStack.toggle(drawer);
-                    drawerStack.setMouseTransparent(false); 
+                    drawerStack.setMouseTransparent(false);
                     overlayVbox.setOpacity(.15);
                     overlayVbox.setMouseTransparent(false);
                     transition.setRate(2);
@@ -107,7 +107,7 @@ public class MainCompanyDashboardController {
                     if (newValue.equals(0)) {
                         changeMainContent("InternJobManager/InternPostManager");
                     } else if (newValue.equals(1)) {
-
+                        changeMainContent("companyapplication/CompanyApplicationManagement");
                     } else if (newValue.equals(2)) {
                         changeMainContent("companyprofile/CompanyProfileManagement");
                     }

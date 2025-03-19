@@ -14,6 +14,7 @@ import entity.Company;
 import entity.InternPost;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -202,15 +203,18 @@ public class InternJobManagerController implements Initializable {
         boolean tempStatus = tempInternPost.getStatus();
         tempInternPost.setStatus(!tempStatus);
         for (var x : tempInternPost.getInternPostApplications()) {
-            x.setStatus(Application.Status.CANCELLED);
+            if (x.getStatus().equals(Application.Status.PENDING)) {
+                x.setStatus(Application.Status.CANCELLED);
+            }
         }
 
         if (tempStatus) {
             for (var x : MainControlClass.getStudents()) {
                 boolean modified = false;
                 for (var y : x.getStudentApplications()) {
-                    if (y.getInternPostId().equals(tempInternPost.getInterPostId())) {
+                    if (y.getInternPostId().equals(tempInternPost.getInterPostId()) && y.getStatus().equals(Application.Status.PENDING)) {
                         y.setStatus(Application.Status.CANCELLED);
+                        currentCompany.getInterviewManager().interviewCancelled(y.getInterview().getDate(), y.getInterview().getStart_time());
                         modified = true;
                     }
                 }
@@ -220,7 +224,7 @@ public class InternJobManagerController implements Initializable {
             }
         }
 
-        CompanyDAO.updateCompanyById((Company) MainControlClass.getCurrentUser());
+        CompanyDAO.updateCompanyById(currentCompany);
         reset();
         internJobListView.scrollTo(tempInternPost);
     }

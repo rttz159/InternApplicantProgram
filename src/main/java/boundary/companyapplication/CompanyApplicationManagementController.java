@@ -1,5 +1,6 @@
-package boundary.studentapplication;
+package boundary.companyapplication;
 
+import boundary.studentapplication.*;
 import adt.ArrayList;
 import adt.ListInterface;
 import atlantafx.base.theme.Styles;
@@ -7,11 +8,9 @@ import boundary.NullSelectionModel;
 import com.rttz.assignment.App;
 import dao.MainControlClass;
 import entity.Application;
-import entity.Student;
+import entity.Company;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,13 +23,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.util.Callback;
-import utils.SimilarityCalculator;
 
 /**
  *
  * @author rttz159
  */
-public class StudentApplicationController implements Initializable {
+public class CompanyApplicationManagementController implements Initializable {
 
     @FXML
     private ListView<Application> applicationListview;
@@ -53,14 +51,13 @@ public class StudentApplicationController implements Initializable {
 
     private ListInterface<Application> filteredApplications = new ArrayList<>();
 
-    private Student currentStudent;
+    private Company currentCompany;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        currentStudent = (Student) MainControlClass.getCurrentUser();
+        currentCompany = (Company) MainControlClass.getCurrentUser();
         setOriginalApplicationList();
         resetFilteredApplications();
-        rankApplicationByDate();
 
         countLabel.setText(String.format("[%d Applications]", originalApplications.getNumberOfEntries()));
 
@@ -85,9 +82,9 @@ public class StudentApplicationController implements Initializable {
             }
 
             if (newValue == locationBtn) {
-                rankApplicationByLocation();
+                //
             } else if (newValue == dateToggleButton) {
-                rankApplicationByDate();
+                //
             }
             applicationListview.scrollTo(0);
         }
@@ -95,7 +92,7 @@ public class StudentApplicationController implements Initializable {
     }
 
     private void setOriginalApplicationList() {
-        this.originalApplications = ((Student) MainControlClass.getCurrentUser()).getStudentApplications();
+        originalApplications = getCompanyApplication();
     }
 
     private void addFilteredListToObservableList() {
@@ -110,32 +107,6 @@ public class StudentApplicationController implements Initializable {
         for (var x : originalApplications) {
             filteredApplications.append(x);
         }
-        addFilteredListToObservableList();
-    }
-
-    private void rankApplicationByLocation() {
-        filteredApplications.sort((Application app1, Application app2) -> {
-            double score1 = SimilarityCalculator.calculateLocationDistance(currentStudent.getLocation(), MainControlClass.getInternPostMap().get(app1.getInternPostId()).getLocation());
-            double score2 = SimilarityCalculator.calculateLocationDistance(currentStudent.getLocation(), MainControlClass.getInternPostMap().get(app2.getInternPostId()).getLocation());
-            return Double.compare(score1, score2);
-        });
-        addFilteredListToObservableList();
-    }
-
-    private void rankApplicationByDate() {
-        filteredApplications.sort((Application app1, Application app2) -> {
-            LocalDate date1 = (app1.getInterview() != null) ? app1.getInterview().getDate() : LocalDate.MAX;
-            LocalDate date2 = (app2.getInterview() != null) ? app2.getInterview().getDate() : LocalDate.MAX;
-
-            if (!date1.equals(date2)) {
-                return date2.compareTo(date1);
-            }
-
-            LocalTime time1 = (app1.getInterview() != null) ? app1.getInterview().getStart_time() : LocalTime.MAX;
-            LocalTime time2 = (app2.getInterview() != null) ? app2.getInterview().getStart_time() : LocalTime.MAX;
-
-            return time2.compareTo(time1);
-        });
         addFilteredListToObservableList();
     }
 
@@ -156,13 +127,16 @@ public class StudentApplicationController implements Initializable {
             }
         }
 
-        if (toggleGroup.getSelectedToggle() == locationBtn) {
-            rankApplicationByLocation();
-            applicationListview.scrollTo(0);
-        } else if (toggleGroup.getSelectedToggle() == dateToggleButton) {
-            rankApplicationByDate();
-            applicationListview.scrollTo(0);
+    }
+
+    private ListInterface<Application> getCompanyApplication() {
+        ListInterface<Application> tempApplication = new ArrayList<>();
+        for (var x : currentCompany.getInternPosts()) {
+            for (var y : x.getInternPostApplications()) {
+                tempApplication.append(y);
+            }
         }
+        return tempApplication;
     }
 
 }
@@ -185,7 +159,7 @@ class CustomListCellFactory implements Callback<ListView<Application>, ListCell<
                 } else {
                     if (fxmlLoader == null) {
                         try {
-                            fxmlLoader = new FXMLLoader(App.class.getResource("studentapplication/ApplicationCard.fxml"));
+                            fxmlLoader = new FXMLLoader(App.class.getResource("companyapplication/ApplicationCard.fxml"));
                             node = fxmlLoader.load();
                             controller = fxmlLoader.getController();
                         } catch (IOException e) {

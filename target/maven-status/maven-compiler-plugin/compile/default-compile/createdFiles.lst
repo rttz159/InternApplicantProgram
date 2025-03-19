@@ -7,7 +7,9 @@ boundary\joblistingstudent\InternJobPostDetailsController$3.class
 boundary\SkillDetailController$1.class
 utils\builders\InternPostBuilder.class
 utils\builders\InterviewBuilder.class
+boundary\companyapplication\CompanyApplicationManagementController.class
 boundary\LoginPageController.class
+boundary\companyapplication\CustomListCellFactory$1.class
 boundary\joblistingemployee\InternJobPostDetailsController$3.class
 boundary\studentapplication\StudentApplicationHistoryDetailsController.class
 adt\HashMap.class
@@ -70,6 +72,7 @@ utils\FuzzyMatch.class
 boundary\joblistingstudent\InternJobCardController.class
 adt\ArrayList$ArrayListIterator.class
 utils\Validation.class
+boundary\companyapplication\ApplicationCardController.class
 adt\ListInterface.class
 boundary\joblistingstudent\InternJobPostDetailsController.class
 boundary\MainStudentDashboardController.class
@@ -80,6 +83,7 @@ control\CustomComparators$InterviewComparator.class
 boundary\joblistingstudent\InterviewStudentSchedulerController.class
 adt\BinarySearchTree$BinarySearchTreeIterator.class
 boundary\joblistingemployee\CustomListCellFactory.class
+boundary\companyapplication\CustomListCellFactory.class
 boundary\joblistingemployee\InternJobPostDetailsController$2.class
 adt\SinglyLinkList$SinglyLinkListIterator.class
 boundary\ExperienceDetailController$1.class

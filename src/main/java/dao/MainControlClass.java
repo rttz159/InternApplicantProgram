@@ -4,9 +4,6 @@ import adt.ArrayList;
 import adt.HashMap;
 import adt.ListInterface;
 import adt.MapInterface;
-import dao.CompanyDAO;
-import dao.DatabaseSetup;
-import dao.StudentDAO;
 import entity.Company;
 import entity.InternPost;
 import entity.Student;
@@ -65,6 +62,10 @@ public class MainControlClass {
         return getInstance().getStudentsMap();
     }
 
+    public static MapInterface<String, Student> getStudentsIdMap() {
+        return getInstance().getStudentsIdMap();
+    }
+
     public static MapInterface<String, Company> getCompanyMap() {
         return getInstance().getCompanyMap();
     }
@@ -80,6 +81,7 @@ class MainControlHelperClass {
     private ListInterface<Company> companies;
     private ListInterface<InternPost> internpost;
     private MapInterface<String, Student> studentMap = new HashMap<>();
+    private MapInterface<String, Student> studentIdMap = new HashMap<>();
     private MapInterface<String, Company> companyMap = new HashMap<>();
     private MapInterface<String, InternPost> internpostMap = new HashMap<>();
     private User currentUser;
@@ -90,6 +92,7 @@ class MainControlHelperClass {
             this.students = StudentDAO.getStudents();
             for (var x : students) {
                 studentMap.put(x.getUsername(), x);
+                studentIdMap.put(x.getUserId(), x);
             }
             this.companies = CompanyDAO.getCompanies();
             for (var x : companies) {
@@ -126,6 +129,10 @@ class MainControlHelperClass {
 
     public MapInterface<String, Student> getStudentsMap() {
         return this.studentMap;
+    }
+
+    public MapInterface<String, Student> getStudentsIdMap() {
+        return this.studentIdMap;
     }
 
     public MapInterface<String, Company> getCompanyMap() {
@@ -173,6 +180,7 @@ class MainControlHelperClass {
             }
             this.students.append(student);
             studentMap.put(student.getUsername(), student);
+            studentIdMap.put(student.getUserId(), student);
             StudentDAO.insertStudent(student);
             return true;
         }
