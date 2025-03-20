@@ -4,7 +4,9 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -32,6 +34,11 @@
                      <content>
                         <VBox>
                            <children>
+                              <Label text="Application Details">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
                               <HBox alignment="CENTER" styleClass="form-hbox">
                                  <children>
                                     <Label styleClass="form-label" text="Job Title:" HBox.hgrow="ALWAYS" />
@@ -58,20 +65,62 @@
                               </HBox>
                               <HBox alignment="CENTER" styleClass="form-hbox">
                                  <children>
-                                    <Label styleClass="form-label" text="Interview Date" />
+                                    <Label styleClass="form-label" text="Interview Date:" />
                                     <TextField fx:id="interviewDateTextField" editable="false" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER" styleClass="form-hbox">
                                  <children>
-                                    <Label styleClass="form-label" text="Interview Time" />
+                                    <Label styleClass="form-label" text="Interview Time:" />
                                     <TextField fx:id="interviewTimeTextField" editable="false" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER" styleClass="form-hbox">
                                  <children>
-                                    <Label styleClass="form-label" text="Application Status" />
+                                    <Label styleClass="form-label" text="Application Status:" />
                                     <ComboBox fx:id="statusComboBox" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <Separator disable="true" prefWidth="200.0" />
+                              <Label text="Student Details">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <HBox alignment="CENTER" styleClass="form-hbox">
+                                 <children>
+                                    <Label styleClass="form-label" text="Student Name:" />
+                                    <TextField fx:id="studentNameTextField" editable="false" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" styleClass="form-hbox">
+                                 <children>
+                                    <Label styleClass="form-label" text="Student Age:" />
+                                    <TextField fx:id="studentAgeTextField" editable="false" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" styleClass="form-hbox">
+                                 <children>
+                                    <Label styleClass="form-label" text="Student Email:" />
+                                    <TextField fx:id="studentEmailTextField" editable="false" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <HBox styleClass="form-hbox">
+                                 <children>
+                                    <Label styleClass="form-label" text="Qualifications:" />
+                                    <ListView fx:id="qualificationListView" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <HBox styleClass="form-hbox">
+                                 <children>
+                                    <Label styleClass="form-label" text="Skills:" />
+                                    <ListView fx:id="skillListView" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <HBox styleClass="form-hbox">
+                                 <children>
+                                    <Label styleClass="form-label" text="Experiences:" />
+                                    <ListView fx:id="experienceListView" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
                            </children>
@@ -83,7 +132,16 @@
                   </ScrollPane>
                   <HBox alignment="CENTER" VBox.vgrow="NEVER">
                      <children>
-                        <Button fx:id="okBtn" mnemonicParsing="false" prefWidth="50.0" styleClass="custom_button" text="OK">
+                        <Button fx:id="statusBtn" mnemonicParsing="false" styleClass="custom_button" text="Modify Status">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin></Button>
+                        <Button fx:id="saveBtn" mnemonicParsing="false" prefWidth="70.0" styleClass="custom_button" text="Save">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="cancelBtn" mnemonicParsing="false" prefWidth="70.0" styleClass="custom_button" text="Cancel">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>

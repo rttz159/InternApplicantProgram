@@ -69,7 +69,8 @@ public class StudentApplicationController implements Initializable {
         applicationListview.setCellFactory(new CustomListCellFactory());
         applicationListview.setFixedCellSize(100);
         Styles.toggleStyleClass(applicationListview, Styles.STRIPED);
-
+        StudentApplicationShareState.getInstance().setListView(applicationListview);
+        
         statusComboBox.getItems().addAll("ALL", "SUCCESS", "PENDING", "REJECTED", "CANCELLED");
         statusComboBox.getSelectionModel().select("ALL");
         statusComboBox.setOnAction(eh -> filterApplicationsByStatus());

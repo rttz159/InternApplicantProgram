@@ -118,6 +118,7 @@ public class CompanyApplicationManagementController implements Initializable {
                 contextMenu.show(applicationListview, event.getScreenX(), event.getScreenY());
             }
         });
+        CompanyApplicationShareState.getInstance().setListView(applicationListview);
 
         statusComboBox.getItems().addAll("ALL", "SUCCESS", "PENDING", "REJECTED", "CANCELLED");
         statusComboBox.getSelectionModel().select("ALL");
@@ -224,14 +225,21 @@ public class CompanyApplicationManagementController implements Initializable {
                 showErrorDialog("Please select an application before proceed");
                 return;
             }
-            
+
             Optional<ButtonType> result = PredefinedDialog.showConfirmationDialog("The action is irreversible");
             if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.YES) {
                 for (var x : applicationListview.getSelectionModel().getSelectedItems()) {
-                    x.setStatus(Application.Status.CANCELLED);
-                    Student tempStud = MainControlClass.getStudentsIdMap().get(x.getApplicantId());
-                    MainControlClass.getStudentApplicationMap().get(x.getApplicationId()).setStatus(Application.Status.CANCELLED);
-                    StudentDAO.updateStudentById(tempStud);
+                    Application.Status prevStatus = x.getStatus();
+                    if (!prevStatus.equals(Application.Status.CANCELLED)) {
+                        x.setStatus(Application.Status.CANCELLED);
+                        Student tempStud = MainControlClass.getStudentsIdMap().get(x.getApplicantId());
+                        MainControlClass.getStudentApplicationMap().get(x.getApplicationId()).setStatus(Application.Status.CANCELLED);
+                        StudentDAO.updateStudentById(tempStud);
+                        Application studApplication = MainControlClass.getStudentApplicationMap().get(x.getApplicationId());
+                        if (prevStatus.equals(Application.Status.PENDING)) {
+                            currentCompany.getInterviewManager().interviewCancelled(studApplication.getInterview().getDate(), studApplication.getInterview().getStart_time());
+                        }
+                    }
                 }
 
                 CompanyDAO.updateCompanyById(currentCompany);
@@ -263,8 +271,8 @@ public class CompanyApplicationManagementController implements Initializable {
         applicationListview.getSelectionModel().clearSelection();
         refreshListView();
     }
-    
-    private void refreshListView(){
+
+    private void refreshListView() {
         var tempList = applicationListview.getItems();
         applicationListview.setItems(null);
         applicationListview.setItems(tempList);

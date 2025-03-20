@@ -16,6 +16,7 @@ adt\HashMap.class
 entity\Skill.class
 boundary\companyapplication\CompanyApplicationManagementController$1.class
 boundary\studentapplication\CustomListCellFactory.class
+boundary\companyapplication\ApplicationDetailsController$1.class
 boundary\studentapplication\CustomListCellFactory$1.class
 entity\CompanyTest.class
 utils\builders\SkillBuilder.class
@@ -35,6 +36,7 @@ entity\Experience$IndustryType.class
 boundary\MainSharedState.class
 boundary\companyapplication\CompanyApplicationManagementController$2.class
 adt\ArrayCyclicQueue.class
+boundary\joblistingemployee\JobListingEmployeeShareState.class
 boundary\studentprofile\StudentProfileManagmentController.class
 utils\builders\QualificationBuilder.class
 control\InterviewManager.class
@@ -94,6 +96,7 @@ boundary\ExperienceDetailController$1.class
 boundary\joblistingstudent\InternJobSearchController.class
 dao\CompanyDAO.class
 boundary\joblistingstudent\InternJobPostDetailsController$1.class
+boundary\companyapplication\ApplicationDetailsController$2.class
 entity\Qualification$QualificationType.class
 entity\Application.class
 adt\interval\TimeInterval.class
@@ -124,6 +127,7 @@ adt\MapInterface$Entry.class
 control\CustomComparators$SkillByProficiencyLevelComparator.class
 entity\InternPost.class
 adt\HashMap$Entry.class
+boundary\companyapplication\ApplicationDetailsController$3.class
 boundary\QualificationDetailController.class
 control\CustomComparators$LocationByCityComparator.class
 dao\DatabaseSetup.class
@@ -133,9 +137,11 @@ adt\AttributeExtractor.class
 utils\InternshipSimulation.class
 adt\HashSet$HashSetIterator.class
 utils\builders\CompanyBuilder.class
+boundary\studentapplication\StudentApplicationShareState.class
 adt\ArrayCyclicQueue$ArrayCyclicQueueIterator.class
 boundary\studentprofile\StudentProfileManagmentController$1.class
 boundary\studentapplication\ApplicationCardController.class
+boundary\companyapplication\CompanyApplicationShareState.class
 boundary\joblistingstudent\InterviewStudentSchedulerController$1.class
 entity\Location$MalaysianRegion.class
 control\CustomComparators$InternPostByMinSalaryComparator.class

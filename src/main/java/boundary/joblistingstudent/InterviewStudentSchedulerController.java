@@ -4,6 +4,7 @@ import adt.ArrayList;
 import adt.ListInterface;
 import adt.interval.Interval;
 import adt.interval.TimeInterval;
+import static boundary.PredefinedDialog.showConfirmationDialog;
 import static boundary.PredefinedDialog.showErrorDialog;
 import control.InterviewScheduler;
 import dao.MainControlClass;
@@ -22,8 +23,6 @@ import java.util.Optional;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
@@ -248,9 +247,5 @@ public class InterviewStudentSchedulerController {
 
     public TimeInterval getSelectedTime() {
         return this.selectedTime;
-    }
-
-    private Optional<ButtonType> showConfirmationDialog(String format) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

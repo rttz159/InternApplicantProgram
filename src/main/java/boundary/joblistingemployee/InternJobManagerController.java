@@ -84,6 +84,7 @@ public class InternJobManagerController implements Initializable {
         internJobListView.setFixedCellSize(100);
         internJobListView.setPlaceholder(new Label("No job listing available"));
         Styles.toggleStyleClass(internJobListView, Styles.STRIPED);
+        JobListingEmployeeShareState.getInstance().setListView(internJobListView);
 
         resetBtn.setOnAction(eh -> reset());
 

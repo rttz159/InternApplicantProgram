@@ -124,7 +124,7 @@ public class StudentApplicationHistoryDetailsController {
             ((Stage) okBtn.getScene().getWindow()).close();
         });
 
-        if (this.application.getStatus().equals(Application.Status.CANCELLED)) {
+        if (!this.application.getStatus().equals(Application.Status.PENDING)) {
             cancelBtn.setDisable(true);
         }
 
@@ -151,6 +151,7 @@ public class StudentApplicationHistoryDetailsController {
                     CompanyDAO.updateCompanyById(company);
 
                     this.statusTextField.setText(application.getStatus().toString());
+                    StudentApplicationShareState.getInstance().refresh();
                 }
             }
         });

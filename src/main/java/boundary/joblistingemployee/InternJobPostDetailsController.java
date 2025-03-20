@@ -123,7 +123,6 @@ public class InternJobPostDetailsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         requiredExperienceListView.setCellFactory(param -> new javafx.scene.control.ListCell<Experience>() {
             @Override
             protected void updateItem(Experience item, boolean empty) {
@@ -376,6 +375,7 @@ public class InternJobPostDetailsController implements Initializable {
 
                         enrichFieldsNotNull();
                         setUpForReadOnly();
+                        JobListingEmployeeShareState.getInstance().refresh();
                         titleTextField.pseudoClassStateChanged(Styles.STATE_DANGER, false);
                         titleTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, false);
                         descTextField.pseudoClassStateChanged(Styles.STATE_DANGER, false);
