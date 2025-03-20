@@ -52,6 +52,8 @@ public class App extends Application {
                     } else if (newValue.equals(2)) {
                         stage.setTitle("Profile Management");
                     } else if (newValue.equals(3)) {
+                        stage.setTitle("Interview Schedule Viewer");
+                    } else if (newValue.equals(4)) {
                         try {
                             scene = new Scene(loadFXML("login"), 800, 600);
                         } catch (IOException ex) {

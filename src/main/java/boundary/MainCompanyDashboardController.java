@@ -1,5 +1,6 @@
 package boundary;
 
+import boundary.companyschedule.AgendaBorderPane;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXDrawersStack;
 import com.jfoenix.controls.JFXHamburger;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import javafx.animation.Interpolator;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -18,6 +20,8 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  *
@@ -110,6 +114,14 @@ public class MainCompanyDashboardController {
                         changeMainContent("companyapplication/CompanyApplicationManagement");
                     } else if (newValue.equals(2)) {
                         changeMainContent("companyprofile/CompanyProfileManagement");
+                    } else if (newValue.equals(3)) {
+                        Stage newStage = new Stage();
+                        newStage.initOwner((Stage)mainContent.getScene().getWindow()); 
+                        newStage.initModality(Modality.WINDOW_MODAL); 
+                        newStage.setTitle("Agenda");
+                        newStage.setScene(new Scene(new AgendaBorderPane(), 800, 600));
+                        newStage.showAndWait();
+                        MainSharedState.getInstance().setSelectedIdx(0);
                     }
                 }
             });

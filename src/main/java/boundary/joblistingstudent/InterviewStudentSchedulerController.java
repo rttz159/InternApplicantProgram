@@ -218,6 +218,7 @@ public class InterviewStudentSchedulerController {
                     tempStudent.getStudentApplications().append(tempApp);
                     company.getInterviewManager().interviewBooking(selectedDate, selectedTime.start);
                     internPost.getInternPostApplications().append(tempApp);
+                    MainControlClass.getStudentApplicationMap().put(tempApp.getApplicationId(), tempApp);
 
                     StudentDAO.updateStudentById(tempStudent);
                     CompanyDAO.updateCompanyById(company);

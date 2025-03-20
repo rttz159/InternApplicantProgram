@@ -49,6 +49,7 @@ control\CustomComparators$CompanyByNameComparator.class
 adt\Node.class
 boundary\companyapplication\ApplicationDetailsController.class
 boundary\joblistingstudent\InternJobPostDetailsController$2.class
+boundary\companyschedule\AgendaBorderPane.class
 boundary\joblistingstudent\CustomListCellFactory.class
 boundary\PredefinedDialog.class
 adt\QueueInterface.class

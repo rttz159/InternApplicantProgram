@@ -21,6 +21,9 @@ public class DrawerMenuCompanyController implements Initializable {
 
     @FXML
     private Button profileBtn;
+
+    @FXML
+    private Button interviewSchedulerBtn;
     
     @FXML
     private Button logoutBtn;
@@ -41,9 +44,14 @@ public class DrawerMenuCompanyController implements Initializable {
                 MainSharedState.getInstance().setSelectedIdx(2);
             }
         });
-        this.logoutBtn.setOnAction(ev -> {
+        this.interviewSchedulerBtn.setOnAction(ev -> {
             if (MainSharedState.getInstance().getSelectedIdx() != 3) {
                 MainSharedState.getInstance().setSelectedIdx(3);
+            }
+        });
+        this.logoutBtn.setOnAction(ev -> {
+            if (MainSharedState.getInstance().getSelectedIdx() != 4) {
+                MainSharedState.getInstance().setSelectedIdx(4);
             }
         });
     }

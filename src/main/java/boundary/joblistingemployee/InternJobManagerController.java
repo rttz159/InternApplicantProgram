@@ -110,6 +110,8 @@ public class InternJobManagerController implements Initializable {
                 if (controller.getInternPost() != null) {
                     this.currentCompany.getInternPosts().append(controller.getInternPost());
                     internJobListView.getItems().add(controller.getInternPost());
+                    MainControlClass.getInternPost().append(controller.getInternPost());
+                    MainControlClass.getInternPostMap().put(controller.getInternPost().getInterPostId(), controller.getInternPost());
                     CompanyDAO.updateCompanyById((Company) MainControlClass.getCurrentUser());
                     reset();
                 }

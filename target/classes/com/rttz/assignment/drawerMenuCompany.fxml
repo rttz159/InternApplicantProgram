@@ -21,6 +21,7 @@
          <Insets />
       </VBox.margin></Button>
     <Button fx:id="applicationBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #221d53; -fx-text-fill: white;" styleClass="drawer-button" text="Application Management" />
+   <Button fx:id="interviewSchedulerBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #221d53; -fx-text-fill: white;" styleClass="drawer-button" text="Interview Schedule" />
     <Button fx:id="profileBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #221d53; -fx-text-fill: white;" styleClass="drawer-button" text="Profile" />
    <Region VBox.vgrow="ALWAYS" />
    <Button fx:id="logoutBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #221d53; -fx-text-fill: white;" styleClass="drawer-button" text="Sign Out" />
