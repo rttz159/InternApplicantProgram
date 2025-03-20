@@ -1,7 +1,7 @@
 package boundary.companyprofile;
 
-import adt.ArrayList;
 import atlantafx.base.theme.Styles;
+import static boundary.PredefinedDialog.showConfirmationDialog;
 import dao.CompanyDAO;
 import dao.MainControlClass;
 import entity.Company;
@@ -12,9 +12,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -119,21 +117,6 @@ public class CompanyProfileManagmentController implements Initializable {
             enrichFields();
             setUpForReadOnly();
         });
-    }
-
-    private Optional<ButtonType> showConfirmationDialog(String message) {
-        var alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Are you sure?");
-        alert.setContentText(message);
-
-        ButtonType yesBtn = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        ButtonType cancelBtn = new ButtonType(
-                "Cancel", ButtonBar.ButtonData.CANCEL_CLOSE
-        );
-
-        alert.getButtonTypes().setAll(yesBtn, cancelBtn);
-        return alert.showAndWait();
     }
 
     private void setUpForReadOnly() {

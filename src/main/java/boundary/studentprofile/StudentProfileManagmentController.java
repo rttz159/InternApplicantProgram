@@ -4,6 +4,7 @@ import adt.ArrayList;
 import adt.ListInterface;
 import atlantafx.base.theme.Styles;
 import boundary.ExperienceDetailController;
+import static boundary.PredefinedDialog.showConfirmationDialog;
 import boundary.QualificationDetailController;
 import boundary.SkillDetailController;
 import com.rttz.assignment.App;
@@ -24,7 +25,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -341,21 +341,6 @@ public class StudentProfileManagmentController implements Initializable {
             enrichFields();
             setUpForReadOnly();
         });
-    }
-
-    private Optional<ButtonType> showConfirmationDialog(String message) {
-        var alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Are you sure?");
-        alert.setContentText(message);
-
-        ButtonType yesBtn = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        ButtonType cancelBtn = new ButtonType(
-                "Cancel", ButtonBar.ButtonData.CANCEL_CLOSE
-        );
-
-        alert.getButtonTypes().setAll(yesBtn, cancelBtn);
-        return alert.showAndWait();
     }
 
     private void setUpForReadOnly() {

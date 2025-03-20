@@ -2,6 +2,8 @@ package boundary;
 
 import atlantafx.base.theme.Styles;
 import atlantafx.base.util.Animations;
+import static boundary.PredefinedDialog.showErrorDialog;
+import static boundary.PredefinedDialog.showSuccessDialog;
 import com.rttz.assignment.App;
 import static com.rttz.assignment.App.loadFXML;
 import dao.MainControlClass;
@@ -328,23 +330,5 @@ public class SignupPageController implements Initializable {
             }
         }
         return valid;
-    }
-
-    public void showErrorDialog(String errorMessage) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(errorMessage);
-        alert.setResizable(false);
-        alert.showAndWait();
-    }
-
-    public void showSuccessDialog(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Success");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.setResizable(false);
-        alert.showAndWait();
     }
 }

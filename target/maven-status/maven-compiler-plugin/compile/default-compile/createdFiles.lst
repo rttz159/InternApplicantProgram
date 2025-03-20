@@ -14,6 +14,7 @@ boundary\joblistingemployee\InternJobPostDetailsController$3.class
 boundary\studentapplication\StudentApplicationHistoryDetailsController.class
 adt\HashMap.class
 entity\Skill.class
+boundary\companyapplication\CompanyApplicationManagementController$1.class
 boundary\studentapplication\CustomListCellFactory.class
 boundary\studentapplication\CustomListCellFactory$1.class
 entity\CompanyTest.class
@@ -32,6 +33,7 @@ control\InterviewScheduler.class
 dao\DatabaseConnectionPool.class
 entity\Experience$IndustryType.class
 boundary\MainSharedState.class
+boundary\companyapplication\CompanyApplicationManagementController$2.class
 adt\ArrayCyclicQueue.class
 boundary\studentprofile\StudentProfileManagmentController.class
 utils\builders\QualificationBuilder.class
@@ -43,8 +45,10 @@ dao\MainControlClass.class
 dao\StudentDriver.class
 control\CustomComparators$CompanyByNameComparator.class
 adt\Node.class
+boundary\companyapplication\ApplicationDetailsController.class
 boundary\joblistingstudent\InternJobPostDetailsController$2.class
 boundary\joblistingstudent\CustomListCellFactory.class
+boundary\PredefinedDialog.class
 adt\QueueInterface.class
 adt\TreeInterface.class
 adt\ArrayStack$ArrayStackIterator.class

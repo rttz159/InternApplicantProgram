@@ -3,7 +3,7 @@ package boundary.joblistingemployee;
 import adt.ArrayList;
 import adt.ListInterface;
 import atlantafx.base.theme.Styles;
-import boundary.NullSelectionModel;
+import static boundary.PredefinedDialog.showErrorDialog;
 import boundary.joblistingstudent.ApplicationSharedState;
 import com.rttz.assignment.App;
 import dao.CompanyDAO;
@@ -14,7 +14,6 @@ import entity.Company;
 import entity.InternPost;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalTime;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -227,15 +226,6 @@ public class InternJobManagerController implements Initializable {
         CompanyDAO.updateCompanyById(currentCompany);
         reset();
         internJobListView.scrollTo(tempInternPost);
-    }
-
-    private void showErrorDialog(String errorMessage) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(errorMessage);
-        alert.setResizable(false);
-        alert.showAndWait();
     }
 
 }

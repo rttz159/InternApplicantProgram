@@ -4,6 +4,7 @@ import adt.ArrayList;
 import adt.ListInterface;
 import adt.interval.Interval;
 import adt.interval.TimeInterval;
+import static boundary.PredefinedDialog.showErrorDialog;
 import control.InterviewScheduler;
 import dao.MainControlClass;
 import dao.CompanyDAO;
@@ -77,32 +78,8 @@ public class InterviewStudentSchedulerController {
         setUp();
     }
 
-    public void showErrorDialog(String errorMessage) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(errorMessage);
-        alert.setResizable(false);
-        alert.showAndWait();
-    }
-
-    private Optional<ButtonType> showConfirmationDialog(String message) {
-        var alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Are you sure?");
-        alert.setContentText(message);
-
-        ButtonType yesBtn = new ButtonType("Yes", ButtonData.YES);
-        ButtonType cancelBtn = new ButtonType(
-                "Cancel", ButtonData.CANCEL_CLOSE
-        );
-
-        alert.getButtonTypes().setAll(yesBtn, cancelBtn);
-        return alert.showAndWait();
-    }
-
     private LocalDate workingDate() {
-        LocalDate workingDate = LocalDate.now();
+        LocalDate workingDate = LocalDate.now().plusDays(1);
         while (workingDate.getDayOfWeek() == DayOfWeek.SATURDAY || workingDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
             workingDate = workingDate.plusDays(1);
         }
@@ -196,7 +173,7 @@ public class InterviewStudentSchedulerController {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
-                if (date.isBefore(LocalDate.now()) || date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                if (date.isBefore(LocalDate.now()) || date.isEqual(LocalDate.now()) || date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
                     setDisable(true);
                 }
             }
@@ -271,5 +248,9 @@ public class InterviewStudentSchedulerController {
 
     public TimeInterval getSelectedTime() {
         return this.selectedTime;
+    }
+
+    private Optional<ButtonType> showConfirmationDialog(String format) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

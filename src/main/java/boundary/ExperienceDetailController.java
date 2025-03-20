@@ -2,7 +2,6 @@ package boundary;
 
 import atlantafx.base.theme.Styles;
 import entity.Experience;
-import entity.Qualification;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;

@@ -1,5 +1,6 @@
 package boundary.studentapplication;
 
+import static boundary.PredefinedDialog.showConfirmationDialog;
 import dao.MainControlClass;
 import dao.CompanyDAO;
 import dao.StudentDAO;
@@ -14,7 +15,6 @@ import entity.Student;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -154,21 +154,6 @@ public class StudentApplicationHistoryDetailsController {
                 }
             }
         });
-    }
-
-    public Optional<ButtonType> showConfirmationDialog(String message) {
-        var alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Are you sure?");
-        alert.setContentText(message);
-
-        ButtonType yesBtn = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        ButtonType cancelBtn = new ButtonType(
-                "Cancel", ButtonBar.ButtonData.CANCEL_CLOSE
-        );
-
-        alert.getButtonTypes().setAll(yesBtn, cancelBtn);
-        return alert.showAndWait();
     }
 
     public void findCompany(InternPost internPost) {

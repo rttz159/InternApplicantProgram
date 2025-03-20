@@ -7,6 +7,8 @@ import atlantafx.base.theme.Styles;
 import boundary.QualificationDetailController;
 import boundary.SkillDetailController;
 import boundary.ExperienceDetailController;
+import static boundary.PredefinedDialog.showConfirmationDialog;
+import static boundary.PredefinedDialog.showErrorDialog;
 import com.rttz.assignment.App;
 import dao.CompanyDAO;
 import dao.MainControlClass;
@@ -26,7 +28,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -127,7 +128,7 @@ public class InternJobPostDetailsController implements Initializable {
             @Override
             protected void updateItem(Experience item, boolean empty) {
                 super.updateItem(item, empty);
-                setText((empty || item == null) ? null : String.format("Desc: %s, Industry Type: %s, Duration: %d", item.getDesc(),item.getIndustryType().toString(), item.getDuration()));
+                setText((empty || item == null) ? null : String.format("Desc: %s, Industry Type: %s, Duration: %d", item.getDesc(), item.getIndustryType().toString(), item.getDuration()));
             }
         });
         Styles.toggleStyleClass(requiredExperienceListView, Styles.STRIPED);
@@ -174,7 +175,7 @@ public class InternJobPostDetailsController implements Initializable {
             @Override
             protected void updateItem(Qualification item, boolean empty) {
                 super.updateItem(item, empty);
-                setText((empty || item == null) ? null : String.format("Desc: %s, Qualification Type: %s, Level: %d", item.getDesc(),item.getQualificationType().toString(), item.getLevel()));
+                setText((empty || item == null) ? null : String.format("Desc: %s, Qualification Type: %s, Level: %d", item.getDesc(), item.getQualificationType().toString(), item.getLevel()));
             }
         });
         Styles.toggleStyleClass(requiredQualificationListView, Styles.STRIPED);
@@ -221,7 +222,7 @@ public class InternJobPostDetailsController implements Initializable {
             @Override
             protected void updateItem(Skill item, boolean empty) {
                 super.updateItem(item, empty);
-                setText((empty || item == null) ? null : String.format("Name: %s, Skill Type: %s, Proficiency Level: %d", item.getName(),item.getSkilltype().toString(), item.getProficiencyLevel()));
+                setText((empty || item == null) ? null : String.format("Name: %s, Skill Type: %s, Proficiency Level: %d", item.getName(), item.getSkilltype().toString(), item.getProficiencyLevel()));
             }
         });
         Styles.toggleStyleClass(requiredSkillListView, Styles.STRIPED);
@@ -405,6 +406,9 @@ public class InternJobPostDetailsController implements Initializable {
 
     public void setInternPost(InternPost internpost) {
         this.currentInternPost = internpost;
+        if (currentInternPost != null && !currentInternPost.getStatus()) {
+            modifyBtn.setDisable(true);
+        }
         setUpForReadOnly();
         if (this.currentInternPost == null) {
             enrichFieldsNull();
@@ -415,30 +419,6 @@ public class InternJobPostDetailsController implements Initializable {
 
     public InternPost getInternPost() {
         return this.currentInternPost;
-    }
-
-    private void showErrorDialog(String errorMessage) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(errorMessage);
-        alert.setResizable(false);
-        alert.showAndWait();
-    }
-
-    private Optional<ButtonType> showConfirmationDialog(String message) {
-        var alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Are you sure?");
-        alert.setContentText(message);
-
-        ButtonType yesBtn = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-        ButtonType cancelBtn = new ButtonType(
-                "Cancel", ButtonBar.ButtonData.CANCEL_CLOSE
-        );
-
-        alert.getButtonTypes().setAll(yesBtn, cancelBtn);
-        return alert.showAndWait();
     }
 
     private void setUpForReadOnly() {

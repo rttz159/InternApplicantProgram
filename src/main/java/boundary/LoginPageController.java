@@ -1,6 +1,8 @@
 package boundary;
 
 import atlantafx.base.theme.Styles;
+import static boundary.PredefinedDialog.showErrorDialog;
+import static boundary.PredefinedDialog.showSuccessDialog;
 import com.rttz.assignment.App;
 import static com.rttz.assignment.App.loadFXML;
 import dao.MainControlClass;
@@ -10,8 +12,6 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -88,24 +88,6 @@ public class LoginPageController implements Initializable {
             }
         }
         showErrorDialog("Invalid Credentials || User not found.");
-    }
-
-    public void showErrorDialog(String errorMessage) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(errorMessage);
-        alert.setResizable(false);
-        alert.showAndWait();
-    }
-
-    public void showSuccessDialog(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Success");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.setResizable(false);
-        alert.showAndWait();
     }
 
     private boolean validateUsername(String name) {

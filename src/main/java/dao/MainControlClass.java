@@ -4,6 +4,7 @@ import adt.ArrayList;
 import adt.HashMap;
 import adt.ListInterface;
 import adt.MapInterface;
+import entity.Application;
 import entity.Company;
 import entity.InternPost;
 import entity.Student;
@@ -73,6 +74,10 @@ public class MainControlClass {
     public static MapInterface<String, InternPost> getInternPostMap() {
         return getInstance().getInternPostMap();
     }
+
+    public static MapInterface<String, Application> getStudentApplicationMap() {
+        return getInstance().getStudentApplicationMap();
+    }
 }
 
 class MainControlHelperClass {
@@ -84,6 +89,7 @@ class MainControlHelperClass {
     private MapInterface<String, Student> studentIdMap = new HashMap<>();
     private MapInterface<String, Company> companyMap = new HashMap<>();
     private MapInterface<String, InternPost> internpostMap = new HashMap<>();
+    private MapInterface<String, Application> studentApplicationMap = new HashMap<>();
     private User currentUser;
 
     public MainControlHelperClass() {
@@ -93,6 +99,9 @@ class MainControlHelperClass {
             for (var x : students) {
                 studentMap.put(x.getUsername(), x);
                 studentIdMap.put(x.getUserId(), x);
+                for (var y : x.getStudentApplications()) {
+                    studentApplicationMap.put(y.getApplicationId(), y);
+                }
             }
             this.companies = CompanyDAO.getCompanies();
             for (var x : companies) {
@@ -141,6 +150,10 @@ class MainControlHelperClass {
 
     public MapInterface<String, InternPost> getInternPostMap() {
         return this.internpostMap;
+    }
+
+    public MapInterface<String, Application> getStudentApplicationMap() {
+        return this.studentApplicationMap;
     }
 
     public User getCurrentUser() {
