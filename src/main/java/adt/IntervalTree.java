@@ -9,7 +9,7 @@ import java.util.Iterator;
  */
 public class IntervalTree<T extends Comparable<T>> implements TreeInterface<Interval<T>> {
 
-    private class Node {
+    private class Node implements TreeInterface.TreeNode<Interval> {
 
         Interval<T> interval;
         T maxEnd;
@@ -20,6 +20,26 @@ public class IntervalTree<T extends Comparable<T>> implements TreeInterface<Inte
             this.interval = interval;
             this.maxEnd = interval.end;
             this.height = 1;
+        }
+
+        @Override
+        public Interval<T> getData() {
+            return this.interval;
+        }
+
+        @Override
+        public TreeNode getLeftChild() {
+            return this.left;
+        }
+
+        @Override
+        public TreeNode getRightChild() {
+            return this.right;
+        }
+
+        @Override
+        public int getHeight() {
+            return this.height;
         }
     }
 
@@ -160,11 +180,12 @@ public class IntervalTree<T extends Comparable<T>> implements TreeInterface<Inte
         return rootNode.height;
     }
 
-    private int getHeight(Node node) {
+    @Override
+    public int getHeight(TreeNode node) {
         if (node == null) {
             return 0;
         }
-        return 1 + Math.max(getHeight(node.left), getHeight(node.right));
+        return 1 + Math.max(getHeight(node.getLeftChild()), getHeight(node.getRightChild()));
     }
 
     private Node rightRotate(Node y) {

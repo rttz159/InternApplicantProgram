@@ -20,7 +20,6 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -116,11 +115,9 @@ public class MainCompanyDashboardController {
                         changeMainContent("companyprofile/CompanyProfileManagement");
                     } else if (newValue.equals(3)) {
                         Stage newStage = new Stage();
-                        newStage.initOwner((Stage)mainContent.getScene().getWindow()); 
-                        newStage.initModality(Modality.WINDOW_MODAL); 
                         newStage.setTitle("Agenda");
                         newStage.setScene(new Scene(new AgendaBorderPane(), 800, 600));
-                        newStage.showAndWait();
+                        newStage.show();
                         MainSharedState.getInstance().setSelectedIdx(0);
                     }
                 }

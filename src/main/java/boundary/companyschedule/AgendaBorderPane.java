@@ -39,7 +39,9 @@ public class AgendaBorderPane extends BorderPane {
         CalendarSource calendarSource = new CalendarSource("My Calendars");
         calendarSource.getCalendars().add(interviewCalendar);
         calendarView.getCalendarSources().add(calendarSource);
-
+        calendarView.showAddCalendarButtonProperty().set(false);
+        calendarView.getDayPage().getAgendaView().getStylesheets().add(App.class.getResource("css/overwriteListview.css").toExternalForm());
+   
         loadAppointments();
 
         Button prevButton = new Button("← Previous");
@@ -82,9 +84,9 @@ public class AgendaBorderPane extends BorderPane {
                     LocalDateTime startTime = LocalDateTime.of(interviewDate, app.getInterview().getStart_time());
                     LocalDateTime endTime = startTime.plusMinutes(30);
 
-                    Entry<String> entry = new Entry<>("Interviewee: " + MainControlClass.getStudentsIdMap().get(app.getApplicantId()).getName());
-                    entry.setInterval(startTime, endTime);
                     InternPost tempJob = MainControlClass.getInternPostMap().get(app.getInternPostId());
+                    Entry<String> entry = new Entry<>("Interviewee: " + MainControlClass.getStudentsIdMap().get(app.getApplicantId()).getName() + " [Job Title: " + tempJob.getTitle() + "]");
+                    entry.setInterval(startTime, endTime);
                     entry.setLocation(tempJob.getLocation().getState() + ", " + tempJob.getLocation().getFullAddress());
                     interviewCalendar.addEntry(entry);
                 }

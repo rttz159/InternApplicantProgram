@@ -111,6 +111,7 @@ public class SignupPageController implements Initializable {
         signupCompanyCityComboBox.getSelectionModel().selectFirst();
         signupCompanyIndustryTypeComboBox.getItems().addAll(Experience.IndustryType.values());
         signupCompanyIndustryTypeComboBox.getSelectionModel().selectFirst();
+        signupCompanyPasswordTextField.setPromptText("6 character or above");
 
         singupCompanyBtn.setOnAction(ev -> {
             validateFieldsAndSignUp(false);

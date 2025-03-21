@@ -17,6 +17,7 @@ public class PredefinedDialog {
         alert.setHeaderText(null);
         alert.setContentText(errorMessage);
         alert.setResizable(false);
+        alert.setWidth(600);
         alert.showAndWait();
     }
 
@@ -26,6 +27,7 @@ public class PredefinedDialog {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.setResizable(false);
+        alert.setWidth(600);
         alert.showAndWait();
     }
 
@@ -34,6 +36,7 @@ public class PredefinedDialog {
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Are you sure?");
         alert.setContentText(message);
+        alert.setWidth(600);
 
         ButtonType yesBtn = new ButtonType("Yes", ButtonBar.ButtonData.YES);
         ButtonType cancelBtn = new ButtonType(

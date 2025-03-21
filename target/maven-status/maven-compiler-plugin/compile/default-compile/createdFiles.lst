@@ -117,6 +117,7 @@ boundary\MainCompanyDashboardController.class
 boundary\joblistingstudent\ApplicationSharedState.class
 boundary\studentprofile\StudentProfileManagmentController$2.class
 entity\Experience.class
+adt\TreeInterface$TreeNode.class
 adt\MapInterface.class
 adt\LinkListStack$LinkListStackIterator.class
 adt\StackInterface.class

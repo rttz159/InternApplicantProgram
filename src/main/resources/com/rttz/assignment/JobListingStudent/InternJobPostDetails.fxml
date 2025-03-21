@@ -34,6 +34,12 @@
                            <children>
                               <HBox styleClass="form-hbox">
                                  <children>
+                                    <Label styleClass="form-label" text="Company Name:" HBox.hgrow="ALWAYS" />
+                                    <TextField fx:id="compnayNameTextField" editable="false" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <HBox styleClass="form-hbox">
+                                 <children>
                                     <Label styleClass="form-label" text="Title:" HBox.hgrow="ALWAYS" />
                                     <TextField fx:id="titleTextField" editable="false" HBox.hgrow="ALWAYS" />
                                  </children>

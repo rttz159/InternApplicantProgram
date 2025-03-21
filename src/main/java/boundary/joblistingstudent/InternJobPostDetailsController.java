@@ -3,6 +3,7 @@ package boundary.joblistingstudent;
 import com.rttz.assignment.App;
 import dao.MainControlClass;
 import entity.Application;
+import entity.Company;
 import entity.Experience;
 import entity.InternPost;
 import entity.Qualification;
@@ -38,6 +39,9 @@ public class InternJobPostDetailsController {
     private TextField locationTextField;
 
     @FXML
+    private TextField compnayNameTextField;
+
+    @FXML
     private ListView<Experience> requiredExperienceListView;
 
     @FXML
@@ -54,12 +58,21 @@ public class InternJobPostDetailsController {
 
     private InternPost internpost;
 
+    private Company tempCompany;
+
     public void setInternPost(InternPost internpost) {
         this.internpost = internpost;
         setUp();
     }
 
     private void setUp() {
+        for (var x : MainControlClass.getCompanies()) {
+            if (x.getInternPosts().contains(internpost)) {
+                tempCompany = x;
+                break;
+            }
+        }
+        this.compnayNameTextField.setText(tempCompany.getCompanyName());
         this.titleTextField.setText(this.internpost.getTitle().toUpperCase());
         this.descTextField.setText(this.internpost.getDesc());
         this.locationTextField.setText("State: " + this.internpost.getLocation().getState() + " , Full Address: " + this.internpost.getLocation().getFullAddress());
@@ -99,8 +112,8 @@ public class InternJobPostDetailsController {
             applyBtn.setDisable(true);
             applyBtn.setText("Not Qualified");
         }
-        
-        if(!notApplyBefore()){
+
+        if (!notApplyBefore()) {
             applyBtn.setDisable(true);
             applyBtn.setText("Pending");
         }

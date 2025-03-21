@@ -33,8 +33,8 @@ public class BinarySearchTree<T extends Comparable<T>> implements TreeInterface<
             return node;
         }
 
-        node.height = 1 + Math.max(height(node.left),
-                height(node.right));
+        node.height = 1 + Math.max(getHeight(node.left),
+                getHeight(node.right));
 
         int balance = getBalance(node);
 
@@ -94,8 +94,8 @@ public class BinarySearchTree<T extends Comparable<T>> implements TreeInterface<
             }
         }
 
-        root.height = Math.max(height(root.left),
-                height(root.right)) + 1;
+        root.height = Math.max(getHeight(root.left),
+                getHeight(root.right)) + 1;
 
         int balance = getBalance(root);
 
@@ -143,14 +143,15 @@ public class BinarySearchTree<T extends Comparable<T>> implements TreeInterface<
 
     @Override
     public int getHeight() {
-        return height(rootNode);
+        return getHeight(rootNode);
     }
 
-    private int height(Node N) {
+    @Override
+    public int getHeight(TreeNode N) {
         if (N == null) {
             return 0;
         }
-        return N.height;
+        return N.getHeight();
     }
 
     private Node rightRotate(Node y) {
@@ -160,10 +161,10 @@ public class BinarySearchTree<T extends Comparable<T>> implements TreeInterface<
         x.right = y;
         y.left = T2;
 
-        y.height = 1 + Math.max(height(y.left),
-                height(y.right));
-        x.height = 1 + Math.max(height(x.left),
-                height(x.right));
+        y.height = 1 + Math.max(getHeight(y.left),
+                getHeight(y.right));
+        x.height = 1 + Math.max(getHeight(x.left),
+                getHeight(x.right));
 
         return x;
     }
@@ -175,10 +176,10 @@ public class BinarySearchTree<T extends Comparable<T>> implements TreeInterface<
         y.left = x;
         x.right = T2;
 
-        x.height = 1 + Math.max(height(x.left),
-                height(x.right));
-        y.height = 1 + Math.max(height(y.left),
-                height(y.right));
+        x.height = 1 + Math.max(getHeight(x.left),
+                getHeight(x.right));
+        y.height = 1 + Math.max(getHeight(y.left),
+                getHeight(y.right));
 
         return y;
     }
@@ -187,7 +188,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements TreeInterface<
         if (N == null) {
             return 0;
         }
-        return height(N.left) - height(N.right);
+        return getHeight(N.left) - getHeight(N.right);
     }
 
     @Override
@@ -301,7 +302,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements TreeInterface<
         }
     }
 
-    public class Node {
+    public class Node implements TreeInterface.TreeNode<T> {
 
         T data;
         Node left;
@@ -313,6 +314,26 @@ public class BinarySearchTree<T extends Comparable<T>> implements TreeInterface<
             this.left = null;
             this.right = null;
             height = 1;
+        }
+
+        @Override
+        public T getData() {
+            return this.data;
+        }
+
+        @Override
+        public TreeNode<T> getLeftChild() {
+            return this.left;
+        }
+
+        @Override
+        public TreeNode<T> getRightChild() {
+            return this.right;
+        }
+
+        @Override
+        public int getHeight() {
+            return this.height;
         }
     }
 

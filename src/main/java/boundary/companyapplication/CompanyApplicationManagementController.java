@@ -341,13 +341,13 @@ public class CompanyApplicationManagementController implements Initializable {
             LocalDate date2 = (tempApp2.getInterview() != null) ? tempApp2.getInterview().getDate() : LocalDate.MAX;
 
             if (!date1.equals(date2)) {
-                return date2.compareTo(date1);
+                return date1.compareTo(date2);
             }
 
             LocalTime time1 = (tempApp1.getInterview() != null) ? tempApp1.getInterview().getStart_time() : LocalTime.MAX;
             LocalTime time2 = (tempApp2.getInterview() != null) ? tempApp2.getInterview().getStart_time() : LocalTime.MAX;
 
-            return time2.compareTo(time1);
+            return time1.compareTo(time2);
         });
     }
 

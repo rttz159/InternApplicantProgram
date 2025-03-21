@@ -129,13 +129,13 @@ public class StudentApplicationController implements Initializable {
             LocalDate date2 = (app2.getInterview() != null) ? app2.getInterview().getDate() : LocalDate.MAX;
 
             if (!date1.equals(date2)) {
-                return date2.compareTo(date1);
+                return date1.compareTo(date2);
             }
 
             LocalTime time1 = (app1.getInterview() != null) ? app1.getInterview().getStart_time() : LocalTime.MAX;
             LocalTime time2 = (app2.getInterview() != null) ? app2.getInterview().getStart_time() : LocalTime.MAX;
 
-            return time2.compareTo(time1);
+            return time1.compareTo(time2);
         });
         addFilteredListToObservableList();
     }
