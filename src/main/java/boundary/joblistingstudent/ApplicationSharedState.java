@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 /**
  *
- * @author USER
+ * @author rttz159
  */
 
 public class ApplicationSharedState {

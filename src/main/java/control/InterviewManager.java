@@ -1,15 +1,15 @@
 package control;
 
-/**
- *
- * @author rttz159
- */
 import adt.HashMap;
 import java.time.LocalTime;
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
 import adt.MapInterface;
 
+/**
+ *
+ * @author rttz159
+ */
 public class InterviewManager {
 
     private MapInterface<LocalDate, InterviewScheduler> bookingRecords;

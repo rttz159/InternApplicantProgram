@@ -12,6 +12,10 @@ import entity.Student;
 import entity.User;
 import java.util.Comparator;
 
+/**
+ *
+ * @author rttz159
+ */
 public class CustomComparators {
 
     public static class UserByIdComparator implements Comparator<User> {

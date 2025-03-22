@@ -11,7 +11,6 @@ import entity.InternPost;
 import entity.Qualification;
 import entity.Skill;
 import entity.Student;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import javafx.fxml.FXML;
