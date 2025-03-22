@@ -7,16 +7,19 @@ import boundary.NullSelectionModel;
 import com.rttz.assignment.App;
 import dao.MainControlClass;
 import entity.Application;
+import entity.Location;
 import entity.Student;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -24,6 +27,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.util.Callback;
+import utils.ReportGenerator;
 import utils.SimilarityCalculator;
 
 /**
@@ -40,6 +44,9 @@ public class StudentApplicationController implements Initializable {
 
     @FXML
     private ToggleButton locationBtn;
+
+    @FXML
+    private Button generateReportBtn;
 
     @FXML
     private ComboBox statusComboBox;
@@ -70,7 +77,7 @@ public class StudentApplicationController implements Initializable {
         applicationListview.setFixedCellSize(100);
         Styles.toggleStyleClass(applicationListview, Styles.STRIPED);
         StudentApplicationShareState.getInstance().setListView(applicationListview);
-        
+
         statusComboBox.getItems().addAll("ALL", "SUCCESS", "PENDING", "REJECTED", "CANCELLED");
         statusComboBox.getSelectionModel().select("ALL");
         statusComboBox.setOnAction(eh -> filterApplicationsByStatus());
@@ -93,6 +100,57 @@ public class StudentApplicationController implements Initializable {
             applicationListview.scrollTo(0);
         }
         );
+
+        generateReportBtn.setOnAction(eh -> ReportGenerator.generateReport(generateReportContent()));
+    }
+
+    private String generateReportContent() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+        StringBuilder report = new StringBuilder();
+
+        report.append(
+                "==== Student Applications Report ====\n\n");
+        report.append(String.format("Generated on: %s\n", LocalDate.now()));
+        report.append(String.format("Student: %s\n\n", currentStudent.getName()));
+
+        String selectedStatus = (String) statusComboBox.getSelectionModel().getSelectedItem();
+
+        report.append(String.format("Filtered by Status: %s\n", selectedStatus));
+
+        String sortingCriteria = (toggleGroup.getSelectedToggle() == locationBtn)
+                ? "Location Proximity"
+                : "Application Date";
+
+        report.append(String.format("Sorted by: %s\n\n", sortingCriteria));
+
+        report.append(
+                "------------------------------------------------------\n");
+
+        for (Application app : filteredApplications) {
+            String companyName = "";
+            for (var x : MainControlClass.getCompanies()) {
+                if (x.getInternPosts().contains(MainControlClass.getInternPostMap().get(app.getInternPostId()))) {
+                    companyName = x.getCompanyName();
+                    break;
+                }
+            }
+            String jobTitle = MainControlClass.getInternPostMap().get(app.getInternPostId()).getTitle();
+            String status = app.getStatus().toString();
+            LocalDate appDate = app.getInterview().getDate();
+            LocalTime appTime = app.getInterview().getStart_time();
+            Location location = MainControlClass.getInternPostMap().get(app.getInternPostId()).getLocation();
+            double similarityScore = SimilarityCalculator.calculateLocationDistance(currentStudent.getLocation(), location);
+
+            report.append(String.format(
+                    "Company: %s\nJob: %s\nStatus: %s\nInterview Date: %s\nInterview Time: %s\nLocation (State): %s\nLocation (Full Address): %s\nLocation Similarity Score: %.2f\n",
+                    companyName, jobTitle, status, formatter.format(appDate), timeFormatter.format(appTime), location.getState(),location.getFullAddress(), similarityScore
+            ));
+            report.append("------------------------------------------------------\n");
+        }
+
+        report.append(String.format("\nTotal Applications: %d\n", filteredApplications.getNumberOfEntries()));
+        return report.toString();
     }
 
     private void setOriginalApplicationList() {
@@ -163,6 +221,7 @@ public class StudentApplicationController implements Initializable {
         } else if (toggleGroup.getSelectedToggle() == dateToggleButton) {
             rankApplicationByDate();
             applicationListview.scrollTo(0);
+
         }
     }
 

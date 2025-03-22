@@ -25,7 +25,10 @@ import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.print.PrinterJob;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -35,12 +38,17 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+import utils.ReportGenerator;
 import utils.SimilarityCalculator;
 import utils.builders.InternPostBuilder;
 
@@ -61,6 +69,9 @@ public class CompanyApplicationManagementController implements Initializable {
 
     @FXML
     private Button resetBtn;
+
+    @FXML
+    private Button generateReportBtn;
 
     @FXML
     private ToggleButton similarityScoreToggleBtn;
@@ -265,6 +276,42 @@ public class CompanyApplicationManagementController implements Initializable {
             applicationListview.scrollTo(0);
             clearSelections();
         });
+
+        generateReportBtn.setOnAction(eh -> ReportGenerator.generateReport(generateReportContent()));
+    }
+
+    private String generateReportContent() {
+        StringBuilder report = new StringBuilder();
+        report.append("==== Company Applications Report ====\n\n");
+        report.append(String.format("Generated on: %s\n", LocalDate.now()));
+        report.append(String.format("Company: %s\n\n", currentCompany.getCompanyName()));
+
+        String selectedJobPost = jobPostComboBox.getSelectionModel().getSelectedItem().getTitle();
+        String selectedStatus = statusComboBox.getSelectionModel().getSelectedItem();
+
+        report.append(String.format("Filtered by Job Post: %s\n", selectedJobPost));
+        report.append(String.format("Filtered by Status: %s\n", selectedStatus));
+
+        String sortingCriteria = (toggleGroup.getSelectedToggle() == similarityScoreToggleBtn)
+                ? "Similarity Score (Descending)"
+                : "Application Date (Ascending)";
+        report.append(String.format("Sorted by: %s\n\n", sortingCriteria));
+
+        report.append("------------------------------------------------------\n");
+
+        for (Application app : filteredApplications) {
+            String applicantName = MainControlClass.getStudentsIdMap().get(app.getApplicantId()).getName();
+            String jobTitle = MainControlClass.getInternPostMap().get(app.getInternPostId()).getTitle();
+            String status = app.getStatus().toString();
+            String similarityScore = String.format("%.2f", similarityScores.get(app));
+
+            report.append(String.format("Applicant: %s\nJob: %s\nStatus: %s\nSimilarity Score: %s\n",
+                    applicantName, jobTitle, status, similarityScore));
+            report.append("------------------------------------------------------\n");
+        }
+
+        report.append(String.format("\nTotal Applications: %d\n", filteredApplications.getNumberOfEntries()));
+        return report.toString();
     }
 
     private void clearSelections() {
