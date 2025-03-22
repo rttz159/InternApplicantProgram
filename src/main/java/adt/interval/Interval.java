@@ -4,7 +4,7 @@ package adt.interval;
  *
  * @author Raymond
  */
-public class Interval<T extends Comparable<T>> {
+public class Interval<T extends Comparable<T>> implements Comparable<Interval<T>> {
 
     public T start, end;
 
@@ -23,5 +23,10 @@ public class Interval<T extends Comparable<T>> {
     @Override
     public String toString() {
         return "[" + start + ", " + end + "]";
+    }
+
+    @Override
+    public int compareTo(Interval<T> o) {
+        return this.start.compareTo(o.start);
     }
 }

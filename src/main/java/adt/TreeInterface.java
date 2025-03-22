@@ -4,7 +4,7 @@ package adt;
  *
  * @author Raymond
  */
-public interface TreeInterface<T> extends Iterable<T> {
+public interface TreeInterface<T extends Comparable<T>> extends Iterable<T> {
 
     public void add(T newEntry);
 
