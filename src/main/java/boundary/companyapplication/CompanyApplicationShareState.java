@@ -5,7 +5,7 @@ import javafx.scene.control.ListView;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 
 public class CompanyApplicationShareState {

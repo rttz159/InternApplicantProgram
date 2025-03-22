@@ -8,7 +8,7 @@ import adt.MapInterface;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class InterviewManager {
 

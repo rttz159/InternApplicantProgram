@@ -5,7 +5,7 @@ import entity.Qualification;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class QualificationBuilder {
     private String qualificationId;

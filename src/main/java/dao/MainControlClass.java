@@ -14,7 +14,7 @@ import java.util.NoSuchElementException;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class MainControlClass {
 

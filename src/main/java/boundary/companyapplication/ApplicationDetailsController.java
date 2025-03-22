@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class ApplicationDetailsController {
 

@@ -2,7 +2,7 @@ package adt;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public interface SetInterface<T> extends Iterable<T> {
 

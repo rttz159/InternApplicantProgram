@@ -11,7 +11,7 @@ import entity.Skill;
 import entity.Student;
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class StudentBuilder extends UserBuilder<StudentBuilder> {
     private String name;

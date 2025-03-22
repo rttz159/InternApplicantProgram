@@ -41,7 +41,7 @@ import utils.builders.InternPostBuilder;
 
 /**
  *
- * @author rttz159
+ * @author 
  */
 public class InternJobPostDetailsController implements Initializable {
 

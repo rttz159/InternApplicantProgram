@@ -2,7 +2,7 @@ package adt;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public interface MapInterface<K, V> extends Iterable<MapInterface.Entry<K, V>>{
 

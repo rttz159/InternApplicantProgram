@@ -32,7 +32,7 @@ import utils.SimilarityCalculator;
 
 /**
  *
- * @author rttz159
+ * @author 
  */
 public class InternJobSearchController implements Initializable {
 

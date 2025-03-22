@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class IntervalTree<T extends Comparable<T>> implements TreeInterface<Interval<T>> {
 

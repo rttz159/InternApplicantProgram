@@ -29,7 +29,7 @@ import utils.Validation;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class SignupPageController implements Initializable {
 

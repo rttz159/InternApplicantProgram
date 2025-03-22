@@ -22,7 +22,7 @@ import javafx.scene.paint.Color;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class MainStudentDashboardController {
     

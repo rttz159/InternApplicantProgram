@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class TimeInterval extends Interval<LocalTime> {
 

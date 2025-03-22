@@ -46,7 +46,7 @@ import utils.builders.InternPostBuilder;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class CompanyApplicationManagementController implements Initializable {
 

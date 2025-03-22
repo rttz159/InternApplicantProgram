@@ -6,7 +6,7 @@ import entity.Interview;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class ApplicationBuilder {
     private String applicationId;

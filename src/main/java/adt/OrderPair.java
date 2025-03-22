@@ -2,7 +2,7 @@ package adt;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class OrderPair<X,Y> {
     private X first;

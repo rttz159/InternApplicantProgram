@@ -7,7 +7,7 @@ import javafx.scene.control.ButtonType;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class PredefinedDialog {
 

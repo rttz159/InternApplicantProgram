@@ -17,7 +17,7 @@ import utils.builders.QualificationBuilder;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class QualificationDetailController implements Initializable {
 

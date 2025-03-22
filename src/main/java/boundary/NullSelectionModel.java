@@ -6,7 +6,7 @@ import javafx.scene.control.MultipleSelectionModel;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class NullSelectionModel<T> extends MultipleSelectionModel<T> {
 

@@ -2,7 +2,7 @@ package adt;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public interface TreeInterface<T> extends Iterable<T> {
 

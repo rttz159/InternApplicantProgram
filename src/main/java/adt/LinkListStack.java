@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class LinkListStack<T> implements StackInterface<T>{
     

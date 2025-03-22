@@ -18,7 +18,7 @@ import javafx.scene.control.TextField;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class LoginPageController implements Initializable {
 

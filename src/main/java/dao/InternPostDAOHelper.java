@@ -18,7 +18,7 @@ import adt.ListInterface;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 class InternPostDAOHelper {
 

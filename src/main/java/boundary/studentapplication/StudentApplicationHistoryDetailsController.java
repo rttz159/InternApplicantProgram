@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author rttz159
+ * @author
  */
 public class StudentApplicationHistoryDetailsController {
 

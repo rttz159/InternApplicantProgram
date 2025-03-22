@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class HashMap<K, V> implements MapInterface<K, V> {
 

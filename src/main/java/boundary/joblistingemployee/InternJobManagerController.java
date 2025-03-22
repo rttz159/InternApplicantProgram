@@ -32,7 +32,7 @@ import static utils.FuzzyMatch.fuzzyMatch;
 
 /**
  *
- * @author rttz159
+ * @author 
  */
 public class InternJobManagerController implements Initializable {
 

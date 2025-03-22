@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class BinarySearchTree<T extends Comparable<T>> implements TreeInterface<T> {
 

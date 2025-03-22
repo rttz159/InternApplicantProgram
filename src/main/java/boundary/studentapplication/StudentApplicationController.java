@@ -28,7 +28,7 @@ import utils.SimilarityCalculator;
 
 /**
  *
- * @author rttz159
+ * @author
  */
 public class StudentApplicationController implements Initializable {
 

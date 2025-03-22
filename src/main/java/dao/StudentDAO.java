@@ -14,7 +14,7 @@ import adt.ListInterface;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class StudentDAO {
 

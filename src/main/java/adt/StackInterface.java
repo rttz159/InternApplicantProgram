@@ -2,7 +2,7 @@ package adt;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public interface StackInterface<T> extends Iterable<T>{
     int getNumberOfEntries();

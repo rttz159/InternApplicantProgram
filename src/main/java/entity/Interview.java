@@ -5,7 +5,7 @@ import java.time.LocalTime;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class Interview {
 

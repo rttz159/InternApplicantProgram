@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  * @param <T>
  */
 public class SinglyLinkList<T> implements ListInterface<T> {

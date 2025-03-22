@@ -17,7 +17,7 @@ import utils.builders.SkillBuilder;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class SkillDetailController implements Initializable {
 

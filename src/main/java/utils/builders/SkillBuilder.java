@@ -5,7 +5,7 @@ import entity.Skill;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class SkillBuilder {
     private String skillId;

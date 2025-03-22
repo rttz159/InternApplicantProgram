@@ -5,7 +5,7 @@ import entity.Location;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public abstract class UserBuilder<T extends UserBuilder<T>> {
     protected String userId;

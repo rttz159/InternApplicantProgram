@@ -41,7 +41,7 @@ import utils.builders.InterviewBuilder;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class InterviewStudentSchedulerController {
 

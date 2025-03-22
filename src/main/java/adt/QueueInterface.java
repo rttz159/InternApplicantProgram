@@ -2,7 +2,7 @@ package adt;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public interface QueueInterface<T> extends Iterable<T>{
     void enqueue(T newEntry);

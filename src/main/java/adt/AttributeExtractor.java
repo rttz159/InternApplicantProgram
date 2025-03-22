@@ -2,7 +2,7 @@ package adt;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 @FunctionalInterface
 public interface AttributeExtractor<T, A> {

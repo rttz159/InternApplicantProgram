@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class ArrayStack<T> implements StackInterface<T>{
     

@@ -2,7 +2,7 @@ package adt.interval;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class Interval<T extends Comparable<T>> {
 

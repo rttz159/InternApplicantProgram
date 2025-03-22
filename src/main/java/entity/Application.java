@@ -2,7 +2,7 @@ package entity;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class Application {
 

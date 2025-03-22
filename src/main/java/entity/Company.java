@@ -7,7 +7,7 @@ import adt.ListInterface;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class Company extends User {
 

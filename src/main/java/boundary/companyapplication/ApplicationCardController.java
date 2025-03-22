@@ -20,7 +20,7 @@ import utils.SimilarityCalculator;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class ApplicationCardController {
 

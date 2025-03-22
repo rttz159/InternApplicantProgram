@@ -19,7 +19,7 @@ import javafx.scene.layout.HBox;
 
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class AgendaBorderPane extends BorderPane {
 

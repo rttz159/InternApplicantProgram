@@ -7,7 +7,7 @@ import entity.Experience;
 import entity.InternPost;
 /**
  *
- * @author rttz159
+ * @author Raymond
  */
 public class CompanyBuilder extends UserBuilder<CompanyBuilder> {
     private String companyName;
