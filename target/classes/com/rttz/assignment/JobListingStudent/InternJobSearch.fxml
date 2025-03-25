@@ -9,6 +9,7 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -73,6 +74,8 @@
                                  </HBox.margin>
                               </ToggleButton>
                               <ToggleButton fx:id="locationBtn" mnemonicParsing="false" text="Sort by Location" />
+                              <Region HBox.hgrow="ALWAYS" />
+                              <Button fx:id="generateReportBtn" mnemonicParsing="false" styleClass="custom_button" stylesheets="@../css/internpostDetails.css" text="Generate Report" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="5.0" />

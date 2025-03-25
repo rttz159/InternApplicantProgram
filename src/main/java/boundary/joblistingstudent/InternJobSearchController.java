@@ -8,10 +8,12 @@ import atlantafx.base.theme.Styles;
 import boundary.NullSelectionModel;
 import com.rttz.assignment.App;
 import dao.MainControlClass;
+import entity.Company;
 import entity.InternPost;
 import entity.Student;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,11 +30,12 @@ import javafx.scene.control.ToggleGroup;
 import javafx.util.Callback;
 import static utils.FuzzyMatch.fuzzyMatch;
 import utils.QualificationChecker;
+import utils.ReportGenerator;
 import utils.SimilarityCalculator;
 
 /**
  *
- * @author 
+ * @author
  */
 public class InternJobSearchController implements Initializable {
 
@@ -53,6 +56,10 @@ public class InternJobSearchController implements Initializable {
 
     @FXML
     private Button resetBtn;
+
+    @FXML
+    private Button generateReportBtn;
+    ;
 
     @FXML
     private Label countLabel;
@@ -111,6 +118,10 @@ public class InternJobSearchController implements Initializable {
 
         searchBtn.setOnAction(eh -> filterInternPostsBySearch());
 
+        generateReportBtn.setOnAction(eh -> {
+            ReportGenerator.generateReport(generateReportContent());
+        });
+
         toggleGroup = new ToggleGroup();
         toggleGroup.getToggles().add(locationBtn);
         toggleGroup.getToggles().add(similarityScoreBtn);
@@ -128,6 +139,47 @@ public class InternJobSearchController implements Initializable {
             }
         });
         rankInternPostsBySimilarity();
+    }
+
+    private String generateReportContent() {
+        StringBuilder report = new StringBuilder();
+        report.append("==== Job Matching Report ====\n\n");
+        report.append(String.format("Generated on: %s\n", LocalDate.now()));
+        report.append(String.format("Student: %s\n\n", currentStudent.getName()));
+
+        String searchQuery = searchTextField.getText().trim();
+        if (!searchQuery.isEmpty()) {
+            report.append(String.format("Search Keyword: %s\n", searchQuery));
+        } else {
+            report.append("Search Keyword: None\n");
+        }
+
+        String qualificationFilter = (String) qualificationComboBox.getSelectionModel().getSelectedItem();
+        report.append(String.format("Qualification Filter: %s\n", qualificationFilter));
+
+        String sortingCriteria = similarityScoreBtn.isSelected() ? "Similarity Score (Descending)" : "Location (Ascending)";
+        report.append(String.format("Sorting By: %s\n\n", sortingCriteria));
+        
+        report.append(
+                "------------------------------------------------------\n");
+
+        for (InternPost post : filteredPost) {
+            double score = similarityScores.get(post);
+            Company tempCompany = null;
+            for (var x : MainControlClass.getCompanies()) {
+                if (x.getInternPosts().contains(post)) {
+                    tempCompany = x;
+                    break;
+                }
+            }
+            report.append(String.format("Job Title: %s\nCompany: %s\nState: %s\nFull Address: %s\nScore: %.2f\n",
+                    post.getTitle(), tempCompany.getCompanyName(), post.getLocation().getState(), post.getLocation().getFullAddress(), score));
+            report.append("------------------------------------------------------\n");
+        }
+
+        report.append(String.format("\nTotal Jobs: %d\n", filteredPost.getNumberOfEntries()));
+
+        return report.toString();
     }
 
     private void filterInternPostsBySearch() {
