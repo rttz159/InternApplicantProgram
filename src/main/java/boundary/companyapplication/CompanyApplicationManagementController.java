@@ -297,7 +297,11 @@ public class CompanyApplicationManagementController implements Initializable {
                 : "Application Date (Ascending)";
         report.append(String.format("Sorted by: %s\n\n", sortingCriteria));
 
-        report.append("------------------------------------------------------\n");
+        report.append("---------------------------------------------------------------------------------------------------------------\n");
+
+        report.append(String.format("%-30s | %-30s | %-15s | %-10s\n",
+                "Applicant", "Job", "Status", "Similarity Score"));
+        report.append("---------------------------------------------------------------------------------------------------------------\n");
 
         for (Application app : filteredApplications) {
             String applicantName = MainControlClass.getStudentsIdMap().get(app.getApplicantId()).getName();
@@ -305,12 +309,13 @@ public class CompanyApplicationManagementController implements Initializable {
             String status = app.getStatus().toString();
             String similarityScore = String.format("%.2f", similarityScores.get(app));
 
-            report.append(String.format("Applicant: %s\nJob: %s\nStatus: %s\nSimilarity Score: %s\n",
+            report.append(String.format("%-30s | %-30s | %-15s | %-10s\n",
                     applicantName, jobTitle, status, similarityScore));
-            report.append("------------------------------------------------------\n");
         }
 
+        report.append("---------------------------------------------------------------------------------------------------------------\n");
         report.append(String.format("\nTotal Applications: %d\n", filteredApplications.getNumberOfEntries()));
+
         return report.toString();
     }
 

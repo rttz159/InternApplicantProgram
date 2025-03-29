@@ -148,20 +148,18 @@ public class InternJobSearchController implements Initializable {
         report.append(String.format("Student: %s\n\n", currentStudent.getName()));
 
         String searchQuery = searchTextField.getText().trim();
-        if (!searchQuery.isEmpty()) {
-            report.append(String.format("Search Keyword: %s\n", searchQuery));
-        } else {
-            report.append("Search Keyword: None\n");
-        }
+        report.append(String.format("Search Keyword: %s\n", searchQuery.isEmpty() ? "None" : searchQuery));
 
         String qualificationFilter = (String) qualificationComboBox.getSelectionModel().getSelectedItem();
         report.append(String.format("Qualification Filter: %s\n", qualificationFilter));
 
         String sortingCriteria = similarityScoreBtn.isSelected() ? "Similarity Score (Descending)" : "Location (Ascending)";
         report.append(String.format("Sorting By: %s\n\n", sortingCriteria));
-        
-        report.append(
-                "------------------------------------------------------\n");
+
+        report.append("-------------------------------------------------------------------------------------------------------------------------------------------\n");
+        report.append(String.format("%-30s | %-25s | %-15s | %-40s | %-10s\n",
+                "Job Title", "Company", "State", "Full Address", "Score"));
+        report.append("-------------------------------------------------------------------------------------------------------------------------------------------\n");
 
         for (InternPost post : filteredPost) {
             double score = similarityScores.get(post);
@@ -172,11 +170,15 @@ public class InternJobSearchController implements Initializable {
                     break;
                 }
             }
-            report.append(String.format("Job Title: %s\nCompany: %s\nState: %s\nFull Address: %s\nScore: %.2f\n",
-                    post.getTitle(), tempCompany.getCompanyName(), post.getLocation().getState(), post.getLocation().getFullAddress(), score));
-            report.append("------------------------------------------------------\n");
+            report.append(String.format("%-30s | %-25s | %-15s | %-40s | %-10.2f\n",
+                    post.getTitle(),
+                    tempCompany.getCompanyName(),
+                    post.getLocation().getState(),
+                    post.getLocation().getFullAddress(),
+                    score));
         }
 
+        report.append("-------------------------------------------------------------------------------------------------------------------------------------------\n");
         report.append(String.format("\nTotal Jobs: %d\n", filteredPost.getNumberOfEntries()));
 
         return report.toString();

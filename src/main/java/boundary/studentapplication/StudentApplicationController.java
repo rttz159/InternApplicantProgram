@@ -109,23 +109,22 @@ public class StudentApplicationController implements Initializable {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
         StringBuilder report = new StringBuilder();
 
-        report.append(
-                "==== Student Applications Report ====\n\n");
+        report.append("==== Student Applications Report ====\n\n");
         report.append(String.format("Generated on: %s\n", LocalDate.now()));
         report.append(String.format("Student: %s\n\n", currentStudent.getName()));
 
         String selectedStatus = (String) statusComboBox.getSelectionModel().getSelectedItem();
-
         report.append(String.format("Filtered by Status: %s\n", selectedStatus));
 
         String sortingCriteria = (toggleGroup.getSelectedToggle() == locationBtn)
                 ? "Location Proximity"
                 : "Application Date";
-
         report.append(String.format("Sorted by: %s\n\n", sortingCriteria));
 
-        report.append(
-                "------------------------------------------------------\n");
+        report.append("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
+        report.append(String.format("%-25s | %-30s | %-12s | %-12s | %-10s | %-15s | %-40s | %-10s\n",
+                "Company", "Job", "Status", "Interview Date", "Time", "State", "Full Address", "Similarity Score"));
+        report.append("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 
         for (Application app : filteredApplications) {
             String companyName = "";
@@ -135,6 +134,7 @@ public class StudentApplicationController implements Initializable {
                     break;
                 }
             }
+
             String jobTitle = MainControlClass.getInternPostMap().get(app.getInternPostId()).getTitle();
             String status = app.getStatus().toString();
             LocalDate appDate = app.getInterview().getDate();
@@ -142,14 +142,14 @@ public class StudentApplicationController implements Initializable {
             Location location = MainControlClass.getInternPostMap().get(app.getInternPostId()).getLocation();
             double similarityScore = SimilarityCalculator.calculateLocationDistance(currentStudent.getLocation(), location);
 
-            report.append(String.format(
-                    "Company: %s\nJob: %s\nStatus: %s\nInterview Date: %s\nInterview Time: %s\nLocation (State): %s\nLocation (Full Address): %s\nLocation Similarity Score: %.2f\n",
-                    companyName, jobTitle, status, formatter.format(appDate), timeFormatter.format(appTime), location.getState(),location.getFullAddress(), similarityScore
-            ));
-            report.append("------------------------------------------------------\n");
+            report.append(String.format("%-25s | %-30s | %-12s | %-12s | %-10s | %-15s | %-40s | %-10.2f\n",
+                    companyName, jobTitle, status, formatter.format(appDate), timeFormatter.format(appTime),
+                    location.getState(), location.getFullAddress(), similarityScore));
         }
 
+        report.append("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
         report.append(String.format("\nTotal Applications: %d\n", filteredApplications.getNumberOfEntries()));
+
         return report.toString();
     }
 
