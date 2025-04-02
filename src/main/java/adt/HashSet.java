@@ -261,6 +261,25 @@ public class HashSet<T> implements SetInterface<T> {
     }
 
     @Override
+    public <B extends Comparable<B>> double fulfillmentScore(SetInterface<T> anotherSet, AttributeExtractor<T, B> levelExtractor) {
+        if (anotherSet.isEmpty()) {
+            return 1.0;
+        }
+        int totalMatch = 0;
+        for (T x : this) {
+            B levelX = levelExtractor.extract(x);
+            for (T y : anotherSet) {
+                B levelY = levelExtractor.extract(y);
+                if (levelX.compareTo(levelY) != -1) {
+                    totalMatch++;
+                    break;
+                }
+            }
+        }
+        return (double) totalMatch / anotherSet.size();
+    }
+
+    @Override
     public void union(SetInterface anotherSet) {
         if (anotherSet == null || !(anotherSet instanceof HashSet)) {
             return;

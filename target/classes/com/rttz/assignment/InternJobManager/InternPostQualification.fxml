@@ -48,12 +48,6 @@
                                     </HBox>
                                     <HBox styleClass="form-hbox">
                                        <children>
-                                          <Label styleClass="form-label" text="Level:" />
-                                          <TextField fx:id="levelTextField" HBox.hgrow="ALWAYS" />
-                                       </children>
-                                    </HBox>
-                                    <HBox styleClass="form-hbox">
-                                       <children>
                                           <Label styleClass="form-label" text="Institution:" />
                                           <TextField fx:id="institutionTextField" HBox.hgrow="ALWAYS" />
                                        </children>

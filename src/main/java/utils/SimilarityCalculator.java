@@ -11,8 +11,7 @@ public class SimilarityCalculator {
     public static double calculateSimilarity(Student student, InternPost post) {
         double qualificationScore = student.getStudentQualifications().fulfillmentScore(
                 post.getInternPostQualifications(),
-                Qualification::getQualificationType,
-                Qualification::getLevel
+                Qualification::getQualificationType
         );
 
         double experienceScore = student.getStudentExperiences().fulfillmentScore(
