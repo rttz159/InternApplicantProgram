@@ -34,9 +34,6 @@ public class QualificationDetailController implements Initializable {
     private TextField institutionTextField;
 
     @FXML
-    private TextField levelTextField;
-
-    @FXML
     private ComboBox<Qualification.QualificationType> qualificationTypeComboBox;
 
     @FXML
@@ -82,11 +79,6 @@ public class QualificationDetailController implements Initializable {
             institutionTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, institutionValid);
             valid &= institutionValid;
 
-            boolean levelValid = validateDigit(levelTextField.getText());
-            levelTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !levelValid);
-            levelTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, levelValid);
-            valid &= levelValid;
-
             boolean yearOfCompleteValid = validateDigit(yearOfCompleteTextField.getText());
             yearOfCompleteTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !yearOfCompleteValid);
             yearOfCompleteTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, yearOfCompleteValid);
@@ -96,7 +88,6 @@ public class QualificationDetailController implements Initializable {
                 qualification = new QualificationBuilder()
                         .institution(institutionTextField.getText())
                         .desc(descTextField.getText())
-                        .level(Integer.parseInt(levelTextField.getText()))
                         .yearOfComplete(Integer.parseInt(yearOfCompleteTextField.getText()))
                         .qualificationType(qualificationTypeComboBox.getSelectionModel().getSelectedItem())
                         .build();

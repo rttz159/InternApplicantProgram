@@ -208,6 +208,36 @@ public class HashSet<T> implements SetInterface<T> {
         }
         return true;
     }
+    
+    @Override
+    public <B extends Comparable<B>> boolean isSupSetByLevelAttributes(SetInterface<T> anotherSet, AttributeExtractor<T, B> levelExtractor) {
+        if (anotherSet == null || !(anotherSet instanceof HashSet)) {
+            return false;
+        }
+
+        HashSet<T> tempSet = (HashSet<T>) anotherSet;
+        if (this.size < tempSet.size) {
+            return false;
+        }
+
+        for (T x : tempSet) {
+            boolean found = false;
+            B levelX = levelExtractor.extract(x);
+
+            for (T y : this) {
+                B levelY = levelExtractor.extract(y);
+                if ( levelY.compareTo(levelX) >= 0) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     @Override
     public <A, B extends Comparable<B>> double fulfillmentScore(SetInterface<T> anotherSet, AttributeExtractor<T, A> extractor, AttributeExtractor<T, B> levelExtractor) {

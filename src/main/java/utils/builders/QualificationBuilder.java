@@ -11,7 +11,6 @@ public class QualificationBuilder {
     private String qualificationId;
     private Qualification.QualificationType qualificationType;
     private String desc;
-    private int level;
     private String institution;
     private int yearOfComplete;
 
@@ -33,11 +32,6 @@ public class QualificationBuilder {
         return this;
     }
 
-    public QualificationBuilder level(int level) {
-        this.level = level;
-        return this;
-    }
-
     public QualificationBuilder institution(String institution) {
         this.institution = institution;
         return this;
@@ -49,6 +43,6 @@ public class QualificationBuilder {
     }
 
     public Qualification build() {
-        return new Qualification(qualificationId, qualificationType, desc, level, institution, yearOfComplete);
+        return new Qualification(qualificationId, qualificationType, desc, institution, yearOfComplete);
     }
 }

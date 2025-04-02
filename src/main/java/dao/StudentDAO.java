@@ -270,11 +270,10 @@ public class StudentDAO {
                     String qualificationId = rs.getString("qualificationId");
                     String qualificationType = rs.getString("qualificationType");
                     String desc = rs.getString("desc");
-                    int level = rs.getInt("level");
                     String institution = rs.getString("institution");
                     int yearOfComplete = rs.getInt("yearOfComplete");
 
-                    qualifications.add(new Qualification(qualificationId, Qualification.QualificationType.valueOf(qualificationType), desc, level, institution, yearOfComplete));
+                    qualifications.add(new Qualification(qualificationId, Qualification.QualificationType.valueOf(qualificationType), desc, institution, yearOfComplete));
                 }
             }
         }

@@ -12,10 +12,9 @@ import entity.Skill;
 public class QualificationChecker {
 
     public static boolean checkQualification(SetInterface<Qualification> studentQualifications, SetInterface<Qualification> postQualifications) {
-        return studentQualifications.isSupSetByAttributes(
+        return studentQualifications.isSupSetByLevelAttributes(
                 postQualifications,
-                Qualification::getQualificationType,
-                Qualification::getLevel
+                Qualification::getQualificationType
         );
     }
 

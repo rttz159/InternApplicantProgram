@@ -9,15 +9,13 @@ public class Qualification {
     private String qualificationId;
     private QualificationType qualificationType;
     private String desc;
-    private int level;
     private String institution;
     private int yearOfComplete;
 
-    public Qualification(String qualificationId, QualificationType qualificationType, String desc, int level, String institution, int yearOfComplete) {
+    public Qualification(String qualificationId, QualificationType qualificationType, String desc, String institution, int yearOfComplete) {
         this.qualificationId = qualificationId;
         this.qualificationType = qualificationType;
         this.desc = desc;
-        this.level = level;
         this.institution = institution;
         this.yearOfComplete = yearOfComplete;
     }
@@ -38,14 +36,6 @@ public class Qualification {
         this.desc = desc;
     }
 
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
     public String getInstitution() {
         return institution;
     }
@@ -64,6 +54,10 @@ public class Qualification {
 
     public QualificationType getQualificationType() {
         return qualificationType;
+    }
+    
+    public int getLevel(){
+        return this.qualificationType.level;
     }
 
     public void setQualificationType(QualificationType qualificationType) {
@@ -88,16 +82,26 @@ public class Qualification {
     }
 
     public enum QualificationType {
-        HIGH_SCHOOL_DIPLOMA,
-        ASSOCIATE_DEGREE,
-        BACHELOR_DEGREE,
-        MASTER_DEGREE,
-        DOCTORATE,
-        CERTIFICATION,
-        DIPLOMA,
-        PROFESSIONAL_TRAINING,
-        VOCATIONAL_TRAINING,
-        ONLINE_COURSE
+        HIGH_SCHOOL_DIPLOMA(1),
+        VOCATIONAL_TRAINING(2),
+        ONLINE_COURSE(3),
+        CERTIFICATION(4),
+        PROFESSIONAL_TRAINING(5),
+        ASSOCIATE_DEGREE(6),
+        DIPLOMA(7),
+        BACHELOR_DEGREE(8),
+        MASTER_DEGREE(9),
+        DOCTORATE(10);
+
+        private final int level;
+
+        QualificationType(int level) {
+            this.level = level;
+        }
+
+        public int getLevel() {
+            return level;
+        }
     }
 
     public Qualification deepCopy() {
@@ -105,7 +109,6 @@ public class Qualification {
                 this.qualificationId,
                 this.qualificationType,
                 this.desc,
-                this.level,
                 this.institution,
                 this.yearOfComplete
         );
