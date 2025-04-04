@@ -122,7 +122,7 @@ public class StudentApplicationController implements Initializable {
         report.append(String.format("Sorted by: %s\n\n", sortingCriteria));
 
         report.append("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
-        report.append(String.format("%-25s | %-30s | %-12s | %-12s | %-10s | %-15s | %-40s | %-10s\n",
+        report.append(String.format("%-25s | %-30s | %-12s | %-16s | %-10s | %-15s | %-40s | %-10s\n",
                 "Company", "Job", "Status", "Interview Date", "Time", "State", "Full Address", "Similarity Score"));
         report.append("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 
@@ -142,7 +142,7 @@ public class StudentApplicationController implements Initializable {
             Location location = MainControlClass.getInternPostMap().get(app.getInternPostId()).getLocation();
             double similarityScore = SimilarityCalculator.calculateLocationDistance(currentStudent.getLocation(), location);
 
-            report.append(String.format("%-25s | %-30s | %-12s | %-12s | %-10s | %-15s | %-40s | %-10.2f\n",
+            report.append(String.format("%-25s | %-30s | %-12s | %-16s | %-10s | %-15s | %-40s | %-10.2f\n",
                     companyName, jobTitle, status, formatter.format(appDate), timeFormatter.format(appTime),
                     location.getState(), location.getFullAddress(), similarityScore));
         }
