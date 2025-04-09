@@ -1,4 +1,4 @@
-package boundary.companyapplication;
+package control.companyapplication;
 
 import entity.Application;
 import javafx.scene.control.ListView;

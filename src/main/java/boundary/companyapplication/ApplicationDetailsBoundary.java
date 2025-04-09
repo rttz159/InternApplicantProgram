@@ -1,5 +1,6 @@
 package boundary.companyapplication;
 
+import control.companyapplication.CompanyApplicationShareState;
 import boundary.PredefinedDialog;
 import dao.CompanyDAO;
 import dao.MainControlClass;

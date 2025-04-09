@@ -1,24 +1,18 @@
 package boundary.companyprofile;
 
 import atlantafx.base.theme.Styles;
-import static boundary.PredefinedDialog.showConfirmationDialog;
-import dao.CompanyDAO;
-import dao.MainControlClass;
+import control.companyprofile.CompanyProfileManagementControl;
 import entity.Company;
 import entity.Experience;
 import entity.Location;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import utils.Validation;
 
 /**
  *
@@ -26,100 +20,74 @@ import utils.Validation;
  */
 public class CompanyProfileManagmentBoundary implements Initializable {
 
-    @FXML
-    private TextArea addressTextArea;
+    @FXML private TextArea addressTextArea;
+    @FXML private Button cancelBtn;
+    @FXML private TextField contactNoTextField;
+    @FXML private TextField emailTextField;
+    @FXML private ComboBox<Experience.IndustryType> indsutryTypeComboBox;
+    @FXML private Button modifyBtn;
+    @FXML private TextField nameTextField;
+    @FXML private Button saveBtn;
+    @FXML private ComboBox<Location.MalaysianRegion> stateComboBox;
 
-    @FXML
-    private Button cancelBtn;
+    private CompanyProfileManagementControl control;
+    private Company currentCompany;
 
-    @FXML
-    private TextField contactNoTextField;
+    public TextArea getAddressTextArea() {
+        return addressTextArea;
+    }
 
-    @FXML
-    private TextField emailTextField;
+    public Button getCancelBtn() {
+        return cancelBtn;
+    }
 
-    @FXML
-    private ComboBox<Experience.IndustryType> indsutryTypeComboBox;
+    public TextField getContactNoTextField() {
+        return contactNoTextField;
+    }
 
-    @FXML
-    private Button modifyBtn;
+    public TextField getEmailTextField() {
+        return emailTextField;
+    }
 
-    @FXML
-    private TextField nameTextField;
+    public ComboBox<Experience.IndustryType> getIndsutryTypeComboBox() {
+        return indsutryTypeComboBox;
+    }
 
-    @FXML
-    private Button saveBtn;
+    public Button getModifyBtn() {
+        return modifyBtn;
+    }
 
-    @FXML
-    private ComboBox<Location.MalaysianRegion> stateComboBox;
+    public TextField getNameTextField() {
+        return nameTextField;
+    }
 
-    private Company currentCompany = (Company) MainControlClass.getCurrentUser();
+    public Button getSaveBtn() {
+        return saveBtn;
+    }
 
+    public ComboBox<Location.MalaysianRegion> getStateComboBox() {
+        return stateComboBox;
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        control = new CompanyProfileManagementControl(this);
+        currentCompany = control.getCurrentCompany();
         enrichFields();
         setUpForReadOnly();
         modifyBtn.setOnAction(eh -> {
             setUpForModify();
         });
 
-        saveBtn.setOnAction(eh -> {
-            boolean valid = true;
+        saveBtn.setOnAction(eh -> control.saveCompanyInfo());
 
-            boolean nameValid = Validation.validateText(nameTextField.getText());
-            nameTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !nameValid);
-            nameTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, nameValid);
-            valid &= nameValid;
-            
-            boolean contactNoValid = Validation.isValidPhoneNumber(contactNoTextField.getText());
-            contactNoTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !contactNoValid);
-            contactNoTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, contactNoValid);
-            valid &= contactNoValid;
-
-            boolean emailValid = Validation.isValidEmail(emailTextField.getText());
-            emailTextField.pseudoClassStateChanged(Styles.STATE_DANGER, !emailValid);
-            emailTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, emailValid);
-            valid &= emailValid;
-
-            boolean addressValid = Validation.validateText(addressTextArea.getText());
-            addressTextArea.pseudoClassStateChanged(Styles.STATE_DANGER, !addressValid);
-            addressTextArea.pseudoClassStateChanged(Styles.STATE_SUCCESS, addressValid);
-            valid &= addressValid;
-
-            if (valid) {
-                Optional<ButtonType> result = showConfirmationDialog("The action is irreversible.");
-
-                if (result.isPresent() && result.get().getButtonData() == ButtonData.YES) {
-                    
-                    currentCompany.setCompanyName(nameTextField.getText());
-                    currentCompany.setContactno(contactNoTextField.getText());
-                    currentCompany.setEmail(emailTextField.getText());
-                    currentCompany.setIndustryType(indsutryTypeComboBox.getSelectionModel().getSelectedItem());
-                    currentCompany.setLocation(new Location(stateComboBox.getSelectionModel().getSelectedItem().toString(), addressTextArea.getText()));
-
-                    CompanyDAO.updateCompanyById(currentCompany);
-                    enrichFields();
-                    setUpForReadOnly();
-                    nameTextField.pseudoClassStateChanged(Styles.STATE_DANGER, false);
-                    nameTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, false);
-                    contactNoTextField.pseudoClassStateChanged(Styles.STATE_DANGER, false);
-                    contactNoTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, false);
-                    emailTextField.pseudoClassStateChanged(Styles.STATE_DANGER, false);
-                    emailTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, false);
-                    addressTextArea.pseudoClassStateChanged(Styles.STATE_DANGER, false);
-                    addressTextArea.pseudoClassStateChanged(Styles.STATE_SUCCESS, false);
-                }
-
-            }
-        });
-        
         cancelBtn.setOnAction(eh -> {
             enrichFields();
             setUpForReadOnly();
         });
     }
 
-    private void setUpForReadOnly() {
+    public void setUpForReadOnly() {
         cancelBtn.setVisible(false);
         cancelBtn.setManaged(false);
         saveBtn.setVisible(false);
@@ -155,7 +123,18 @@ public class CompanyProfileManagmentBoundary implements Initializable {
 
     }
 
-    private void enrichFields() {
+    public void resetPseudoClass() {
+        nameTextField.pseudoClassStateChanged(Styles.STATE_DANGER, false);
+        nameTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, false);
+        contactNoTextField.pseudoClassStateChanged(Styles.STATE_DANGER, false);
+        contactNoTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, false);
+        emailTextField.pseudoClassStateChanged(Styles.STATE_DANGER, false);
+        emailTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, false);
+        addressTextArea.pseudoClassStateChanged(Styles.STATE_DANGER, false);
+        addressTextArea.pseudoClassStateChanged(Styles.STATE_SUCCESS, false);
+    }
+
+    public void enrichFields() {
         addressTextArea.setText(currentCompany.getLocation().getFullAddress());
         contactNoTextField.setText(currentCompany.getContactno());
         emailTextField.setText(currentCompany.getEmail());

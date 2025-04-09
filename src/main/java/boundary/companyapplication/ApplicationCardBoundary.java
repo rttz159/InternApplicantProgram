@@ -1,12 +1,9 @@
 package boundary.companyapplication;
 
 import com.rttz.assignment.App;
-import dao.MainControlClass;
+import control.companyapplication.ApplicationCardControl;
 import entity.Application;
-import entity.InternPost;
-import entity.Student;
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -24,42 +21,22 @@ import utils.SimilarityCalculator;
  */
 public class ApplicationCardBoundary {
 
-    @FXML
-    private Label descriptionLabel;
+    @FXML private Label descriptionLabel;
+    @FXML private Button detailsButton;
+    @FXML private CheckBox selectedCheckBox;
+    @FXML private Label titleLabel;
+    @FXML private HBox parentHBox;
 
-    @FXML
-    private Button detailsButton;
-
-    @FXML
-    private CheckBox selectedCheckBox;
-
-    @FXML
-    private Label titleLabel;
-
-    @FXML
-    private HBox parentHBox;
-
-    private Application application;
-    
-    private Application studApplication;
-
-    private Student applicant;
-
-    private InternPost post;
-
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private ApplicationCardControl control;
 
     public void setApplication(Application app) {
-        this.application = app;
-        this.studApplication = MainControlClass.getStudentApplicationMap().get(app.getApplicationId());
-        this.post = MainControlClass.getInternPostMap().get(app.getInternPostId());
-        this.applicant = MainControlClass.getStudentsIdMap().get(application.getApplicantId());
+        control = new ApplicationCardControl(this,app);
         setUp();
     }
 
     private void setUp() {
-        this.titleLabel.setText(post.getTitle() + String.format(" [%s] [%s]", application.getStatus().toString(),formatter.format(studApplication.getInterview().getDate())));
-        this.descriptionLabel.setText(applicant.getName() + String.format(", Similarity Score: [%.2f]", SimilarityCalculator.calculateSimilarity(applicant, post) * 100));
+        this.titleLabel.setText(control.getPost().getTitle() + String.format(" [%s] [%s]", control.getApplication().getStatus().toString(),control.getFormatter().format(control.getStudApplication().getInterview().getDate())));
+        this.descriptionLabel.setText(control.getApplicant().getName() + String.format(", Similarity Score: [%.2f]", SimilarityCalculator.calculateSimilarity(control.getApplicant(), control.getPost()) * 100));
         this.selectedCheckBox.setSelected(false);
         this.selectedCheckBox.setMouseTransparent(true);
         this.detailsButton.setOnAction(eh -> {
@@ -72,7 +49,7 @@ public class ApplicationCardBoundary {
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
-            controller.setApplication(application,studApplication);
+            controller.setApplication(control.getApplication(),control.getStudApplication());
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Applcation Details");
             alert.setHeaderText("");
