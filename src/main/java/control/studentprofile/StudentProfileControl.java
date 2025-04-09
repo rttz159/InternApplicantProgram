@@ -3,7 +3,7 @@ package control.studentprofile;
 import adt.ArrayList;
 import adt.ListInterface;
 import atlantafx.base.theme.Styles;
-import boundary.studentprofile.StudentProfileManagementController;
+import boundary.studentprofile.StudentProfileManagementBoundary;
 import dao.MainControlClass;
 import dao.StudentDAO;
 import entity.Experience;
@@ -23,7 +23,7 @@ import javafx.scene.control.ButtonType;
  * @author Raymond
  */
 public class StudentProfileControl {
-    private final StudentProfileManagementController boundary;
+    private final StudentProfileManagementBoundary boundary;
     private Student currentStudent;
     
     private ListInterface<Experience> tempAddExperiences;
@@ -33,7 +33,7 @@ public class StudentProfileControl {
     private ListInterface<Qualification> tempRemoveQualifications;
     private ListInterface<Skill> tempRemoveSkills;
 
-    public StudentProfileControl(StudentProfileManagementController boundary) {
+    public StudentProfileControl(StudentProfileManagementBoundary boundary) {
         this.boundary = boundary;
         this.currentStudent = (Student) MainControlClass.getCurrentUser();
     }

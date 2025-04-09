@@ -4,7 +4,7 @@ import adt.ArrayList;
 import adt.HashMap;
 import adt.ListInterface;
 import adt.MapInterface;
-import boundary.joblistingstudent.InternJobSearchController;
+import boundary.joblistingstudent.InternJobSearchBoundary;
 import dao.MainControlClass;
 import entity.Company;
 import entity.InternPost;
@@ -24,9 +24,9 @@ public class InternJobSearchControl {
     private ListInterface<InternPost> filteredPost = new ArrayList<>();
     private Student currentStudent;
     private MapInterface<InternPost, Double> similarityScores = new HashMap<>();
-    private InternJobSearchController boundary;
+    private InternJobSearchBoundary boundary;
   
-    public InternJobSearchControl(InternJobSearchController boundary) {
+    public InternJobSearchControl(InternJobSearchBoundary boundary) {
         this.boundary = boundary;
         currentStudent = (Student) MainControlClass.getCurrentUser();
         enrichOriginalPostList();

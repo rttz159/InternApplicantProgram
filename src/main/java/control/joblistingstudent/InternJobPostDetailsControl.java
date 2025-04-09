@@ -1,8 +1,7 @@
 package control.joblistingstudent;
 
-import boundary.joblistingstudent.ApplicationSharedState;
-import boundary.joblistingstudent.InternJobPostDetailsController;
-import boundary.joblistingstudent.InterviewStudentSchedulerController;
+import boundary.joblistingstudent.InternJobPostDetailsBoundary;
+import boundary.joblistingstudent.InterviewStudentSchedulerBoundary;
 import com.rttz.assignment.App;
 import dao.MainControlClass;
 import entity.Application;
@@ -27,9 +26,9 @@ public class InternJobPostDetailsControl {
     
     private InternPost internpost;
     private Company tempCompany;
-    private InternJobPostDetailsController boundary;
+    private InternJobPostDetailsBoundary boundary;
     
-    public InternJobPostDetailsControl(InternJobPostDetailsController boundary, InternPost internpost){
+    public InternJobPostDetailsControl(InternJobPostDetailsBoundary boundary, InternPost internpost){
         this.boundary = boundary;
         this.internpost = internpost;
     }
@@ -90,7 +89,7 @@ public class InternJobPostDetailsControl {
         boundary.getApplyBtn().setOnAction(eh -> {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("JobListingStudent/interviewStudentScheduler.fxml"));
             Node node = null;
-            InterviewStudentSchedulerController controller = null;
+            InterviewStudentSchedulerBoundary controller = null;
             try {
                 node = fxmlLoader.load();
                 controller = fxmlLoader.getController();

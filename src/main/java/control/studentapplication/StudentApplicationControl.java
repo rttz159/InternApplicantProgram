@@ -2,7 +2,7 @@ package control.studentapplication;
 
 import adt.ArrayList;
 import adt.ListInterface;
-import boundary.studentapplication.StudentApplicationController;
+import boundary.studentapplication.StudentApplicationBoundary;
 import entity.Application;
 import entity.Student;
 import entity.Location;
@@ -22,9 +22,9 @@ public class StudentApplicationControl {
     private ListInterface<Application> filteredApplications = new ArrayList<>();
     private Student currentStudent;
     
-    private StudentApplicationController boundary;
+    private StudentApplicationBoundary boundary;
 
-    public StudentApplicationControl(StudentApplicationController boundary) {
+    public StudentApplicationControl(StudentApplicationBoundary boundary) {
         this.boundary = boundary;
         this.currentStudent = (Student) MainControlClass.getCurrentUser();
         this.originalApplications = currentStudent.getStudentApplications();

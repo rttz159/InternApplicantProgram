@@ -1,6 +1,6 @@
 package control.studentapplication;
 
-import boundary.studentapplication.ApplicationCardController;
+import boundary.studentapplication.ApplicationCardBoundary;
 import dao.MainControlClass;
 import entity.Application;
 import entity.InternPost;
@@ -12,12 +12,12 @@ import java.time.format.DateTimeFormatter;
  * @author Raymond
  */
 public class ApplicationCardControl {
-    private final ApplicationCardController boundary;
+    private final ApplicationCardBoundary boundary;
     private Application application;
     private InternPost post;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-    public ApplicationCardControl(ApplicationCardController boundary) {
+    public ApplicationCardControl(ApplicationCardBoundary boundary) {
         this.boundary = boundary;
     }
 

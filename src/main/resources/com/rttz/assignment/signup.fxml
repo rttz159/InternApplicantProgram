@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" style="-fx-background-color: #221d53;" stylesheets="@css/login_signup.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.SignupPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" style="-fx-background-color: #221d53;" stylesheets="@css/login_signup.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.SignupPageBoundary">
    <center>
       <HBox fx:id="backgroundHBox" maxHeight="600.0" maxWidth="800.0" style="-fx-background-color: #221d53; -fx-border-color: #F4B818; -fx-border-width: 5;" BorderPane.alignment="CENTER">
          <children>

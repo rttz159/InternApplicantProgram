@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane minHeight="600.0" minWidth="800.0" style="-fx-background-color: #221d53;" stylesheets="@css/dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.MainCompanyDashboardController">
+<StackPane minHeight="600.0" minWidth="800.0" style="-fx-background-color: #221d53;" stylesheets="@css/dashboard.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boundary.MainCompanyDashboardBoundary">
    <children>
       <VBox fx:id="mainContent" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" StackPane.alignment="CENTER" />
       <VBox fx:id="overlayVbox" style="-fx-background-color: grey;" />

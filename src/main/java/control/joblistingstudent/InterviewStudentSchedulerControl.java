@@ -6,8 +6,7 @@ import adt.interval.Interval;
 import adt.interval.TimeInterval;
 import static boundary.PredefinedDialog.showConfirmationDialog;
 import static boundary.PredefinedDialog.showErrorDialog;
-import boundary.joblistingstudent.ApplicationSharedState;
-import boundary.joblistingstudent.InterviewStudentSchedulerController;
+import boundary.joblistingstudent.InterviewStudentSchedulerBoundary;
 import control.InterviewScheduler;
 import dao.CompanyDAO;
 import dao.MainControlClass;
@@ -47,9 +46,9 @@ public class InterviewStudentSchedulerControl {
     private TimeInterval selectedTime;
     private Interview interview;
 
-    private InterviewStudentSchedulerController boundary;
+    private InterviewStudentSchedulerBoundary boundary;
     
-    public InterviewStudentSchedulerControl(InterviewStudentSchedulerController boundary, InternPost internpost){
+    public InterviewStudentSchedulerControl(InterviewStudentSchedulerBoundary boundary, InternPost internpost){
         this.boundary = boundary;
         this.internPost = internpost;
     }

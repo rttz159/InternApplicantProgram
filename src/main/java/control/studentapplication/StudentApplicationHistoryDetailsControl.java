@@ -7,8 +7,7 @@ import entity.InternPost;
 import entity.Interview;
 import entity.Student;
 import static boundary.PredefinedDialog.showConfirmationDialog;
-import boundary.studentapplication.StudentApplicationHistoryDetailsController;
-import boundary.studentapplication.StudentApplicationShareState;
+import boundary.studentapplication.StudentApplicationHistoryDetailsBoundary;
 import dao.MainControlClass;
 import entity.Company;
 import entity.Experience;
@@ -32,9 +31,9 @@ public class StudentApplicationHistoryDetailsControl {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
     
-    private StudentApplicationHistoryDetailsController boundary;
+    private StudentApplicationHistoryDetailsBoundary boundary;
 
-    public StudentApplicationHistoryDetailsControl(StudentApplicationHistoryDetailsController boundary, Application application){
+    public StudentApplicationHistoryDetailsControl(StudentApplicationHistoryDetailsBoundary boundary, Application application){
         this.boundary = boundary;
         this.application = application;
         this.internPost = MainControlClass.getInternPostMap().get(this.application.getInternPostId());

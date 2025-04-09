@@ -1,8 +1,7 @@
 package control.joblistingstudent;
 
-import boundary.joblistingstudent.InternJobPostDetailsController;
-import boundary.joblistingstudent.ApplicationSharedState;
-import boundary.joblistingstudent.InternJobCardController;
+import boundary.joblistingstudent.InternJobPostDetailsBoundary;
+import boundary.joblistingstudent.InternJobCardBoundary;
 import com.rttz.assignment.App;
 import entity.InternPost;
 import java.io.IOException;
@@ -18,9 +17,9 @@ import javafx.stage.Stage;
 public class InternJobCardControl {
     
     private InternPost internPost;
-    private InternJobCardController boundary;
+    private InternJobCardBoundary boundary;
     
-    public InternJobCardControl(InternJobCardController boundary, InternPost post) {
+    public InternJobCardControl(InternJobCardBoundary boundary, InternPost post) {
         this.boundary = boundary;
         this.internPost = post;
     }
@@ -33,7 +32,7 @@ public class InternJobCardControl {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("JobListingStudent/InternJobPostDetails.fxml"));
                 Node node = fxmlLoader.load();
-                InternJobPostDetailsController controller = fxmlLoader.getController();
+                InternJobPostDetailsBoundary controller = fxmlLoader.getController();
                 controller.setInternPost(internPost);
                 ApplicationSharedState.getInstance().setApplied(false);
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
