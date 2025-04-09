@@ -3,11 +3,11 @@ package boundary.joblistingstudent;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
+
 /**
  *
- * @author 
+ * @Raymond 
  */
-
 public class ApplicationSharedState {
     private static ApplicationSharedState instance;
 

@@ -1,19 +1,13 @@
 package boundary.joblistingstudent;
 
-import adt.ArrayList;
-import adt.HashMap;
-import adt.ListInterface;
 import adt.MapInterface;
 import atlantafx.base.theme.Styles;
 import boundary.NullSelectionModel;
 import com.rttz.assignment.App;
-import dao.MainControlClass;
-import entity.Company;
+import control.joblistingstudent.InternJobSearchControl;
 import entity.InternPost;
-import entity.Student;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,98 +22,104 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.util.Callback;
-import static utils.FuzzyMatch.fuzzyMatch;
-import utils.QualificationChecker;
 import utils.ReportGenerator;
-import utils.SimilarityCalculator;
 
 /**
  *
- * @author
+ * @Raymond
  */
 public class InternJobSearchController implements Initializable {
 
-    @FXML
-    private ListView<InternPost> internJobListView;
-
-    @FXML
-    private ToggleButton locationBtn;
-
-    @FXML
-    private Button searchBtn;
-
-    @FXML
-    private TextField searchTextField;
-
-    @FXML
-    private ToggleButton similarityScoreBtn;
-
-    @FXML
-    private Button resetBtn;
-
-    @FXML
-    private Button generateReportBtn;
-    ;
-
-    @FXML
-    private Label countLabel;
-
-    @FXML
-    private ComboBox qualificationComboBox;
-
-    private ListInterface<InternPost> originalPost = new ArrayList<>();
-
-    private ListInterface<InternPost> filteredPost = new ArrayList<>();
-
-    private Student currentStudent;
-
+    @FXML private ListView<InternPost> internJobListView;
+    @FXML private ToggleButton locationBtn;
+    @FXML private Button searchBtn;
+    @FXML private TextField searchTextField;
+    @FXML private ToggleButton similarityScoreBtn;
+    @FXML private Button resetBtn;
+    @FXML private Button generateReportBtn;
+    @FXML private Label countLabel;
+    @FXML private ComboBox qualificationComboBox;
+    
     private ToggleGroup toggleGroup;
+    private InternJobSearchControl control;
 
-    private MapInterface<InternPost, Double> similarityScores = new HashMap<>();
+    public ListView<InternPost> getInternJobListView() {
+        return internJobListView;
+    }
 
+    public ToggleButton getLocationBtn() {
+        return locationBtn;
+    }
+
+    public Button getSearchBtn() {
+        return searchBtn;
+    }
+
+    public TextField getSearchTextField() {
+        return searchTextField;
+    }
+
+    public ToggleButton getSimilarityScoreBtn() {
+        return similarityScoreBtn;
+    }
+
+    public Button getResetBtn() {
+        return resetBtn;
+    }
+
+    public Button getGenerateReportBtn() {
+        return generateReportBtn;
+    }
+
+    public Label getCountLabel() {
+        return countLabel;
+    }
+
+    public ComboBox getQualificationComboBox() {
+        return qualificationComboBox;
+    }
+
+    public ToggleGroup getToggleGroup() {
+        return toggleGroup;
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        currentStudent = (Student) MainControlClass.getCurrentUser();
-        enrichOriginalPostList();
+        control = new InternJobSearchControl(this);
 
-        countLabel.setText(String.format("[%d Jobs Found]", originalPost.getNumberOfEntries()));
-
-        for (InternPost post : filteredPost) {
-            double score = SimilarityCalculator.calculateSimilarity(currentStudent, post);
-            similarityScores.put(post, score);
-        }
+        countLabel.setText(String.format("[%d Jobs Found]", control.getOriginalPost().getNumberOfEntries()));
 
         qualificationComboBox.getItems().addAll("All", "Qualified", "Not Qualified");
         qualificationComboBox.getSelectionModel().select("All");
 
         qualificationComboBox.setOnAction(eh -> {
             int selectedQualification = qualificationComboBox.getSelectionModel().getSelectedIndex();
-            filterInternPostsByQualification(selectedQualification);
+            control.filterInternPostsByQualification(selectedQualification);
         });
 
-        internJobListView.setCellFactory(new CustomListCellFactory(similarityScores));
+        internJobListView.setCellFactory(new CustomListCellFactory(control.getSimilarityScores()));
         internJobListView.setSelectionModel(new NullSelectionModel());
         internJobListView.setFixedCellSize(100);
         internJobListView.setPlaceholder(new Label("No job listing available"));
         Styles.toggleStyleClass(internJobListView, Styles.STRIPED);
 
         resetBtn.setOnAction(eh -> {
-            filteredPost.clear();
-            for (InternPost post : originalPost) {
-                filteredPost.append(post);
+            control.getFilteredPost().clear();
+            for (InternPost post : control.getOriginalPost()) {
+                control.getFilteredPost().append(post);
             }
-            addFilteredListToObservableList();
+            control.addFilteredListToObservableList();
             similarityScoreBtn.setSelected(true);
             searchTextField.setText("");
             qualificationComboBox.getSelectionModel().select("All");
             internJobListView.scrollTo(0);
-            countLabel.setText(String.format("[%d Jobs Found]", originalPost.getNumberOfEntries()));
+            countLabel.setText(String.format("[%d Jobs Found]", control.getOriginalPost().getNumberOfEntries()));
         });
 
-        searchBtn.setOnAction(eh -> filterInternPostsBySearch());
+        searchBtn.setOnAction(eh -> control.filterInternPostsBySearch());
 
         generateReportBtn.setOnAction(eh -> {
-            ReportGenerator.generateReport(generateReportContent());
+            ReportGenerator.generateReport(control.generateReportContent());
         });
 
         toggleGroup = new ToggleGroup();
@@ -133,172 +133,12 @@ public class InternJobSearchController implements Initializable {
             }
 
             if (newValue == locationBtn) {
-                rankInternPostsByLocation();
+                control.rankInternPostsByLocation();
             } else if (newValue == similarityScoreBtn) {
-                rankInternPostsBySimilarity();
+                control.rankInternPostsBySimilarity();
             }
         });
-        rankInternPostsBySimilarity();
-    }
-
-    private String generateReportContent() {
-        StringBuilder report = new StringBuilder();
-        report.append("==== Job Matching Report ====\n\n");
-        report.append(String.format("Generated on: %s\n", LocalDate.now()));
-        report.append(String.format("Student: %s\n\n", currentStudent.getName()));
-
-        String searchQuery = searchTextField.getText().trim();
-        report.append(String.format("Search Keyword: %s\n", searchQuery.isEmpty() ? "None" : searchQuery));
-
-        String qualificationFilter = (String) qualificationComboBox.getSelectionModel().getSelectedItem();
-        report.append(String.format("Qualification Filter: %s\n", qualificationFilter));
-
-        String sortingCriteria = similarityScoreBtn.isSelected() ? "Similarity Score (Descending)" : "Location (Ascending)";
-        report.append(String.format("Sorting By: %s\n\n", sortingCriteria));
-
-        report.append("-------------------------------------------------------------------------------------------------------------------------------------------\n");
-        report.append(String.format("%-30s | %-25s | %-15s | %-40s | %-10s\n",
-                "Job Title", "Company", "State", "Full Address", "Score"));
-        report.append("-------------------------------------------------------------------------------------------------------------------------------------------\n");
-
-        for (InternPost post : filteredPost) {
-            double score = similarityScores.get(post);
-            Company tempCompany = null;
-            for (var x : MainControlClass.getCompanies()) {
-                if (x.getInternPosts().contains(post)) {
-                    tempCompany = x;
-                    break;
-                }
-            }
-            report.append(String.format("%-30s | %-25s | %-15s | %-40s | %-10.2f\n",
-                    post.getTitle(),
-                    tempCompany.getCompanyName(),
-                    post.getLocation().getState(),
-                    post.getLocation().getFullAddress(),
-                    score));
-        }
-
-        report.append("-------------------------------------------------------------------------------------------------------------------------------------------\n");
-        report.append(String.format("\nTotal Jobs: %d\n", filteredPost.getNumberOfEntries()));
-
-        return report.toString();
-    }
-
-    private void filterInternPostsBySearch() {
-        String query = searchTextField.getText().trim().toLowerCase();
-
-        if (query.isEmpty() || query.isBlank() || query.equals("") || query.trim().isEmpty() || query.trim().isBlank()) {
-            filteredPost.clear();
-            for (InternPost post : originalPost) {
-                filteredPost.append(post);
-            }
-            addFilteredListToObservableList();
-            return;
-        }
-
-        filteredPost.clear();
-        for (InternPost post : originalPost) {
-            if (fuzzyMatch(query, post.getTitle().toLowerCase()) || fuzzyMatch(query, post.getDesc().toLowerCase())) {
-                filteredPost.append(post);
-            }
-        }
-
-        addFilteredListToObservableList();
-    }
-
-    private void filterInternPostsByQualification(int idx) {
-        filterInternPostsBySearch();
-        if (idx == 0) {
-            if (locationBtn.isSelected()) {
-                rankInternPostsByLocation();
-            } else if (similarityScoreBtn.isSelected()) {
-                rankInternPostsBySimilarity();
-            }
-            return;
-        }
-
-        ArrayList<InternPost> tempPost = new ArrayList<>();
-        if (idx == 1) {
-            for (var x : filteredPost) {
-                if (checkQualification(x)) {
-                    tempPost.append(x);
-                }
-            }
-        } else {
-            for (var x : filteredPost) {
-                if (!checkQualification(x)) {
-                    tempPost.append(x);
-                }
-            }
-        }
-
-        filteredPost.clear();
-        for (var x : tempPost) {
-            filteredPost.append(x);
-        }
-
-        if (locationBtn.isSelected()) {
-            rankInternPostsByLocation();
-        } else if (similarityScoreBtn.isSelected()) {
-            rankInternPostsBySimilarity();
-        }
-    }
-
-    private boolean checkQualification(InternPost internpost) {
-        Student stud = (Student) MainControlClass.getCurrentUser();
-        boolean qualification = QualificationChecker.checkQualification(stud.getStudentQualifications(), internpost.getInternPostQualifications());
-        boolean experience = QualificationChecker.checkExperience(stud.getStudentExperiences(), internpost.getInterPostExperiences());
-        boolean skill = QualificationChecker.checkSkill(stud.getStudentSkills(), internpost.getInternPostSkills());
-
-        return qualification && experience && skill;
-    }
-
-    private void enrichOriginalPostList() {
-        this.originalPost = new ArrayList<>();
-        for (var x : MainControlClass.getInternPost()) {
-            if (x.getStatus()) {
-                originalPost.append(x);
-            }
-        }
-        this.filteredPost = new ArrayList<>();
-        for (var x : originalPost) {
-            this.filteredPost.append(x);
-        }
-    }
-
-    private void addFilteredListToObservableList() {
-        internJobListView.getItems().clear();
-        for (var x : filteredPost) {
-            internJobListView.getItems().add(x);
-        }
-        countLabel.setText(String.format("[%d Jobs Found]", filteredPost.getNumberOfEntries()));
-    }
-
-    private void rankInternPostsBySimilarity() {
-        if (currentStudent == null) {
-            return;
-        }
-
-        filteredPost.sort((post1, post2)
-                -> Double.compare(similarityScores.get(post2), similarityScores.get(post1))
-        );
-
-        addFilteredListToObservableList();
-        internJobListView.scrollTo(0);
-    }
-
-    private void rankInternPostsByLocation() {
-        if (currentStudent == null) {
-            return;
-        }
-
-        filteredPost.sort((InternPost post1, InternPost post2) -> {
-            double score1 = SimilarityCalculator.calculateLocationDistance(currentStudent.getLocation(), post1.getLocation());
-            double score2 = SimilarityCalculator.calculateLocationDistance(currentStudent.getLocation(), post2.getLocation());
-            return Double.compare(score1, score2);
-        });
-        addFilteredListToObservableList();
-        internJobListView.scrollTo(0);
+        control.rankInternPostsBySimilarity();
     }
 
 }
