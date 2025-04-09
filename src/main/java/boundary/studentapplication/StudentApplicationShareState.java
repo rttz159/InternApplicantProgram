@@ -5,7 +5,7 @@ import javafx.scene.control.ListView;
 
 /**
  *
- * @author
+ * @Raymond
  */
 public class StudentApplicationShareState {
 
