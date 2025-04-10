@@ -99,34 +99,7 @@ public class InternJobManagerBoundary implements Initializable {
 
         toggleStatusBtn.setOnAction(eh -> control.toggleSelectedInternPost());
 
-        addBtn.setOnAction(eh -> {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("InternJobManager/InternJobPostDetails.fxml"));
-                Node node = fxmlLoader.load();
-                InternJobPostDetailsBoundary controller = fxmlLoader.getController();
-                controller.setInternPost(null);
-                ApplicationSharedState.getInstance().setApplied(false);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Add Intern Post");
-                alert.setHeaderText("");
-                alert.getDialogPane().setContent(node);
-                alert.getButtonTypes().clear();
-                Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-                stage.setOnCloseRequest(event -> stage.close());
-                alert.showAndWait();
-                if (controller.getInternPost() != null) {
-                    control.getCurrentCompany().getInternPosts().append(controller.getInternPost());
-                    internJobListView.getItems().add(controller.getInternPost());
-                    MainControlClass.getInternPost().append(controller.getInternPost());
-                    MainControlClass.getInternPostMap().put(controller.getInternPost().getInterPostId(), controller.getInternPost());
-                    CompanyDAO.updateCompanyById((Company) MainControlClass.getCurrentUser());
-                    control.reset();
-                }
-
-            } catch (IOException ex) {
-                System.out.println(ex.getMessage());
-            }
-        });
+        addBtn.setOnAction(eh -> control.addInternPost());
 
         control.filterInternPostsByStatus(0);
     }

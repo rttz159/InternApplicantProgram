@@ -4,12 +4,20 @@ import adt.ArrayList;
 import adt.ListInterface;
 import static boundary.PredefinedDialog.showErrorDialog;
 import boundary.joblistingemployee.InternJobManagerBoundary;
+import boundary.joblistingemployee.InternJobPostDetailsBoundary;
+import com.rttz.assignment.App;
+import control.joblistingstudent.ApplicationSharedState;
 import dao.CompanyDAO;
 import dao.MainControlClass;
 import dao.StudentDAO;
 import entity.Application;
 import entity.Company;
 import entity.InternPost;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 import static utils.FuzzyMatch.fuzzyMatch;
 
 /**
@@ -147,6 +155,35 @@ public class InternJobManagerControl {
         CompanyDAO.updateCompanyById(currentCompany);
         reset();
         boundary.getInternJobListView().scrollTo(tempInternPost);
+    }
+
+    public void addInternPost() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("InternJobManager/InternJobPostDetails.fxml"));
+            Node node = fxmlLoader.load();
+            InternJobPostDetailsBoundary controller = fxmlLoader.getController();
+            controller.setInternPost(null);
+            ApplicationSharedState.getInstance().setApplied(false);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Add Intern Post");
+            alert.setHeaderText("");
+            alert.getDialogPane().setContent(node);
+            alert.getButtonTypes().clear();
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.setOnCloseRequest(event -> stage.close());
+            alert.showAndWait();
+            if (controller.getInternPost() != null) {
+                getCurrentCompany().getInternPosts().append(controller.getInternPost());
+                boundary.getInternJobListView().getItems().add(controller.getInternPost());
+                MainControlClass.getInternPost().append(controller.getInternPost());
+                MainControlClass.getInternPostMap().put(controller.getInternPost().getInterPostId(), controller.getInternPost());
+                CompanyDAO.updateCompanyById((Company) MainControlClass.getCurrentUser());
+                reset();
+            }
+
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
 }
