@@ -1,14 +1,11 @@
 package boundary.companyapplication;
 
 import control.companyapplication.CompanyApplicationShareState;
-import adt.ArrayList;
-import adt.HashMap;
-import adt.ListInterface;
-import adt.MapInterface;
 import atlantafx.base.theme.Styles;
 import boundary.PredefinedDialog;
 import static boundary.PredefinedDialog.showErrorDialog;
 import com.rttz.assignment.App;
+import control.companyapplication.CompanyApplicationManagementControl;
 import dao.CompanyDAO;
 import dao.MainControlClass;
 import dao.StudentDAO;
@@ -18,8 +15,6 @@ import entity.InternPost;
 import entity.Student;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.ListChangeListener;
@@ -43,7 +38,6 @@ import javafx.scene.input.MouseButton;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import utils.ReportGenerator;
-import utils.SimilarityCalculator;
 import utils.builders.InternPostBuilder;
 
 /**
@@ -52,61 +46,80 @@ import utils.builders.InternPostBuilder;
  */
 public class CompanyApplicationManagementBoundary implements Initializable {
 
-    @FXML
-    private Button clearBtn;
-
-    @FXML
-    private ToggleButton dateToggleBtn;
-
-    @FXML
-    private Button selectAllBtn;
-
-    @FXML
-    private Button resetBtn;
-
-    @FXML
-    private Button generateReportBtn;
-
-    @FXML
-    private ToggleButton similarityScoreToggleBtn;
-
-    @FXML
-    private ComboBox<String> statusComboBox;
-
-    @FXML
-    private ComboBox<InternPost> jobPostComboBox;
-
-    @FXML
-    private ListView<Application> applicationListview;
-
-    @FXML
-    private Label countLabel;
-
+    @FXML private Button clearBtn;
+    @FXML private ToggleButton dateToggleBtn;
+    @FXML private Button selectAllBtn;
+    @FXML private Button resetBtn;
+    @FXML private Button generateReportBtn;
+    @FXML private ToggleButton similarityScoreToggleBtn;
+    @FXML private ComboBox<String> statusComboBox;
+    @FXML private ComboBox<InternPost> jobPostComboBox;
+    @FXML private ListView<Application> applicationListview;
+    @FXML private Label countLabel;
     private ContextMenu contextMenu = new ContextMenu();
-
     private ToggleGroup toggleGroup;
+    private InternPost allOption;
+    
+    private CompanyApplicationManagementControl control;
 
-    private ListInterface<Application> originalApplications;
+    public Button getClearBtn() {
+        return clearBtn;
+    }
 
-    private ListInterface<Application> filteredApplications = new ArrayList<>();
+    public ToggleButton getDateToggleBtn() {
+        return dateToggleBtn;
+    }
 
-    private Company currentCompany;
+    public Button getSelectAllBtn() {
+        return selectAllBtn;
+    }
 
-    private MapInterface<Application, Double> similarityScores = new HashMap<>();
+    public Button getResetBtn() {
+        return resetBtn;
+    }
+
+    public Button getGenerateReportBtn() {
+        return generateReportBtn;
+    }
+
+    public ToggleButton getSimilarityScoreToggleBtn() {
+        return similarityScoreToggleBtn;
+    }
+
+    public ComboBox<String> getStatusComboBox() {
+        return statusComboBox;
+    }
+
+    public ComboBox<InternPost> getJobPostComboBox() {
+        return jobPostComboBox;
+    }
+
+    public ListView<Application> getApplicationListview() {
+        return applicationListview;
+    }
+
+    public Label getCountLabel() {
+        return countLabel;
+    }
+
+    public ContextMenu getContextMenu() {
+        return contextMenu;
+    }
+
+    public ToggleGroup getToggleGroup() {
+        return toggleGroup;
+    }
+
+    public InternPost getAllOption() {
+        return allOption;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        currentCompany = (Company) MainControlClass.getCurrentUser();
-        setOriginalApplicationList();
+        control = new CompanyApplicationManagementControl(this);
+        Company currentCompany = control.getCurrentCompany();
 
-        for (Application app : originalApplications) {
-            double score = SimilarityCalculator.calculateSimilarity(MainControlClass.getStudentsIdMap().get(app.getApplicantId()), MainControlClass.getInternPostMap().get(app.getInternPostId()));
-            similarityScores.put(app, score);
-        }
-
-        resetFilteredApplications();
-
-        countLabel.setText(String.format("[%d Applications]", originalApplications.getNumberOfEntries()));
+        countLabel.setText(String.format("[%d Applications]", control.getOriginalApplications().getNumberOfEntries()));
 
         applicationListview.setPlaceholder(new Label("No applications available"));
         applicationListview.setCellFactory(new CustomListCellFactory());
@@ -114,7 +127,7 @@ public class CompanyApplicationManagementBoundary implements Initializable {
         applicationListview.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         Styles.toggleStyleClass(applicationListview, Styles.BORDERED);
         applicationListview.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Application>) change -> {
-            updateCountLabel();
+            control.updateCountLabel();
         });
         applicationListview.setContextMenu(contextMenu);
         applicationListview.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_PRESSED, event -> {
@@ -127,10 +140,10 @@ public class CompanyApplicationManagementBoundary implements Initializable {
 
         statusComboBox.getItems().addAll("ALL", "SUCCESS", "PENDING", "REJECTED", "CANCELLED");
         statusComboBox.getSelectionModel().select("ALL");
-        statusComboBox.setOnAction(eh -> filterApplicationsByStatus());
+        statusComboBox.setOnAction(eh -> control.filterApplicationsByStatus());
 
         //Add a pseudo Intern Post
-        InternPost allOption = new InternPostBuilder()
+        allOption = new InternPostBuilder()
                 .title("ALL")
                 .build();
         jobPostComboBox.setCellFactory(lv -> new ListCell<InternPost>() {
@@ -156,21 +169,7 @@ public class CompanyApplicationManagementBoundary implements Initializable {
             jobPostComboBox.getItems().add(x);
         }
         jobPostComboBox.getSelectionModel().select(allOption);
-        jobPostComboBox.setOnAction(eh -> {
-            InternPost selectedInternPost = jobPostComboBox.getSelectionModel().getSelectedItem();
-            setOriginalApplicationList();
-            if (selectedInternPost != allOption) {
-                ListInterface<Application> tempOriginalApplications = new ArrayList<>();
-                for (var x : originalApplications) {
-                    if (x.getInternPostId().equals(selectedInternPost.getInterPostId())) {
-                        tempOriginalApplications.append(x);
-                    }
-                }
-                originalApplications = tempOriginalApplications;
-            }
-
-            filterApplicationsByStatus();
-        });
+        jobPostComboBox.setOnAction(eh -> control.jobPostAction());
 
         toggleGroup = new ToggleGroup();
         toggleGroup.getToggles().add(dateToggleBtn);
@@ -183,12 +182,12 @@ public class CompanyApplicationManagementBoundary implements Initializable {
             }
 
             if (newValue == similarityScoreToggleBtn) {
-                sortApplicationBySimilarityScore();
+                control.sortApplicationBySimilarityScore();
             } else if (newValue == dateToggleBtn) {
-                sortApplicationByDate();
+                control.sortApplicationByDate();
             }
 
-            addFilteredListToObservableList();
+            control.addFilteredListToObservableList();
         });
 
         //Context Menu
@@ -225,45 +224,20 @@ public class CompanyApplicationManagementBoundary implements Initializable {
             }
         });
 
-        cancelSelected.setOnAction(eh -> {
-            if (applicationListview.getSelectionModel().getSelectedItems().isEmpty()) {
-                showErrorDialog("Please select an application before proceed");
-                return;
-            }
-
-            Optional<ButtonType> result = PredefinedDialog.showConfirmationDialog("The action is irreversible");
-            if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.YES) {
-                for (var x : applicationListview.getSelectionModel().getSelectedItems()) {
-                    Application.Status prevStatus = x.getStatus();
-                    if (!prevStatus.equals(Application.Status.CANCELLED)) {
-                        x.setStatus(Application.Status.CANCELLED);
-                        Student tempStud = MainControlClass.getStudentsIdMap().get(x.getApplicantId());
-                        MainControlClass.getStudentApplicationMap().get(x.getApplicationId()).setStatus(Application.Status.CANCELLED);
-                        StudentDAO.updateStudentById(tempStud);
-                        Application studApplication = MainControlClass.getStudentApplicationMap().get(x.getApplicationId());
-                        if (prevStatus.equals(Application.Status.PENDING)) {
-                            currentCompany.getInterviewManager().interviewCancelled(studApplication.getInterview().getDate(), studApplication.getInterview().getStart_time());
-                        }
-                    }
-                }
-
-                CompanyDAO.updateCompanyById(currentCompany);
-                refreshListView();
-            }
-        });
+        cancelSelected.setOnAction(eh -> control.cancelSelectedAction());
 
         contextMenu.getItems().addAll(selectAll, clearSelection, rejectSelected, cancelSelected);
 
-        selectAllBtn.setOnAction(eh -> {
+            selectAllBtn.setOnAction(eh -> {
             applicationListview.getSelectionModel().selectAll();
         });
 
-        clearBtn.setOnAction(eh -> {
-            clearSelections();
-        });
+        clearBtn.setOnAction(eh -> 
+            clearSelections()
+        );
 
         resetBtn.setOnAction(eh -> {
-            resetFilteredApplications();
+            control.resetFilteredApplications();
             statusComboBox.getSelectionModel().select("ALL");
             similarityScoreToggleBtn.setSelected(true);
             jobPostComboBox.getSelectionModel().select(allOption);
@@ -271,146 +245,21 @@ public class CompanyApplicationManagementBoundary implements Initializable {
             clearSelections();
         });
 
-        generateReportBtn.setOnAction(eh -> ReportGenerator.generateReport(generateReportContent()));
+        generateReportBtn.setOnAction(eh -> ReportGenerator.generateReport(control.generateReportContent()));
     }
-
-    private String generateReportContent() {
-        StringBuilder report = new StringBuilder();
-        report.append("==== Company Applications Report ====\n\n");
-        report.append(String.format("Generated on: %s\n", LocalDate.now()));
-        report.append(String.format("Company: %s\n\n", currentCompany.getCompanyName()));
-
-        String selectedJobPost = jobPostComboBox.getSelectionModel().getSelectedItem().getTitle();
-        String selectedStatus = statusComboBox.getSelectionModel().getSelectedItem();
-
-        report.append(String.format("Filtered by Job Post: %s\n", selectedJobPost));
-        report.append(String.format("Filtered by Status: %s\n", selectedStatus));
-
-        String sortingCriteria = (toggleGroup.getSelectedToggle() == similarityScoreToggleBtn)
-                ? "Similarity Score (Descending)"
-                : "Application Date (Ascending)";
-        report.append(String.format("Sorted by: %s\n\n", sortingCriteria));
-
-        report.append("---------------------------------------------------------------------------------------------------------------\n");
-
-        report.append(String.format("%-30s | %-30s | %-15s | %-10s\n",
-                "Applicant", "Job", "Status", "Similarity Score"));
-        report.append("---------------------------------------------------------------------------------------------------------------\n");
-
-        for (Application app : filteredApplications) {
-            String applicantName = MainControlClass.getStudentsIdMap().get(app.getApplicantId()).getName();
-            String jobTitle = MainControlClass.getInternPostMap().get(app.getInternPostId()).getTitle();
-            String status = app.getStatus().toString();
-            String similarityScore = String.format("%.2f", similarityScores.get(app));
-
-            report.append(String.format("%-30s | %-30s | %-15s | %-10s\n",
-                    applicantName, jobTitle, status, similarityScore));
-        }
-
-        report.append("---------------------------------------------------------------------------------------------------------------\n");
-        report.append(String.format("\nTotal Applications: %d\n", filteredApplications.getNumberOfEntries()));
-
-        return report.toString();
-    }
-
-    private void clearSelections() {
+    
+    public void clearSelections() {
         applicationListview.getSelectionModel().clearSelection();
         refreshListView();
     }
 
-    private void refreshListView() {
+    public void refreshListView() {
         var tempList = applicationListview.getItems();
         applicationListview.setItems(null);
         applicationListview.setItems(tempList);
 
         applicationListview.refresh();
     }
-
-    private void setOriginalApplicationList() {
-        originalApplications = getCompanyApplication();
-    }
-
-    private void addFilteredListToObservableList() {
-        applicationListview.getItems().clear();
-        for (var x : filteredApplications) {
-            applicationListview.getItems().add(x);
-        }
-    }
-
-    private void resetFilteredApplications() {
-        filteredApplications.clear();
-        for (var x : originalApplications) {
-            filteredApplications.append(x);
-        }
-        addFilteredListToObservableList();
-    }
-
-    private void filterApplicationsByStatus() {
-        String selectedStatus = (String) statusComboBox.getSelectionModel().getSelectedItem();
-
-        filteredApplications.clear();
-        if (selectedStatus.equals("ALL")) {
-            for (Application app : originalApplications) {
-                filteredApplications.append(app);
-
-            }
-        } else {
-            for (Application app : originalApplications) {
-                if (app.getStatus().toString().equalsIgnoreCase(selectedStatus)) {
-                    filteredApplications.append(app);
-                }
-            }
-        }
-
-        if (toggleGroup.getSelectedToggle() == similarityScoreToggleBtn) {
-            sortApplicationBySimilarityScore();
-        } else if (toggleGroup.getSelectedToggle() == dateToggleBtn) {
-            sortApplicationByDate();
-        }
-
-        addFilteredListToObservableList();
-        updateCountLabel();
-        applicationListview.scrollTo(0);
-    }
-
-    private void sortApplicationBySimilarityScore() {
-        filteredApplications.sort((app1, app2)
-                -> Double.compare(similarityScores.get(app2), similarityScores.get(app1))
-        );
-    }
-
-    private void sortApplicationByDate() {
-        filteredApplications.sort((Application app1, Application app2) -> {
-            Application tempApp1 = MainControlClass.getStudentApplicationMap().get(app1.getApplicationId());
-            Application tempApp2 = MainControlClass.getStudentApplicationMap().get(app2.getApplicationId());
-            LocalDate date1 = (tempApp1.getInterview() != null) ? tempApp1.getInterview().getDate() : LocalDate.MAX;
-            LocalDate date2 = (tempApp2.getInterview() != null) ? tempApp2.getInterview().getDate() : LocalDate.MAX;
-
-            if (!date1.equals(date2)) {
-                return date1.compareTo(date2);
-            }
-
-            LocalTime time1 = (tempApp1.getInterview() != null) ? tempApp1.getInterview().getStart_time() : LocalTime.MAX;
-            LocalTime time2 = (tempApp2.getInterview() != null) ? tempApp2.getInterview().getStart_time() : LocalTime.MAX;
-
-            return time1.compareTo(time2);
-        });
-    }
-
-    private ListInterface<Application> getCompanyApplication() {
-        ListInterface<Application> tempApplication = new ArrayList<>();
-        for (var x : currentCompany.getInternPosts()) {
-            for (var y : x.getInternPostApplications()) {
-                tempApplication.append(y);
-            }
-        }
-        return tempApplication;
-    }
-
-    private void updateCountLabel() {
-        countLabel.setText(String.format("[%d Applications] [%d selected]", filteredApplications.getNumberOfEntries(), applicationListview.getSelectionModel().getSelectedIndices().size()));
-    }
-
 }
 
 class CustomListCellFactory implements Callback<ListView<Application>, ListCell<Application>> {

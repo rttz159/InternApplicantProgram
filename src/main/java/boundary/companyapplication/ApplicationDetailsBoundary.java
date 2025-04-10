@@ -1,23 +1,14 @@
 package boundary.companyapplication;
 
-import control.companyapplication.CompanyApplicationShareState;
-import boundary.PredefinedDialog;
-import dao.CompanyDAO;
-import dao.MainControlClass;
-import dao.StudentDAO;
+import control.companyapplication.ApplicationDetailsControl;
 import entity.Application;
-import entity.Company;
 import entity.Experience;
 import entity.InternPost;
 import entity.Qualification;
 import entity.Skill;
 import entity.Student;
-import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -29,71 +20,91 @@ import javafx.stage.Stage;
  */
 public class ApplicationDetailsBoundary {
 
-    @FXML
-    private Button cancelBtn;
+    @FXML private Button cancelBtn;
+    @FXML private Button saveBtn;
+    @FXML private Button statusBtn;
+    @FXML private TextField descTextField;
+    @FXML private TextField locationTextField;
+    @FXML private TextField salaryRangeTextField;
+    @FXML private TextField titleTextField;
+    @FXML private TextField interviewDateTextField;
+    @FXML private TextField interviewTimeTextField;
+    @FXML private ListView<Qualification> qualificationListView;
+    @FXML private ListView<Skill> skillListView;
+    @FXML private ListView<Experience> experienceListView;
+    @FXML private ComboBox<Application.Status> statusComboBox;
+    @FXML private TextField studentAgeTextField;
+    @FXML private TextField studentNameTextField;
+    @FXML private TextField studentEmailTextField;
 
-    @FXML
-    private Button saveBtn;
+    private ApplicationDetailsControl control;
 
-    @FXML
-    private Button statusBtn;
+    public Button getCancelBtn() {
+        return cancelBtn;
+    }
 
-    @FXML
-    private TextField descTextField;
+    public Button getSaveBtn() {
+        return saveBtn;
+    }
 
-    @FXML
-    private TextField locationTextField;
+    public Button getStatusBtn() {
+        return statusBtn;
+    }
 
-    @FXML
-    private TextField salaryRangeTextField;
+    public TextField getDescTextField() {
+        return descTextField;
+    }
 
-    @FXML
-    private TextField titleTextField;
+    public TextField getLocationTextField() {
+        return locationTextField;
+    }
 
-    @FXML
-    private TextField interviewDateTextField;
+    public TextField getSalaryRangeTextField() {
+        return salaryRangeTextField;
+    }
 
-    @FXML
-    private TextField interviewTimeTextField;
+    public TextField getTitleTextField() {
+        return titleTextField;
+    }
 
-    @FXML
-    private ListView<Qualification> qualificationListView;
+    public TextField getInterviewDateTextField() {
+        return interviewDateTextField;
+    }
 
-    @FXML
-    private ListView<Skill> skillListView;
+    public TextField getInterviewTimeTextField() {
+        return interviewTimeTextField;
+    }
 
-    @FXML
-    private ListView<Experience> experienceListView;
+    public ListView<Qualification> getQualificationListView() {
+        return qualificationListView;
+    }
 
-    @FXML
-    private ComboBox<Application.Status> statusComboBox;
+    public ListView<Skill> getSkillListView() {
+        return skillListView;
+    }
 
-    @FXML
-    private TextField studentAgeTextField;
+    public ListView<Experience> getExperienceListView() {
+        return experienceListView;
+    }
 
-    @FXML
-    private TextField studentNameTextField;
+    public ComboBox<Application.Status> getStatusComboBox() {
+        return statusComboBox;
+    }
 
-    @FXML
-    private TextField studentEmailTextField;
+    public TextField getStudentAgeTextField() {
+        return studentAgeTextField;
+    }
 
-    private Application application;
+    public TextField getStudentNameTextField() {
+        return studentNameTextField;
+    }
 
-    private Student tempStud;
-
-    private Application studApplication;
-
-    private InternPost internPost;
-
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
-    private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+    public TextField getStudentEmailTextField() {
+        return studentEmailTextField;
+    }
 
     public void setApplication(Application application, Application studApplication) {
-        this.application = application;
-        this.studApplication = studApplication;
-        this.tempStud = MainControlClass.getStudentsIdMap().get(application.getApplicantId());
-        this.internPost = MainControlClass.getInternPostMap().get(application.getInternPostId());
+        control = new ApplicationDetailsControl(this,application,studApplication);
         this.titleTextField.setEditable(false);
         this.descTextField.setEditable(false);
         this.studentAgeTextField.setEditable(false);
@@ -125,26 +136,7 @@ public class ApplicationDetailsBoundary {
                 setText((empty || item == null) ? null : String.format("Name: %s, Skill Type: %s, Proficiency Level: %d", item.getName(), item.getSkilltype().toString(), item.getProficiencyLevel()));
             }
         });
-        saveBtn.setOnAction(eh -> {
-            Optional<ButtonType> result = PredefinedDialog.showConfirmationDialog("The action is irreversible");
-            if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.YES) {
-                Application.Status tempStatus = statusComboBox.getValue();
-                Application.Status prevStatus = application.getStatus();
-                application.setStatus(tempStatus);
-                studApplication.setStatus(tempStatus);
-                StudentDAO.updateStudentById(tempStud);
-
-                Company tempComp = (Company) MainControlClass.getCurrentUser();
-
-                if (tempStatus.equals(Application.Status.CANCELLED) && !prevStatus.equals(Application.Status.CANCELLED)) {
-                    tempComp.getInterviewManager().interviewCancelled(studApplication.getInterview().getDate(), studApplication.getInterview().getStart_time());
-                }
-
-                CompanyDAO.updateCompanyById(tempComp);
-                setUpforReadOnly();
-                CompanyApplicationShareState.getInstance().refresh();
-            }
-        });
+        saveBtn.setOnAction(eh -> control.saveApplication());
         statusBtn.setOnAction(eh -> {
             setUpforModify();
         });
@@ -152,7 +144,7 @@ public class ApplicationDetailsBoundary {
         enrichField();
     }
 
-    private void setUpforReadOnly() {
+    public void setUpforReadOnly() {
         this.statusComboBox.setDisable(true);
         this.saveBtn.setVisible(false);
         this.saveBtn.setManaged(false);
@@ -172,20 +164,25 @@ public class ApplicationDetailsBoundary {
     }
 
     private void enrichField() {
-        this.titleTextField.setText(this.internPost.getTitle().toUpperCase());
-        this.descTextField.setText(this.internPost.getDesc());
-        this.locationTextField.setText("State: " + this.internPost.getLocation().getState() + " , Full Address: " + this.internPost.getLocation().getFullAddress());
-        this.salaryRangeTextField.setText(String.format("RM %.2f - RM %.2f", this.internPost.getMinMaxSalary().getX(), this.internPost.getMinMaxSalary().getY()));
+        InternPost internPost = control.getInternPost();
+        Student tempStud = control.getTempStud();
+        Application application = control.getApplication();
+        Application studApplication = control.getStudApplication();
+        
+        this.titleTextField.setText(internPost.getTitle().toUpperCase());
+        this.descTextField.setText(internPost.getDesc());
+        this.locationTextField.setText("State: " + internPost.getLocation().getState() + " , Full Address: " + internPost.getLocation().getFullAddress());
+        this.salaryRangeTextField.setText(String.format("RM %.2f - RM %.2f", internPost.getMinMaxSalary().getX(), internPost.getMinMaxSalary().getY()));
         this.studentAgeTextField.setText(tempStud.getAge() + "");
         this.studentNameTextField.setText(tempStud.getName());
         this.studentEmailTextField.setText(tempStud.getEmail());
 
         statusComboBox.getItems().clear();
         statusComboBox.getItems().addAll(Application.Status.values());
-        statusComboBox.getSelectionModel().select(this.application.getStatus());
+        statusComboBox.getSelectionModel().select(application.getStatus());
 
-        interviewDateTextField.setText(formatter.format(studApplication.getInterview().getDate()));
-        interviewTimeTextField.setText(timeFormatter.format(studApplication.getInterview().getStart_time()));
+        interviewDateTextField.setText(control.getFormatter().format(studApplication.getInterview().getDate()));
+        interviewTimeTextField.setText(control.getTimeFormatter().format(studApplication.getInterview().getStart_time()));
 
         experienceListView.getItems().clear();
         for (var x : tempStud.getStudentExperiences()) {
