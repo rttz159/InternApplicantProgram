@@ -246,26 +246,7 @@ public class InternJobPostDetailsControl {
                         .desc(boundary.getDescTextField().getText())
                         .location(new Location(boundary.getStateComboBox().getSelectionModel().getSelectedItem().toString(), boundary.getFullAddressTextArea().getText()))
                         .build();
-
-                for (var x : tempAddExperiences) {
-                    tempInternPost.getInterPostExperiences().add(x);
-                }
-                for (var x : tempRemoveExperiences) {
-                    tempInternPost.getInterPostExperiences().remove(x);
-                }
-                for (var x : tempAddQualifications) {
-                    tempInternPost.getInternPostQualifications().add(x);
-                }
-                for (var x : tempRemoveQualifications) {
-                    tempInternPost.getInternPostQualifications().remove(x);
-                }
-                for (var x : tempAddSkills) {
-                    tempInternPost.getInternPostSkills().add(x);
-                }
-                for (var x : tempRemoveSkills) {
-                    tempInternPost.getInternPostSkills().remove(x);
-                }
-
+                addNRemoveTempEntities(tempInternPost);
                 boundary.enrichFieldsNotNull();
                 boundary.setUpForReadOnly();
                 boundary.resetTextFieldPseudoClass();
@@ -279,24 +260,7 @@ public class InternJobPostDetailsControl {
                     tempTempInternPost = tempInternPost;
                 }
                 if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.YES) {
-                    for (var x : tempAddExperiences) {
-                        tempTempInternPost.getInterPostExperiences().add(x);
-                    }
-                    for (var x : tempRemoveExperiences) {
-                        tempTempInternPost.getInterPostExperiences().remove(x);
-                    }
-                    for (var x : tempAddQualifications) {
-                        tempTempInternPost.getInternPostQualifications().add(x);
-                    }
-                    for (var x : tempRemoveQualifications) {
-                        tempTempInternPost.getInternPostQualifications().remove(x);
-                    }
-                    for (var x : tempAddSkills) {
-                        tempTempInternPost.getInternPostSkills().add(x);
-                    }
-                    for (var x : tempRemoveSkills) {
-                        tempTempInternPost.getInternPostSkills().remove(x);
-                    }
+                    addNRemoveTempEntities(tempTempInternPost);
                     tempTempInternPost.setTitle(boundary.getTitleTextField().getText());
                     tempTempInternPost.setDesc(boundary.getDescTextField().getText());
                     tempTempInternPost.setMinMaxSalary(new OrderPair<>(Double.valueOf(boundary.getMinSalaryTextField().getText()), Double.valueOf(boundary.getMaxSalaryTextField().getText())));
@@ -312,6 +276,27 @@ public class InternJobPostDetailsControl {
                     boundary.resetTextFieldPseudoClass();
                 }
             }
+        }
+    }
+
+    private void addNRemoveTempEntities(InternPost tempInternPost) {
+        for (var x : tempAddExperiences) {
+            tempInternPost.getInterPostExperiences().add(x);
+        }
+        for (var x : tempRemoveExperiences) {
+            tempInternPost.getInterPostExperiences().remove(x);
+        }
+        for (var x : tempAddQualifications) {
+            tempInternPost.getInternPostQualifications().add(x);
+        }
+        for (var x : tempRemoveQualifications) {
+            tempInternPost.getInternPostQualifications().remove(x);
+        }
+        for (var x : tempAddSkills) {
+            tempInternPost.getInternPostSkills().add(x);
+        }
+        for (var x : tempRemoveSkills) {
+            tempInternPost.getInternPostSkills().remove(x);
         }
     }
 
