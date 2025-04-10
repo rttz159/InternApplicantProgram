@@ -6,7 +6,7 @@ import javafx.beans.value.ChangeListener;
 
 /**
  *
- * @Raymond 
+ * @author ziyang 
  */
 public class ApplicationSharedState {
     private static ApplicationSharedState instance;

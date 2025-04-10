@@ -20,7 +20,7 @@ import utils.QualificationChecker;
 
 /**
  *
- * @author Raymond
+ * @author ziyang
  */
 public class InternJobPostDetailsControl {
     

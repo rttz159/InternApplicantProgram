@@ -11,7 +11,7 @@ import javafx.scene.control.ToggleGroup;
 
 /**
  *
- * @author Raymond
+ * @author ziyang
  */
 public class InterviewStudentSchedulerBoundary {
 

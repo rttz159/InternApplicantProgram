@@ -14,7 +14,7 @@ import dao.MainControlClass;
 
 /**
  *
- * @author Raymond
+ * @author ziyang
  */
 public class StudentApplicationControl {
     

@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 
 /**
  *
- * @author Raymond
+ * @author ziyang
  */
 public class InternJobPostDetailsBoundary {
 

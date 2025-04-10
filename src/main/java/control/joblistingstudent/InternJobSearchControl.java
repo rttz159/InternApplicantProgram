@@ -16,7 +16,7 @@ import utils.SimilarityCalculator;
 
 /**
  *
- * @author Raymond
+ * @author ziyang
  */
 public class InternJobSearchControl {
 

@@ -5,7 +5,7 @@ import javafx.scene.control.ListView;
 
 /**
  *
- * @Raymond 
+ * @author Raymond 
  */
 
 public class JobListingEmployeeShareState {

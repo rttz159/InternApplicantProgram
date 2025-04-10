@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 
 /**
  *
- * @Raymond
+ * @author ziyang
  */
 public class StudentApplicationHistoryDetailsBoundary {
 

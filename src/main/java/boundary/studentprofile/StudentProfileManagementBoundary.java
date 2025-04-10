@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Raymond
+ * @author ziyang
  */
 public class StudentProfileManagementBoundary implements Initializable {
 

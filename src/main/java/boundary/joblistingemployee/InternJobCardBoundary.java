@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 
 /**
  *
- * @Raymond 
+ * @author Raymond 
  */
 public class InternJobCardBoundary {
 

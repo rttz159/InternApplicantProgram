@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  *
- * @author Raymond
+ * @author ziyang
  */
 public class ApplicationCardControl {
     private final ApplicationCardBoundary boundary;

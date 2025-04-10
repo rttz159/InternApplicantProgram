@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Raymond
+ * @author ziyang
  */
 public class ApplicationCardBoundary {
     @FXML private Label descriptionLabel;

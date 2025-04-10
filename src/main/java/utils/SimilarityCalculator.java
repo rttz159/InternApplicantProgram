@@ -4,7 +4,7 @@ import entity.*;
 
 /**
  *
- * @author Raymond
+ * @author lewis
  */
 public class SimilarityCalculator {
 

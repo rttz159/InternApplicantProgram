@@ -25,7 +25,7 @@ import utils.ReportGenerator;
 
 /**
  *
- * @Raymond
+ * @author ziyang
  */
 public class StudentApplicationBoundary implements Initializable {
 

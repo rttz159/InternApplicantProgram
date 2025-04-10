@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @Raymond
+ * @author Raymond
  */
 public class InternJobPostDetailsBoundary implements Initializable {
 

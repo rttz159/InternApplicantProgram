@@ -7,7 +7,7 @@ import entity.Skill;
 
 /**
  *
- * @author Raymond
+ * @author lewis
  */
 public class QualificationChecker {
 

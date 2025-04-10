@@ -2,12 +2,8 @@ package boundary.joblistingemployee;
 
 import control.joblistingemployee.JobListingEmployeeShareState;
 import atlantafx.base.theme.Styles;
-import control.joblistingstudent.ApplicationSharedState;
 import com.rttz.assignment.App;
 import control.joblistingemployee.InternJobManagerControl;
-import dao.CompanyDAO;
-import dao.MainControlClass;
-import entity.Company;
 import entity.InternPost;
 import java.io.IOException;
 import java.net.URL;
@@ -16,19 +12,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 
 /**
  *
- * @author 
+ * @author Raymond
  */
 public class InternJobManagerBoundary implements Initializable {
 

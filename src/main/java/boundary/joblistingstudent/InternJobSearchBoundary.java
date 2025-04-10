@@ -26,7 +26,7 @@ import utils.ReportGenerator;
 
 /**
  *
- * @Raymond
+ * @author ziyang
  */
 public class InternJobSearchBoundary implements Initializable {
 

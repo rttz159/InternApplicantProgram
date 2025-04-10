@@ -20,7 +20,7 @@ import javafx.scene.control.ButtonType;
 
 /**
  *
- * @author Raymond
+ * @author ziyang
  */
 public class StudentProfileControl {
     private final StudentProfileManagementBoundary boundary;
