@@ -36,13 +36,20 @@ public class StudentProfileControl {
     public StudentProfileControl(StudentProfileManagementBoundary boundary) {
         this.boundary = boundary;
         this.currentStudent = (Student) MainControlClass.getCurrentUser();
+        tempAddExperiences = new ArrayList<>();
+        tempAddQualifications = new ArrayList<>();
+        tempAddSkills = new ArrayList<>();
+
+        tempRemoveExperiences = new ArrayList<>();
+        tempRemoveQualifications = new ArrayList<>();
+        tempRemoveSkills = new ArrayList<>();
     }
 
     public void initialize() {
         setupListViews();
         setupEventHandlers();
         enrichFields();
-        setUpForReadOnly();
+        boundary.setUpForReadOnly();
     }
 
     private void setupListViews() {
@@ -90,11 +97,11 @@ public class StudentProfileControl {
         boundary.getSkillAddBtn().setOnAction(eh -> handleAddSkill());
         boundary.getSkillRemoveBtn().setOnAction(eh -> handleRemoveSkill());
         
-        boundary.getModifyBtn().setOnAction(eh -> setUpForModify());
+        boundary.getModifyBtn().setOnAction(eh -> boundary.setUpForModify());
         boundary.getSaveBtn().setOnAction(eh -> handleSave());
         boundary.getCancelBtn().setOnAction(eh -> {
             enrichFields();
-            setUpForReadOnly();
+            boundary.setUpForReadOnly();
         });
     }
 
@@ -179,8 +186,8 @@ public class StudentProfileControl {
             if (result.isPresent() && result.get().getButtonData() == ButtonData.YES) {
                 saveStudentData();
                 enrichFields();
-                setUpForReadOnly();
-                resetFieldStyles();
+                boundary.setUpForReadOnly();
+                boundary.resetFieldStyles();
             }
         }
     }
@@ -248,73 +255,6 @@ public class StudentProfileControl {
         ));
 
         StudentDAO.updateStudentById(currentStudent);
-    }
-
-    private void resetFieldStyles() {
-        boundary.getNameTextField().pseudoClassStateChanged(Styles.STATE_DANGER, false);
-        boundary.getNameTextField().pseudoClassStateChanged(Styles.STATE_SUCCESS, false);
-        boundary.getAgeTextField().pseudoClassStateChanged(Styles.STATE_DANGER, false);
-        boundary.getAgeTextField().pseudoClassStateChanged(Styles.STATE_SUCCESS, false);
-        boundary.getContactNoTextField().pseudoClassStateChanged(Styles.STATE_DANGER, false);
-        boundary.getContactNoTextField().pseudoClassStateChanged(Styles.STATE_SUCCESS, false);
-        boundary.getEmailTextField().pseudoClassStateChanged(Styles.STATE_DANGER, false);
-        boundary.getEmailTextField().pseudoClassStateChanged(Styles.STATE_SUCCESS, false);
-        boundary.getAddressTextArea().pseudoClassStateChanged(Styles.STATE_DANGER, false);
-        boundary.getAddressTextArea().pseudoClassStateChanged(Styles.STATE_SUCCESS, false);
-    }
-
-    private void setUpForReadOnly() {
-        boundary.getExperienceBtnHBox().setVisible(false);
-        boundary.getExperienceBtnHBox().setManaged(false);
-        boundary.getQualificationBtnHBox().setVisible(false);
-        boundary.getQualificationBtnHBox().setManaged(false);
-        boundary.getSkillBtnHBox().setVisible(false);
-        boundary.getSkillBtnHBox().setManaged(false);
-        boundary.getCancelBtn().setVisible(false);
-        boundary.getCancelBtn().setManaged(false);
-        boundary.getSaveBtn().setVisible(false);
-        boundary.getSaveBtn().setManaged(false);
-
-        boundary.getModifyBtn().setVisible(true);
-        boundary.getModifyBtn().setManaged(true);
-
-        boundary.getAddressTextArea().setEditable(false);
-        boundary.getAgeTextField().setEditable(false);
-        boundary.getContactNoTextField().setEditable(false);
-        boundary.getEmailTextField().setEditable(false);
-        boundary.getNameTextField().setEditable(false);
-        boundary.getStateComboBox().setDisable(true);
-    }
-
-    private void setUpForModify() {
-        tempAddExperiences = new ArrayList<>();
-        tempAddQualifications = new ArrayList<>();
-        tempAddSkills = new ArrayList<>();
-
-        tempRemoveExperiences = new ArrayList<>();
-        tempRemoveQualifications = new ArrayList<>();
-        tempRemoveSkills = new ArrayList<>();
-
-        boundary.getExperienceBtnHBox().setVisible(true);
-        boundary.getExperienceBtnHBox().setManaged(true);
-        boundary.getQualificationBtnHBox().setVisible(true);
-        boundary.getQualificationBtnHBox().setManaged(true);
-        boundary.getSkillBtnHBox().setVisible(true);
-        boundary.getSkillBtnHBox().setManaged(true);
-        boundary.getCancelBtn().setVisible(true);
-        boundary.getCancelBtn().setManaged(true);
-        boundary.getSaveBtn().setVisible(true);
-        boundary.getSaveBtn().setManaged(true);
-
-        boundary.getModifyBtn().setVisible(false);
-        boundary.getModifyBtn().setManaged(false);
-
-        boundary.getAddressTextArea().setEditable(true);
-        boundary.getAgeTextField().setEditable(true);
-        boundary.getContactNoTextField().setEditable(true);
-        boundary.getEmailTextField().setEditable(true);
-        boundary.getNameTextField().setEditable(true);
-        boundary.getStateComboBox().setDisable(false);
     }
 
     private void enrichFields() {

@@ -1,5 +1,6 @@
 package boundary.studentprofile;
 
+import atlantafx.base.theme.Styles;
 import boundary.ExperienceDetailBoundary;
 import boundary.QualificationDetailBoundary;
 import boundary.SkillDetailBoundary;
@@ -61,33 +62,95 @@ public class StudentProfileManagementBoundary implements Initializable {
         control.initialize();
     }
 
-    public TextArea getAddressTextArea() { return addressTextArea; }
-    public TextField getAgeTextField() { return ageTextField; }
-    public Button getCancelBtn() { return cancelBtn; }
-    public TextField getContactNoTextField() { return contactNoTextField; }
-    public TextField getEmailTextField() { return emailTextField; }
-    public Button getExperienceAddBtn() { return experienceAddBtn; }
-    public HBox getExperienceBtnHBox() { return experienceBtnHBox; }
-    public ListView<Experience> getExperienceListView() { return experienceListView; }
-    public Button getExperienceRemoveBtn() { return experienceRemoveBtn; }
-    public Button getModifyBtn() { return modifyBtn; }
-    public TextField getNameTextField() { return nameTextField; }
-    public Button getQualificationAddBtn() { return qualificationAddBtn; }
-    public HBox getQualificationBtnHBox() { return qualificationBtnHBox; }
-    public ListView<Qualification> getQualificationListView() { return qualificationListView; }
-    public Button getQualificationRemoveBtn() { return qualificationRemoveBtn; }
-    public Button getSaveBtn() { return saveBtn; }
-    public Button getSkillAddBtn() { return skillAddBtn; }
-    public HBox getSkillBtnHBox() { return skillBtnHBox; }
-    public ListView<Skill> getSkillListView() { return skillListView; }
-    public Button getSkillRemoveBtn() { return skillRemoveBtn; }
-    public ComboBox<Location.MalaysianRegion> getStateComboBox() { return stateComboBox; }
+    public TextArea getAddressTextArea() {
+        return addressTextArea;
+    }
+
+    public TextField getAgeTextField() {
+        return ageTextField;
+    }
+
+    public Button getCancelBtn() {
+        return cancelBtn;
+    }
+
+    public TextField getContactNoTextField() {
+        return contactNoTextField;
+    }
+
+    public TextField getEmailTextField() {
+        return emailTextField;
+    }
+
+    public Button getExperienceAddBtn() {
+        return experienceAddBtn;
+    }
+
+    public HBox getExperienceBtnHBox() {
+        return experienceBtnHBox;
+    }
+
+    public ListView<Experience> getExperienceListView() {
+        return experienceListView;
+    }
+
+    public Button getExperienceRemoveBtn() {
+        return experienceRemoveBtn;
+    }
+
+    public Button getModifyBtn() {
+        return modifyBtn;
+    }
+
+    public TextField getNameTextField() {
+        return nameTextField;
+    }
+
+    public Button getQualificationAddBtn() {
+        return qualificationAddBtn;
+    }
+
+    public HBox getQualificationBtnHBox() {
+        return qualificationBtnHBox;
+    }
+
+    public ListView<Qualification> getQualificationListView() {
+        return qualificationListView;
+    }
+
+    public Button getQualificationRemoveBtn() {
+        return qualificationRemoveBtn;
+    }
+
+    public Button getSaveBtn() {
+        return saveBtn;
+    }
+
+    public Button getSkillAddBtn() {
+        return skillAddBtn;
+    }
+
+    public HBox getSkillBtnHBox() {
+        return skillBtnHBox;
+    }
+
+    public ListView<Skill> getSkillListView() {
+        return skillListView;
+    }
+
+    public Button getSkillRemoveBtn() {
+        return skillRemoveBtn;
+    }
+
+    public ComboBox<Location.MalaysianRegion> getStateComboBox() {
+        return stateComboBox;
+    }
 
     public Experience showExperienceDialog() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("studentprofile/StudentProfileExperience.fxml"));
         Node node = fxmlLoader.load();
         ExperienceDetailBoundary controller = fxmlLoader.getController();
-        
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Experience Adder");
         alert.getDialogPane().setContent(node);
@@ -95,7 +158,7 @@ public class StudentProfileManagementBoundary implements Initializable {
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.setOnCloseRequest(event -> stage.close());
         alert.showAndWait();
-        
+
         return controller.getExperience();
     }
 
@@ -103,7 +166,7 @@ public class StudentProfileManagementBoundary implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("studentprofile/StudentProfileQualification.fxml"));
         Node node = fxmlLoader.load();
         QualificationDetailBoundary controller = fxmlLoader.getController();
-        
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Qualification Adder");
         alert.getDialogPane().setContent(node);
@@ -111,7 +174,7 @@ public class StudentProfileManagementBoundary implements Initializable {
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.setOnCloseRequest(event -> stage.close());
         alert.showAndWait();
-        
+
         return controller.getQualification();
     }
 
@@ -119,7 +182,7 @@ public class StudentProfileManagementBoundary implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("studentprofile/StudentProfileSkill.fxml"));
         Node node = fxmlLoader.load();
         SkillDetailBoundary controller = fxmlLoader.getController();
-        
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Skill Adder");
         alert.getDialogPane().setContent(node);
@@ -127,7 +190,7 @@ public class StudentProfileManagementBoundary implements Initializable {
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.setOnCloseRequest(event -> stage.close());
         alert.showAndWait();
-        
+
         return controller.getSkill();
     }
 
@@ -137,5 +200,64 @@ public class StudentProfileManagementBoundary implements Initializable {
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+
+    public void resetFieldStyles() {
+        nameTextField.pseudoClassStateChanged(Styles.STATE_DANGER, false);
+        nameTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, false);
+        ageTextField.pseudoClassStateChanged(Styles.STATE_DANGER, false);
+        ageTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, false);
+        contactNoTextField.pseudoClassStateChanged(Styles.STATE_DANGER, false);
+        contactNoTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, false);
+        emailTextField.pseudoClassStateChanged(Styles.STATE_DANGER, false);
+        emailTextField.pseudoClassStateChanged(Styles.STATE_SUCCESS, false);
+        addressTextArea.pseudoClassStateChanged(Styles.STATE_DANGER, false);
+        addressTextArea.pseudoClassStateChanged(Styles.STATE_SUCCESS, false);
+    }
+
+    public void setUpForReadOnly() {
+        experienceBtnHBox.setVisible(false);
+        experienceBtnHBox.setManaged(false);
+        qualificationBtnHBox.setVisible(false);
+        qualificationBtnHBox.setManaged(false);
+        skillBtnHBox.setVisible(false);
+        skillBtnHBox.setManaged(false);
+        cancelBtn.setVisible(false);
+        cancelBtn.setManaged(false);
+        saveBtn.setVisible(false);
+        saveBtn.setManaged(false);
+
+        modifyBtn.setVisible(true);
+        modifyBtn.setManaged(true);
+
+        addressTextArea.setEditable(false);
+        ageTextField.setEditable(false);
+        contactNoTextField.setEditable(false);
+        emailTextField.setEditable(false);
+        nameTextField.setEditable(false);
+        stateComboBox.setDisable(true);
+    }
+
+    public void setUpForModify() {
+        experienceBtnHBox.setVisible(true);
+        experienceBtnHBox.setManaged(true);
+        qualificationBtnHBox.setVisible(true);
+        qualificationBtnHBox.setManaged(true);
+        skillBtnHBox.setVisible(true);
+        skillBtnHBox.setManaged(true);
+        cancelBtn.setVisible(true);
+        cancelBtn.setManaged(true);
+        saveBtn.setVisible(true);
+        saveBtn.setManaged(true);
+
+        modifyBtn.setVisible(false);
+        modifyBtn.setManaged(false);
+
+        addressTextArea.setEditable(true);
+        ageTextField.setEditable(true);
+        contactNoTextField.setEditable(true);
+        emailTextField.setEditable(true);
+        nameTextField.setEditable(true);
+        stateComboBox.setDisable(false);
     }
 }
