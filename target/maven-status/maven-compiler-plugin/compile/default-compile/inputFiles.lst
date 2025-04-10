@@ -55,6 +55,7 @@ D:\Study\Degree\Y2S2\DSA\InternApplicantProgram\src\main\java\control\companypro
 D:\Study\Degree\Y2S2\DSA\InternApplicantProgram\src\main\java\control\studentapplication\StudentApplicationHistoryDetailsControl.java
 D:\Study\Degree\Y2S2\DSA\InternApplicantProgram\src\main\java\control\joblistingstudent\ApplicationSharedState.java
 D:\Study\Degree\Y2S2\DSA\InternApplicantProgram\src\main\java\entity\Student.java
+D:\Study\Degree\Y2S2\DSA\InternApplicantProgram\src\main\java\control\LoginPageControl.java
 D:\Study\Degree\Y2S2\DSA\InternApplicantProgram\src\main\java\adt\QueueInterface.java
 D:\Study\Degree\Y2S2\DSA\InternApplicantProgram\src\main\java\adt\AttributeExtractor.java
 D:\Study\Degree\Y2S2\DSA\InternApplicantProgram\src\main\java\utils\builders\UserBuilder.java
@@ -89,6 +90,7 @@ D:\Study\Degree\Y2S2\DSA\InternApplicantProgram\src\main\java\boundary\companyap
 D:\Study\Degree\Y2S2\DSA\InternApplicantProgram\src\main\java\boundary\MainSharedState.java
 D:\Study\Degree\Y2S2\DSA\InternApplicantProgram\src\main\java\boundary\SkillDetailBoundary.java
 D:\Study\Degree\Y2S2\DSA\InternApplicantProgram\src\main\java\boundary\DrawerMenuCompanyBoundary.java
+D:\Study\Degree\Y2S2\DSA\InternApplicantProgram\src\main\java\control\SignupPageControl.java
 D:\Study\Degree\Y2S2\DSA\InternApplicantProgram\src\main\java\utils\builders\StudentBuilder.java
 D:\Study\Degree\Y2S2\DSA\InternApplicantProgram\src\main\java\control\joblistingstudent\InternJobSearchControl.java
 D:\Study\Degree\Y2S2\DSA\InternApplicantProgram\src\main\java\adt\IntervalTree.java

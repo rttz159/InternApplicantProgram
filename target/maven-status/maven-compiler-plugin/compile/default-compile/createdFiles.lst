@@ -26,6 +26,7 @@ boundary\joblistingstudent\InternJobPostDetailsBoundary.class
 control\studentapplication\StudentApplicationShareState.class
 boundary\companyapplication\CompanyApplicationManagementBoundary$2.class
 boundary\joblistingemployee\InternJobCardBoundary.class
+control\LoginPageControl.class
 control\CustomComparators$StudentByAgeComparator.class
 control\companyprofile\CompanyProfileManagementControl.class
 boundary\joblistingstudent\InternJobSearchBoundary.class
@@ -118,6 +119,7 @@ adt\StackInterface.class
 dao\StudentDAO.class
 utils\SimilarityCalculator.class
 adt\LinkListStack.class
+control\SignupPageControl.class
 adt\MapInterface$Entry.class
 control\CustomComparators$SkillByProficiencyLevelComparator.class
 control\joblistingstudent\InternJobPostDetailsControl.class

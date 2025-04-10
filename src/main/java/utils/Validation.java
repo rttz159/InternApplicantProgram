@@ -52,4 +52,51 @@ public class Validation {
             return false;
         }
     }
+
+    public static boolean validateUsername(String name) {
+        if (name == null || name.isEmpty() || name.isBlank()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean validatePassword(String password) {
+        if (password == null || password.isEmpty() || password.isBlank() || password.length() < 6) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean validateContactNo(String contactNo) {
+        return Validation.isValidPhoneNumber(contactNo);
+    }
+
+    public static boolean validateEmail(String email) {
+        return Validation.isValidEmail(email);
+    }
+
+    public static boolean validateAddress(String address) {
+        return (address != null && !address.isBlank() && !address.isEmpty());
+    }
+
+    public static boolean validateName(String name) {
+        return (name != null && !name.isBlank() && !name.isEmpty());
+    }
+
+    public static boolean validateAge(String age) {
+        if (age == null || age.isBlank() || age.isEmpty()) {
+            return false;
+        }
+        boolean valid = true;
+        for (char x : age.toCharArray()) {
+            if (!Character.isDigit(x)) {
+                valid = false;
+                break;
+            }
+        }
+        return valid;
+    }
+    
 }
