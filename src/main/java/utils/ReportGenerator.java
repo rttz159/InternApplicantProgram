@@ -25,6 +25,7 @@ public class ReportGenerator {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Report");
+        alert.setHeaderText("Reports in Tabular Form");
 
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.setContent(scrollPane);
