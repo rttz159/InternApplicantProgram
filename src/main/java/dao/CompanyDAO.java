@@ -256,9 +256,9 @@ public class CompanyDAO {
                 ResultSet rs = pstmt.executeQuery();
 
                 if (!rs.isBeforeFirst()) {
-                    System.out.println("⚠ No records found in company table.");
+                    System.out.println("No records found in company table.");
                 } else {
-                    System.out.println("✅ Companies found, processing results...");
+                    System.out.println("Companies found, processing results...");
                 }
                 while (rs.next()) {
                     String companyId = rs.getString("userId");
